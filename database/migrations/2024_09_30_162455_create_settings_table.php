@@ -16,11 +16,11 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('websiteName')->nullable();
-            $table->string('WebsiteLogo')->nullable();
+            $table->string('websiteLogo')->nullable();
             $table->string('webisteMiniLogo')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->boolean('show whatsapp')->nullable();
+            $table->boolean('showWhatsapp')->nullable();
             $table->string('whatsappNumber')->nullable();
             $table->boolean('showFacebook')->nullable();
             $table->string('facebookLink')->nullable();

@@ -34,7 +34,7 @@ class categoriescontroller extends AdminController
         $grid = new Grid(new categoriesmodel());
 
         $grid->column('id', __('Id'));
-        $grid->column('image', __('Image'))->image($baseUrl.'/uploads/',75,75);;
+        $grid->column('image', __('Image'))->image($baseUrl.'/uploads/',75,75);
         $grid->column('name', __('Name'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));

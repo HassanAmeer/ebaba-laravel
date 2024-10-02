@@ -19,6 +19,8 @@ Route::group([
     $router->resource('bannerImages', bannerImagesOnlyController::class);
     $router->resource('promotionBanners', PromotionBannerController::class); 
     $router->resource('bannerDesigns', bannerDesignController::class);
+    $router->resource('top-slide-texts', topSlideTextController::class);
+    $router->resource('toast-messages', toastMessageController::class);
     
     
 

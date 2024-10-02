@@ -24,27 +24,34 @@ class settingsController extends AdminController
      */
     protected function grid()
     {
+
+        $requestScheme = isset($_SERVER['REQUEST_SCHEME']) ? $_SERVER['REQUEST_SCHEME'] : 'http';
+        $host = $_SERVER['HTTP_HOST'];
+        $baseUrl = $requestScheme . '://' . $host;
+        // echo $baseUrl;
+        // dd("$baseUrl");
+
         $grid = new Grid(new settings());
 
         $grid->column('id', __('Id'));
         $grid->column('websiteName', __('WebsiteName'));
-        $grid->column('WebsiteLogo', __('WebsiteLogo'));
-        $grid->column('webisteMiniLogo', __('WebisteMiniLogo'));
+        $grid->column('websiteLogo', __('WebsiteLogo'))->image($baseUrl.'/uploads/',75,75);
+        $grid->column('webisteMiniLogo', __('WebisteMiniLogo'))->image($baseUrl.'/uploads/',75,75);
         $grid->column('email', __('Email'));
         $grid->column('phone', __('Phone'));
-        $grid->column('show whatsapp', __('Show whatsapp'));
+        $grid->column('showWhatsapp', __('Show whatsapp'))->switch();
         $grid->column('whatsappNumber', __('WhatsappNumber'));
-        $grid->column('showFacebook', __('ShowFacebook'));
+        $grid->column('showFacebook', __('ShowFacebook'))->switch();
         $grid->column('facebookLink', __('FacebookLink'));
-        $grid->column('showInstagram', __('ShowInstagram'));
+        $grid->column('showInstagram', __('ShowInstagram'))->switch();
         $grid->column('instagramLink', __('InstagramLink'));
-        $grid->column('showBannerImagesOnlyInHead', __('ShowBannerImagesOnlyInHead'));
-        $grid->column('showPrivacyPolicy', __('ShowPrivacyPolicy'));
-        $grid->column('showRefundPolicy', __('ShowRefundPolicy'));
-        $grid->column('showReturndPolicy', __('ShowReturndPolicy'));
-        $grid->column('showTermsCondition', __('ShowTermsCondition'));
-        $grid->column('showPromotionBanner', __('ShowPromotionBanner'));
-        $grid->column('showRequestItemsSection', __('ShowRequestItemsSection'));
+        $grid->column('showBannerImagesOnlyInHead', __('ShowBannerImagesOnlyInHead'))->switch();
+        $grid->column('showPrivacyPolicy', __('ShowPrivacyPolicy'))->switch();
+        $grid->column('showRefundPolicy', __('ShowRefundPolicy'))->switch();
+        $grid->column('showReturndPolicy', __('ShowReturndPolicy'))->switch();
+        $grid->column('showTermsCondition', __('ShowTermsCondition'))->switch();
+        $grid->column('showPromotionBanner', __('ShowPromotionBanner'))->switch();
+        $grid->column('showRequestItemsSection', __('ShowRequestItemsSection'))->switch();
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
         $grid->column('deleted_at', __('Deleted at'));
@@ -60,17 +67,24 @@ class settingsController extends AdminController
      */
     protected function detail($id)
     {
+
+        $requestScheme = isset($_SERVER['REQUEST_SCHEME']) ? $_SERVER['REQUEST_SCHEME'] : 'http';
+        $host = $_SERVER['HTTP_HOST'];
+        $baseUrl = $requestScheme . '://' . $host;
+        // echo $baseUrl;
+        // dd("$baseUrl");
+
         $show = new Show(settings::findOrFail($id));
 
         $show->field('id', __('Id'));
         $show->field('websiteName', __('WebsiteName'));
-        $show->field('WebsiteLogo', __('WebsiteLogo'));
-        $show->field('webisteMiniLogo', __('WebisteMiniLogo'));
+        $show->field('websiteLogo', __('WebsiteLogo'))->image($baseUrl.'/uploads/',75,75);
+        $show->field('webisteMiniLogo', __('WebisteMiniLogo'))->image($baseUrl.'/uploads/',75,75);
         $show->field('email', __('Email'));
         $show->field('phone', __('Phone'));
-        $show->field('show whatsapp', __('Show whatsapp'));
+        $show->switch('showWhatsapp', __('Show whatsapp'));
         $show->field('whatsappNumber', __('WhatsappNumber'));
-        $show->field('showFacebook', __('ShowFacebook'));
+        $show->switch('showFacebook', __('ShowFacebook'));
         $show->field('facebookLink', __('FacebookLink'));
         $show->field('showInstagram', __('ShowInstagram'));
         $show->field('instagramLink', __('InstagramLink'));
@@ -98,11 +112,11 @@ class settingsController extends AdminController
         $form = new Form(new settings());
 
         $form->text('websiteName', __('WebsiteName'));
-        $form->text('WebsiteLogo', __('WebsiteLogo'));
-        $form->text('webisteMiniLogo', __('WebisteMiniLogo'));
+        $form->image('websiteLogo', __('WebsiteLogo'));
+        $form->image('webisteMiniLogo', __('WebisteMiniLogo'));
         $form->email('email', __('Email'));
         $form->phonenumber('phone', __('Phone'));
-        $form->switch('show whatsapp', __('Show whatsapp'));
+        $form->switch('showWhatsapp', __('Show whatsapp'));
         $form->text('whatsappNumber', __('WhatsappNumber'));
         $form->switch('showFacebook', __('ShowFacebook'));
         $form->text('facebookLink', __('FacebookLink'));

@@ -4,9 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Swag Tech - Home</title>
+  <title> E Baba Store </title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel=icon href="{{ asset($baseUrl.'/uploads/'.$settingsData['webisteMiniLogo']) }}"
+ sizes="32x32" type="image/png">
 
   <!-- used in navbar for icons only -->
   <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
@@ -82,9 +84,11 @@
     }
   </style>
   <div class="textSlider" data-aos="fade-down" data-aos-duration="1500">
-    <div class="textSlider-content active">Welcome to Our Website!</div>
-    <div class="textSlider-content">Explore Our Products!</div>
-    <div class="textSlider-content">Join Us Today!</div>
+    @foreach($topSlideTextList as $key)
+    @if( $key['showInSlider'] ==1)
+    <div class="textSlider-content active" data-duration="{{ $key['duration'] }}">{{$key['showMessage']}}</div>
+    @endif
+    @endforeach
     <div class="navigation">
       <div id="prev" class="fas fa-chevron-left text-muted textSliderPreBtn" style="scale: 1.5;"></div>
       <div id="next" class="fas fa-chevron-right text-muted textSliderNextBtn" style="scale: 1.5;"></div>
@@ -398,20 +402,19 @@
   <nav data-aos="fade-down" data-aos-duration="1500">
     <div class="nav-bar">
       <i class='bx bx-menu sidebarOpen'></i>
-      <span class="logo navLogo"><a href="#"> <img width="40rem"
-            src="https://cdn-icons-png.freepik.com/256/16000/16000950.png" alt="" srcset=""> CodingLab</a></span>
+      <span class="logo navLogo"><a href="{{$baseUrl}}"> <img width="40rem"
+            src="{{ asset($baseUrl.'/uploads/'.$settingsData['websiteLogo']) }}" alt="" srcset=""> {{$settingsData['websiteName']}}</a></span>
 
       <div class="menu">
         <div class="logo-toggle">
-          <span class="logo"><a href="#">CodingLab</a></span>
+          <span class="logo"><a href="{{$baseUrl}}">CodingLab</a></span>
           <i class='bx bx-x siderbarClose'></i>
         </div>
 
         <ul class="nav-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Portfolio</a></li>
-          <li><a href="#">Services</a></li>
+          <li><a href="{{$baseUrl}}">Home</a></li>
+          <li><a href="#">All Products</a></li>
+          <li><a href="#"> My Products </a></li>
           <li><a href="#">Contact</a></li>
         </ul>
       </div>
@@ -1385,8 +1388,10 @@
       animation: scale-animation 2s infinite;
     }
   </style>
+  @if($settingsData['showWhatsapp'] == 1)
   <div class="sticky-whatsapp-button" data-aos="fade-up" data-aos-duration="1500">
-    <a href="https://wa.me/1234567890" target="_blank">
+    <a href="https://wa.me/{{url($settingsData['whatsappNumber'])}}
+    " target="_blank">
       <div class="whatsapp-button">
         <center>
           <img src="{{ asset('assets/wa.png') }}" alt="WhatsApp" />
@@ -1394,7 +1399,7 @@
       </div>
     </a>
   </div>
-
+@endif
   <style>
     /* Sticky positioning for the shopping cart button */
     .sticky-cart-button {
@@ -1583,25 +1588,34 @@
           <div class="col-md-6">
             <h5>Customer Care</h5>
             <ul>
+
               <li class="footerSubtitleColor"><a href="#">Search</a></li>
+              @if($settingsData['showPrivacyPolicy'] == 1)
               <li class="footerSubtitleColor"><a href="#">Privacy Policy</a></li>
+              @endif
+              @if($settingsData['showReturndPolicy'] == 1)
               <li class="footerSubtitleColor"><a href="#">Returns Policy</a></li>
-              <li class="footerSubtitleColor"><a href="#">Shipping Policy</a></li>
-              <li class="footerSubtitleColor"><a href="#">Terms of Service</a></li>
+              @endif
+              @if($settingsData['showRefundPolicy'] == 1)
+              <li class="footerSubtitleColor"><a href="#">Refund Policy</a></li>
+              @endif
+              @if($settingsData['showTermsCondition'] == 1)
+              <li class="footerSubtitleColor"><a href="#">Terms of Service</a></li>\
+              @endif
+
             </ul>
           </div>
           <div class="col-md-6">
             <h5>Customer Service</h5>
             <ul>
-              <li class="footerSubtitleColor"><a href="tel:0301">Phone: +92 300 5007805</a></li>
-              <li class="footerSubtitleColor"><a href="mailto:officialswagtech@gmail.com" style="font-size: small;">
-                  officialswagtech@gmail.com</a></li>
+              <li class="footerSubtitleColor"><a href="tel:{{$settingsData['phone']}}">Phone: {{$settingsData['phone']}}</a></li>
+              <li class="footerSubtitleColor"><a href="mailto:{{$settingsData['email']}}" style="font-size: small;"> {{$settingsData['email']}}</a></li>
             </ul>
             <h5>Follow Us</h5>
             <ul class="social-icons">
-              <li class="footerSubtitleColor"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-              <li class="footerSubtitleColor"><a href="#"><i class="fab fa-instagram"></i></a></li>
-              <li class="footerSubtitleColor"><a href="#"><i class="fab fa-whatsapp"></i></a></li>
+              <li class="footerSubtitleColor"><a href="{{$settingsData['facebookLink']}}"><i class="fab fa-facebook-f"></i></a></li>
+              <!-- <li class="footerSubtitleColor"><a href="#"><i class="fab fa-instagram"></i></a></li> -->
+              <li class="footerSubtitleColor"><a href="https://wa.me/{{$settingsData['whatsappNumber']}}"><i class="fab fa-whatsapp"></i></a></li>
             </ul>
           </div>
         </div>
@@ -1616,7 +1630,7 @@
             <!-- <h5> Powered By </h5> -->
             <h7 style="color: grey;"> Powered By </h7>
             <div>
-              <B class=" text-light"><a href="tel:0301" style="font-size: 2rem; color: white;">Ebaba</a></B>
+              <B class=" text-light"><a href="/" style="font-size: 2rem; color: white;">{{$settingsData['websiteName']}}</a></B>
 
             </div>
           </div>
@@ -1664,7 +1678,7 @@
     <center>
       <div id="sticyItemInner">
         <div>
-          <img src="ultrapod.png" style="width: 6rem; height: 5rem;" alt="">
+          <img src="{{$settingsData}}" style="width: 6rem; height: 5rem;" alt="">
           <b class="text-light"> title</b>
         </div>
         <div class="mb-0"
@@ -1706,28 +1720,37 @@
   <script>
     // textSlider start
     $(document).ready(function () {
-      let currentIndex = 0;
-      const items = $('.textSlider-content');
-      const totalItems = items.length;
+    let durationIsForTextSlide = 1000; 
+    let currentIndex = 0;
+    const items = $('.textSlider-content');
+    const totalItems = items.length;
+    let slideInterval;
 
-      function showSlide(index) {
-        items.removeClass('active').css('opacity', 0); // Hide all slides
-        items.eq(index).addClass('active').css('opacity', 1); // Show the current slide
-      }
+    function showSlide(index) {
+        items.removeClass('active').css('opacity', 0);
+        items.eq(index).addClass('active').css('opacity', 1);
+        
+        durationIsForTextSlide = parseInt(items.eq(index).data('duration').toString(), 10);
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, durationIsForTextSlide);
+    }
 
-      function nextSlide() {
-        currentIndex = (currentIndex + 1) % totalItems; // Loop back to the first slide
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % totalItems; 
         showSlide(currentIndex);
-      }
+    }
 
-      function prevSlide() {
-        currentIndex = (currentIndex - 1 + totalItems) % totalItems; // Loop back to the last slide
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + totalItems) % totalItems; 
         showSlide(currentIndex);
-      }
-      setInterval(nextSlide, 700);
-      $('#next').click(nextSlide);
-      $('#prev').click(prevSlide);
-    });
+    }
+
+    slideInterval = setInterval(nextSlide, durationIsForTextSlide);
+    
+    $('#next').click(nextSlide);
+    $('#prev').click(prevSlide);
+});
+
     //  textSlider end 
   </script>
   <script>
@@ -2038,14 +2061,15 @@
 
     let stopGreenToastMsgs = false;
     document.addEventListener('DOMContentLoaded', async function () {
-      const stringsArray = ["First message", "Second message", "Third message", "Fourth message"];
+      // const stringsArray = ["First message", "Second message", "Third message", "Fourth message"];
+      const stringsArray = @json($toastMessageList);
       for (let repeat = 0; repeat < 5; repeat++) {
         if (stopGreenToastMsgs) break;
         for (let index = 0; index < stringsArray.length; index++) {
           if (stopGreenToastMsgs) break;
-          const element = stringsArray[index];
-          showGreenToast(element, 2000);
-          await delay(2500);
+          const element = stringsArray[index]['title'];
+          showGreenToast(element, parseInt(stringsArray[index]['duration'].toString(), 10));
+          await delay(parseInt(stringsArray[index]['duration'].toString(), 10));
         }
       }
     });

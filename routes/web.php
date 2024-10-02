@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\userside\HomeController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,13 +20,44 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+// Route::get('/', function () {
+//     return view('home');
+// });
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [HomeController::class, 'getHomeDataF']); 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route::get('/womens-fashion', [webController::class, 'womensf'])->name('womensf');
+// Route::post('altis16/login', [adminAuthController::class, 'adminloginf'])->name('altis16/login');
 //////////////////////////////////////////////////////////
 // Route::post('/docid', [homePageController::class, 'getDocByIdForSignBySearchF'])->name('searchbydocid');
 // Route::get('/docs/{filename}', [homePageController::class, 'showPdf'])->name('show.pdf');
@@ -45,3 +79,19 @@ Route::get('/clear', function () {
     return 'Cache Cleard';
 });
 //////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+// {{$settingsData['websiteName']}}
+
+// {{url($settingsData['websiteLogo'])}}
+
+// settingsData
+
+// src="{{ asset($baseUrl.'/uploads/'.$settingsData['websiteLogo']) }}"
+
+
+
+
