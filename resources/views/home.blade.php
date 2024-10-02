@@ -682,34 +682,69 @@
     }
   </style>
 
-  <div class="bannerSlides">
-    <div class="bannerSlides-content active">
 
+
+
+
+
+@if($settingsData['showBanner2InHeader'] == 1)
+  <div class="bannerSlides">
+@foreach($BannerDesign2List as $key)
+   @if($key['showInSlide'] == 1)
+    <div class="bannerSlides-content active" data-duration="{{ $key['duraion'] }}">
       <div class="bannerSlidesItem">
         <center>
-          <div class="banner-design-outer">
+        @if($key['showBgImageInBigArea'] == 1)
+          <div class="banner-design-outer" style=" opacity: {{$key['bigAreaOpacity'] }}; background-color: {{$key['bigAreaColor']}}; background-image:url('{{ asset($baseUrl.'/uploads/'.$key['bigAreaBgImage']) }}');">
+            @else 
+            <div class="banner-design-outer" style=" opacity: {{$key['bigAreaOpacity'] }}; background-color: {{$key['bigAreaColor']}};">
+            @endif
+            
 
-            <img src="{{ asset('assets/ultrapod.png') }}" class="w-100" alt="...">
-            <div class="banner-design-inner" style="display: flex; flex-direction: column;justify-content: center;">
-              <h4 style="color: green;"> pakistan day offer </h4>
+            @if($key['showContentInBigArea'] == 1)
+            {!! $key['bigAreaDesign'] !!}
+            @endif
+           
+            @if($key['showBgImageInSmallArea'] == 1)
+            <div class="banner-design-inner" style=" opacity: {{$key['smallAreaOpacity'] }}; background-color: {{$key['smallAreaColor']}}; display: flex; flex-direction: column;justify-content: center; background-image:url('{{ asset($baseUrl . '/uploads/' . $key['smallAreaBgImage']) }}');"> @else
+            <div class="banner-design-inner" style="opacity: {{$key['smallAreaOpacity'] }}; background-color: {{$key['smallAreaColor']}}; display: flex; flex-direction: column;justify-content: center;"> 
+            @endif
 
+              @if($key['showContentInSmallArea'] == 1)
+              {!!$key['smallAreaDesign']!!}
+              @endif
               <div id="nextBanner" class="fas fa-chevron-right text-dark"
                 style="scale:1; padding: 1rem; border: 1px solid grey; border-radius: 30%;"></div>
             </div>
-
           </div>
         </center>
       </div>
-
-
     </div>
-    <div class="bannerSlides-content"> <img src="ultrapod.png" class=" d-block w-100" alt="..."></div>
+    @endif
+    @endforeach
+    
     <div class="navigation">
-      <div id="prevBanner" class="fas fa-chevron-left text-dark" style="scale: 3; padding: 3rem;"></div>
-      <!-- <div id="nextBanner" class="fas fa-chevron-right text-dark" style="scale:2; padding: 3rem;"></div> -->
+      <div class="prevBanner fas fa-chevron-left text-dark" style="scale: 3; padding: 3rem;"></div>
     </div>
   </div>
   <!-- bannerSlides slides end -->
+  
+  <!-- imageSlides slides start -->
+  @elseif($settingsData['showBannerImagesOnlyInHead'] == 1)
+  <div class="bannerSlides">
+  @foreach($bannerImagesOnlyList as $key)
+      @if($key['showInSlide'] ==1)
+        <div class="bannerSlides-content" data-duration="{{ $key['duration'] }}"> <img src="{{ asset($baseUrl.'/uploads/'.$key['image']) }}" class=" d-block w-100" alt="..."></div>
+      @endif
+    @endforeach
+
+    <div class="navigation">
+      <div class="prevBanner fas fa-chevron-left text-dark" style="scale: 3; padding: 3rem;"></div>
+      <div class="nextBanner fas fa-chevron-right text-dark" style="scale:2; padding: 3rem;"></div>
+    </div>
+  </div>
+  @endif
+  <!-- imageSlides slides end -->
 
 
 
@@ -1780,33 +1815,40 @@
     });
     //  imgSlides end 
   </script>
-  <script>
-    // bannerSlides start
-    $(document).ready(function () {
-      let currentIndex = 0;
-      const items = $('.bannerSlides-content');
-      const totalItems = items.length;
+<script>
+  // bannerSlides start
+  $(document).ready(function () {
+    let durationIsForTextSlide2 = 1000;
+    let slideInterval2;
+    let currentIndex = 0;
+    const items = $('.bannerSlides-content');
+    const totalItems = items.length;
 
-      function showSlide(index) {
-        items.removeClass('active').css('opacity', 0); // Hide all slides
-        items.eq(index).addClass('active').css('opacity', 1); // Show the current slide
-      }
+    function showSlide(index) {
+      items.removeClass('active').css('opacity', 0); 
+      items.eq(index).addClass('active').css('opacity', 1);
 
-      function nextSlide() {
-        currentIndex = (currentIndex + 1) % totalItems; // Loop back to the first slide
-        showSlide(currentIndex);
-      }
+      durationIsForTextSlide2 = parseInt(items.eq(index).data('duration').toString(), 10);
+      clearInterval(slideInterval2); 
+      slideInterval2 = setInterval(nextSlide, durationIsForTextSlide2);
+    }
 
-      function prevSlide() {
-        currentIndex = (currentIndex - 1 + totalItems) % totalItems; // Loop back to the last slide
-        showSlide(currentIndex);
-      }
-      setInterval(nextSlide, 20000);
-      $('#nextBanner').click(nextSlide);
-      $('#prevBanner').click(prevSlide);
-    });
-    //  bannerSlides end 
-  </script>
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % totalItems;
+      showSlide(currentIndex);
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + totalItems) % totalItems; 
+      showSlide(currentIndex);
+    }
+    showSlide(currentIndex);
+    $('.nextBanner').click(nextSlide);
+    $('.prevBanner').click(prevSlide);
+  });
+  // bannerSlides end 
+</script>
+
 
   <script>
     $(document).ready(function () {

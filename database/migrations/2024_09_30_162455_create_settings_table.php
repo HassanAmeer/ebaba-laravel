@@ -33,6 +33,13 @@ class CreateSettingsTable extends Migration
             $table->boolean('showTermsCondition')->nullable();
             $table->boolean('showPromotionBanner')->nullable();
             $table->boolean('showRequestItemsSection')->nullable();
+            
+            $table->boolean('showToastMessages')->nullable();
+            $table->boolean('showBanner2InHeader')->nullable();
+            $table->boolean('showOfferInFooter')->nullable();
+            $table->boolean('showItemInFooter')->nullable();
+            $table->string('PromotionBannerDesign')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

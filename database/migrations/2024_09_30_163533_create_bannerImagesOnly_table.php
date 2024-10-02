@@ -18,6 +18,9 @@ class CreateBannerImagesOnlyTable extends Migration
             $table->string('title')->nullable();
             $table->string('image')->nullable();
             $table->string('link')->nullable();
+
+            $table->longText('showInSlide')->nullable();
+            $table->string('duration')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
