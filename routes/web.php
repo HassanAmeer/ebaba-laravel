@@ -18,6 +18,11 @@ Route::get('/', function () {
 });
 
 
+// Route::get('/', function () {
+//     return view('home');
+// });
+
+
 
 //////////////////////////////////////////////////////////
 // Route::post('/docid', [homePageController::class, 'getDocByIdForSignBySearchF'])->name('searchbydocid');
