@@ -15,7 +15,7 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </head>
 
-
+<!--  asset('assets/backtotop.png')  -->
 
 
 
@@ -686,7 +686,7 @@
         <center>
           <div class="banner-design-outer">
 
-            <img src="ultrapod.png" class="w-100" alt="...">
+            <img src="{{ asset('assets/ultrapod.png') }}" class="w-100" alt="...">
             <div class="banner-design-inner" style="display: flex; flex-direction: column;justify-content: center;">
               <h4 style="color: green;"> pakistan day offer </h4>
 
@@ -1097,6 +1097,7 @@
         <p class="sale-price">$24.99</p>
         <p class="actual-price">$39.99</p>
       </div>
+      <p style="color: grey;">  <i class="fa fa-eye text-muted"> </i> <b id="viewersCount" class="text-dark"> 13 </b> Persons View At This Time </p>
       <!-- <div style="background-color: black; padding-bottom: 2px; color: white; width: 50%;"></div> -->
       <b style="padding-left: 0; font-size: 0.6rem;">Hurry, Only 10 left!</b>
       <!-- </div> -->
@@ -1112,7 +1113,7 @@
           data-img="cart.png" data-title="Sample Product" data-price="20">Order Now</button>
       </div>
       <br>
-      <p style="color: grey;">Estimated delivery between Monday 07 October and Thursday 10 October.</p>
+      <p style="color: grey;" id="delivery-estimate">Estimated delivery between Monday 07 October and Thursday 10 October.</p>
 
       <hr>
       <div
@@ -1388,7 +1389,7 @@
     <a href="https://wa.me/1234567890" target="_blank">
       <div class="whatsapp-button">
         <center>
-          <img src="wa.png" alt="WhatsApp" />
+          <img src="{{ asset('assets/wa.png') }}" alt="WhatsApp" />
         </center>
       </div>
     </a>
@@ -1453,7 +1454,7 @@
     <a>
       <div class="cart-button">
         <center>
-          <img src="cart.png" alt="Shopping Cart" class="position-relative" />
+          <img src="{{ asset('assets/cart.png') }}" alt="Shopping Cart" class="position-relative" />
           <span class="position-absolute translate-start badge bg-success text-light" id="itemInListIs"
             style="transform: translateX(-50%);"> 0
           </span>
@@ -1476,7 +1477,7 @@
   <div style="position: fixed;right: 4%; z-index: 1055; bottom: 7%;">
     <div class="sticky-top-scroll-btn" data-aos="fade-up" data-aos-duration="2000">
       <a href="#">
-        <img src="backtotop.png" alt="Shopping Cart" class="position-relative"
+        <img src="{{ asset('assets/backtotop.png') }}" alt="Shopping Cart" class="position-relative"
           style="width: 3rem; height: 3rem; opacity: 0.3; box-shadow: 1px 1px 5px grey; border-radius: 10rem; background-color: white;" />
       </a>
     </div>
@@ -1654,12 +1655,12 @@
       background-color: #242526;
       position: sticky;
       bottom: 0;
-      z-index: 10;
+      z-index: 8;
     }
   </style>
 
 
-  <div class="stickyItem" data-aos="fade-up" data-aos-duration="1500">
+  <div class="stickyItem" data-aos="zoom-out-up" data-aos-duration="1000">
     <center>
       <div id="sticyItemInner">
         <div>
@@ -1973,7 +1974,30 @@
       renderCart();
     });
   </script>
-  <!--  -->
+  <script>
+    $(document).ready(function() {
+    var randomNumber = Math.floor(Math.random() * 30) + 5; 
+    $('#viewersCount').text(randomNumber);
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+  function formatDate(date) {
+    var options = { weekday: 'long', day: '2-digit', month: 'long' };
+    return date.toLocaleDateString('en-GB', options); 
+  }
+    var today = new Date();
+
+    var deliveryStartDate = new Date(today);
+    deliveryStartDate.setDate(today.getDate() + 3);
+
+    var deliveryEndDate = new Date(today);
+    deliveryEndDate.setDate(today.getDate() + 7); 
+    var startFormatted = formatDate(deliveryStartDate);
+    var endFormatted = formatDate(deliveryEndDate);
+    $('#delivery-estimate').text(`Estimated delivery between ${startFormatted} and ${endFormatted}.`);
+    });
+  </script>
   <script>
     $(document).ready(function () {
       // Handle image selection to update the main product image
