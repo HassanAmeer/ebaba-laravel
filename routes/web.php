@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userside\HomeController;
+use App\Http\Controllers\CkEditorUploadImageController;
 
 
 
@@ -79,8 +80,7 @@ Route::get('/clear', function () {
     return 'Cache Cleard';
 });
 //////////////////////////////////////////////////////////////////////////
-
-
+// Route::post('/upload-image', [CkEditorUploadImageController::class, 'upload'])->name('image.upload');
 
 
 
@@ -91,6 +91,20 @@ Route::get('/clear', function () {
 // settingsData
 
 // src="{{ asset($baseUrl.'/uploads/'.$settingsData['websiteLogo']) }}"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

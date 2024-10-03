@@ -56,9 +56,19 @@ class settingsController extends AdminController
         $grid->column('showBanner2InHeader', __('showBanner2InHeader'))->switch();
         $grid->column('showItemInFooter', __('show Product Item InFooter'))->switch();
         $grid->column('showOfferInFooter', __('showOfferInFooter'))->switch();
-        $grid->column('designOfferInFooter',__('designOfferInFooter'));
+        // $grid->column('designOfferInFooter',__('designOfferInFooter'));
+        $grid->column('designOfferInFooter', __('Design in Footer'))->display(function ($code) {
+            return <<<HTML
+             <div style="padding: 15px; border-radius: 5px;background-color: #f9f9f9; position: relative;"><div style="max-height: 150px; overflow-y: auto;">{$code}</div></div>
+            HTML;
+        })->style('min-width:20rem;');
         $grid->column('showPromotionBanner', __('ShowPromotionBanner'))->switch();
-        $grid->column('PromotionBannerDesign',__('PromotionBannerDesign'));
+        // $grid->column('PromotionBannerDesign',__('PromotionBannerDesign'));
+        $grid->column('PromotionBannerDesign', __('Design Promotion'))->display(function ($code) {
+            return <<<HTML
+             <div style="padding: 15px; border-radius: 5px;background-color: #f9f9f9; position: relative;"><div style="max-height: 150px; overflow-y: auto;">{$code}</div></div>
+            HTML;
+        })->style('min-width:20rem;');
 
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
@@ -108,8 +118,10 @@ class settingsController extends AdminController
         $show->field('showItemInFooter', __('show Product Item In Footer'));
         $show->field('showOfferInFooter', __('showOfferInFooter'));
         $show->field('designOfferInFooter',__('designOfferInFooter'));
+       
         $show->field('showPromotionBanner', __('ShowPromotionBanner'));
         $show->field('PromotionBannerDesign',__('PromotionBannerDesign'));
+        
         
 
         $show->field('created_at', __('Created at'));
@@ -151,10 +163,12 @@ class settingsController extends AdminController
         $form->switch('showItemInFooter', __('show Product Item In Footer'));
         $form->switch('showOfferInFooter', __('showOfferInFooter'));
         
-        $form->ckeditor('designOfferInFooter')->options(['lang' => 'en', 'height' => 100,'contentsCss' => '/css/frontend-body-content.css']);
+        $form->ckeditor('designOfferInFooter')->options(['lang' => 'en', 'height' => 100, 'allowedContent' => true, 'extraAllowedContent' => 'div[*];','contentsCss' => '/css/frontend-body-content.css']);
+
+
 
         $form->switch('showPromotionBanner', __('ShowPromotionBanner'));
-        $form->ckeditor('PromotionBannerDesign')->options(['lang' => 'en', 'height' => 100,'contentsCss' => '/css/frontend-body-content.css']);
+        $form->ckeditor('PromotionBannerDesign')->options(['lang' => 'en', 'height' => 100, 'allowedContent' => true, 'extraAllowedContent' => 'div[*];','contentsCss' => '/css/frontend-body-content.css']);
         
         return $form;
     }

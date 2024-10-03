@@ -24,7 +24,8 @@ class HomeController extends Controller
         $toastMessageList = toastMessage::all();
         $BannerDesign2List = bannerDesign::all();
         $bannerImagesOnlyList = bannerImagesOnly::all();
-        $productsList = products::all();
+        $productsList = Products::where('showProduct', 1)->get();
+
         // $catgModel = catgModel::orderBy('id', 'desc')->get();
         // if($catgModel->count() < 1){
         //     $catgModel = 'Empty Records';

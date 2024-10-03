@@ -23,7 +23,86 @@
 
 
 <body>
+<style>
 
+.shimmer {
+            color: #333;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .shimmer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+                scale:0.5;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+        /* animation 2 */
+        .shimmerVibrate {
+            color: #333;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            animation: vibrate 0.5s infinite; /* Vibrate effect */
+        }
+
+        .shimmerVibrate:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        @keyframes vibrate {
+            0% { transform: translate(0); }
+            20% { transform: translate(-1px, 1px); }
+            40% { transform: translate(-1px, -2px); }
+            60% { transform: translate(2px, 0); }
+            80% { transform: translate(1px, 2px); }
+            100% { transform: translate(0); }
+        }
+        /* sacel animation */
+        .scaleAnimation {
+            animation: scaleUpDown 2s infinite; /* Apply animation */
+        }
+
+        @keyframes scaleUpDown {
+            0%, 100% {
+                transform: scale(0.97); /* Normal size */
+            }
+            50% {
+                transform: scale(1); /* Scaled up */
+            }
+        }
+</style>
   <style>
     .textSlider {
       position: relative;
@@ -601,7 +680,7 @@
     /* For mobile devices */
     @media screen and (max-width: 600px) {
       .bannerSlides {
-        height: 40vh;
+        height: 30vh;
       }
 
       .banner-design-outer {
@@ -755,30 +834,46 @@
   <style>
     @media only screen and (max-width: 600px) {
       .salesDesignedArea {
-        width: 100%;
-        scale: 0.5;
+        position: absolute;
+        z-index: 5;
+        scale: 0.7;
+        width:150%;
+        top:0;
+        left:-30px;
       }
 
       .itemTitle {
         font-size: 0.8rem;
       }
 
-      .itemPriceDesignedArea {
-        scale: 0.7;
+      .{
+        scale: 0.8;
       }
     }
 
     @media screen and (min-width: 601px) {
-      .salesDesignedArea {
-        width: 50%;
-      }
-
       .itemTitle {
         font-size: 1rem;
       }
+      .salesDesignedArea {
+        position: absolute;
+        z-index: 5;
+        scale: 0.9;
+        width:100%;
+        top:0;
+        left:-10px;
+      }
     }
+    
+    .itemTitle {
+      max-width: 100%;
+        white-space: nowrap; 
+            overflow: hidden;   
+            text-overflow: ellipsis;
+      }
 
-    .itemPriceDesignedArea {
+
+    .{
       width: 100%;
     }
 
@@ -791,23 +886,16 @@
     }
 
     .product-card:hover {
-      transform: scale(1.05);
+      transform: scale(1.07);
     }
 
     .card-body {
       text-align: center;
     }
-
-    .price-section {
-      display: flex;
-      justify-content: center;
-      margin: 2px 0;
-    }
-
     .sale-price {
       color: grey;
       text-decoration: line-through;
-      margin-right: 5px;
+      margin-right: 2px;
     }
 
     .actual-price {
@@ -815,19 +903,11 @@
     }
 
     .add-to-cart {
-      display: none;
-      margin-top: 3px;
-      width: 100%;
+      width: 80%;
     }
 
-    .product-card:hover .price-section {
-      display: none;
-    }
 
-    .product-card:hover .add-to-cart {
-      display: block;
-      /* Show button on hover */
-    }
+
 
     @media (max-width: 600px) {
       .product-row {
@@ -842,8 +922,12 @@
       }
 
       .addToCart {
-        font-size: 0.3rem;
+        font-size: 0.6rem;
+        color:white;
       }
+      .priceAreaForGrid{
+      scale:0.7;
+    }
     }
 
     @media (min-width: 601px) {
@@ -855,8 +939,23 @@
 
       .addToCart {
         font-size: 0.7rem;
+        color:white;
       }
     }
+    .buyNowButton{
+      background:none;
+      border:1px solid black;
+      border-radius:5px;
+      color:black;
+width:70%;
+    }
+    .buyNowButton:hover{
+      background:black;
+      color:white;
+      width:70%;
+
+    }
+   
   </style>
 
   <section class="container my-5">
@@ -864,33 +963,31 @@
     <div class="product-row row row-cols-1 row-cols-sm-3 row-cols-md-4 g-4">
 
     @foreach($productsList as $key)
-      <div class="col" data-aos="fade-up" data-aos-duration="1500">
-        <div class="card product-card">
+      <div class="col" style="position: relative;" data-aos="fade-up" data-aos-duration="1500">
+        <div class="card product-card p-0">
           <div style="position: relative;">
             <img src="{{ asset($baseUrl.'/uploads/'.$key['image']) }}" class="card-img-top" alt="Product Image">
-            <div class="salesDesignedArea" style="background-color: yellow;">
-              <!-- <div
-                style="position: absolute; z-index: 1; top:5px; left: 7px; box-shadow: 2px 2px 2px white; border-radius: 7px;">
-                <div style="background: rgba(0, 138, 78, 0.709); border-radius: 7px;">
-                  <b style="color: white; padding: 3px;"> Save 50% </b>
-                </div>
-              </div> -->
+            <div class="salesDesignedArea">
+            
+            
+            <!-- <div style="position: absolute; z-index: 1; top:5px; left: 7px; box-shadow: 2px 2px 2px white; border-radius: 7px;"> <div style="background-color: rgba(0, 138, 78, 0.709); border-radius: 7px;"> <b style="color: white; padding: 3px;"> Save 50% </b>  </div> </div> -->
+
               {!! $key['sale'] !!}
             </div>
           </div>
-          <div class="card-body d-flex flex-column align-items-center">
-            <b class="card-title itemTitle">{{$key['title']}}</b>
-            <div class="itemPriceDesignedArea">
-              <!-- <div class="price-section">
-                <p class="sale-price">$24.99</p>
-                <p class="actual-price">$39.99</p>
-              </div> -->
-              {!! $key['price'] !!}
+            <center>
+            <b class="card-title itemTitle p-0">{{$key['title']}}</b>
+            </center>
+          {!! $key['designPriceForGridItems'] !!}
+          <div class="card-body p-0 d-flex flex-column align-items-center">
+            <div class="w-100">
+            <button class="btn rounded-3 btn-sm buyNowButton addToCart toggleSidebarBtns shimmer" data-pid="{{$key['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$key['image']) }}"
+            data-title="{{$key['title']}}" data-price="{{$key['price']}}">Buy Now</button>
             </div>
-            <div class="add-to-cart">
-              <button class="btn btn-dark rounded-3 w-100 addToCart toggleSidebarBtns" data-pid="{{$key['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$key['image']) }}"
+            <!-- <div class="add-to-cart w-100">
+              <button class="btn rounded-3 w-100 addToCart toggleSidebarBtns shimmer" data-pid="{{$key['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$key['image']) }}"
                 data-title="{{$key['title']}}" data-price="{{$key['price']}}">Add to Cart</button>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -950,6 +1047,10 @@
       }
     }
 
+    .itemDetailsAreaRight {
+        position: relative;
+      }
+
     /*  */
     .itemDetailBox {
       display: flex;
@@ -997,36 +1098,43 @@
     <div class="itemDetailImgAreaLeft">
       <div style="position: relative;">
         <center>
-          <img src="{{ asset($baseUrl.'/uploads/'.$firstItem['image']) }}" style="width: 60%;" class="card-img-top" id="thumbnailImg" alt="Product Image">
+          <img src="{{ asset($baseUrl.'/uploads/'.$firstItem['image']) }}" style="width: 60%;" class="card-img-top scaleAnimation" id="thumbnailImg" alt="Product Image">
         </center>
         {!! $firstItem['sale'] !!}
       </div>
+      @if(!empty($firstItem['images']) && is_array($firstItem['images']) && count($firstItem['images']) > 0)
       <div class="itemImages"
         style="display: flex;flex-direction: row; justify-content:flex-start; align-items: center; width: 100%; height: 8rem; padding-left: 1rem; padding-right: 1rem;">
         <!-- <i class="fa fa-chevron-left preItemImgBtn" style="color: grey; font-size: x-large;"></i> -->
-        @foreach($productsList as $key)
+        @foreach($firstItem['images'] as $key)
         <img class="itemImg" src="{{ asset($baseUrl.'/uploads/'.$key) }}" alt="">
         @endforeach
         <!-- <i class="fa fa-chevron-right nextItemImgBtn" style="color: grey; font-size: x-large;"></i> -->
       </div>
+      @endif
     </div>
 
     <div class="itemDetailsAreaRight">
       <h2>      {{ $firstItem['title'] }}      </h2>
       <br>
 
-      <p style="color: green; opacity: 0.5;">Free Shipping</p>
+      <p style="color: green; opacity: 0.5;">100% Free Delivery</p>
+     
       @if($firstItem['showStock'] == 1)
-      {!! $firstItem['price'] !!}
+      {!! $firstItem['stock'] !!}
       @endif
 
 
 
-      {!! $firstItem['price'] !!}
       <p style="color: grey;">  <i class="fa fa-eye text-muted"> </i> <b id="viewersCount" class="text-dark"> 13 </b> Persons View At This Time </p>
-      <!-- <div style="background-color: black; padding-bottom: 2px; color: white; width: 50%;"></div> -->
-      <b style="padding-left: 0; font-size: 0.6rem;">Hurry, Only 10 left!</b>
-      <!-- </div> -->
+      
+      <div>
+        {!! $firstItem['designPriceForDetail'] !!}
+      </div>
+
+      @if($firstItem['showtDaysLeft'] == 1)
+      <b style="padding-left: 0; font-size: 0.6rem;" class="shimmerVibrate">Hurry, {!! $firstItem['daysLeft'] !!} days left!</b>
+      @endif
 
       <!-- shiping tax -->
       <div class="mb-0" style="display: flex; flex-direction: row; justify-content: start;align-items: center;">
@@ -1035,16 +1143,19 @@
         <b style="padding-left:1rem; padding-right:1rem;" class="globalItemQuantityIs"> 1 </b>
         <button class="btn btn-sm btn-light quantityIncFromDetail" data-pid="{{$firstItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$firstItem['image']) }}"
         data-title="{{$firstItem['title']}}" data-price="{{$firstItem['price']}}">+</button>
-        <button class="btn btn-dark addToCart toggleSidebarBtns" style="margin-left: 1rem; width: 100%;" data-pid="{{$firstItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$firstItem['image']) }}"
+        <button class="btn btn-dark addToCart toggleSidebarBtns shimmer" style="margin-left: 1rem; width: 100%;" data-pid="{{$firstItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$firstItem['image']) }}"
         data-title="{{$firstItem['title']}}" data-price="{{$firstItem['price']}}">Order Now</button>
       </div>
-      <br>
-      <p style="color: grey;" id="delivery-estimate">Estimated delivery between Monday 07 October and Thursday 10 October.</p>
-
       <hr>
+      <p style="color: grey;" class="shimmer" id="deliveryEstimate">Estimated delivery between Monday 07 October and Thursday 10 October.</p>
+
       {!! $firstItem['freeItem'] !!}
     </div>
   </div>
+
+  <div style="padding:4%; position:relative;">
+     <h6>Description</h6>
+   {!! $firstItem['description'] !!}</div>
 
   
   @endif
@@ -1055,6 +1166,7 @@
 
 
   @if($settingsData['showPromotionBanner'] == 1)
+  <hr>
   {!! $settingsData['PromotionBannerDesign'] !!}
   @endif
 
@@ -1121,12 +1233,12 @@
       padding: 10px 0;
     }
 
-    #cart-items hr {
+    .cart-items hr {
       border-color: #ccc;
     }
 
-    #cart-items .quantity-decrease,
-    #cart-items .quantity-increase {
+    .cart-items .quantity-decrease,
+    .cart-items .quantity-increase {
       border: 1px solid #ddd;
       padding: 3px 8px;
     }
@@ -1157,7 +1269,7 @@
     </div>
 
     <div class="custom-sidebar-body" id="cartItemsAreaInAlert">
-      <div id="cart-items" class="p-3" style="min-height: 200px;">
+      <div  class="cart-items p-3" style="min-height: 200px;">
         <!-- Cart items will be appended here -->
       </div>
       <button id="order-now" class="btn btn-dark w-100 mt-3">Order Now</button>
@@ -1183,8 +1295,14 @@
         <textarea class="form-control" id="address" rows="3" required></textarea>
       </div>
       <button id="order-submit-now" class="btn btn-dark w-100 mt-3">Submit</button>
+      <hr>
+      <h5> My Products </h5>
+    <!-- <div id="cartItemsOnFill" class="p-3"> </div> -->
+    <div  class="cart-items p-3" style="min-height: 200px;">
+        <!-- Cart items will be appended here -->
+      </div>
     </div>
-
+  
     <div class="custom-sidebar-body d-none" id="submission-confirmation">
       <h5>Order Submitted</h5>
       <p id="submitted-data"></p>
@@ -1783,18 +1901,18 @@
 
       // Render cart
       function renderCart() {
-        $('#cart-items').empty();
+        $('.cart-items').empty();
         if (cart.length === 0) {
-          $('#cart-items').html('<p>Your cart is empty.</p>');
+          $('.cart-items').html('<p>Your cart is empty.</p>');
         } else {
           cart.forEach((item, index) => {
-            $('#cart-items').append(`
+            $('.cart-items').append(`
             <div class="cart-item" data-index="${index}">
-              <div style="display:flex; flex-direction:row; justify-content:space-between;">
-                <h6 class="mb-0">${item.title}</h6>
-                <img src="${item.img}" width="60" height="60" class="img-fluid">
+              <div style="display:flex; flex-direction:row; justify-content:space-between; align-items:center;">
+                <h6 class="">${item.title}</h6>
+                <img src="${item.img}" width="40" height="40" style="scale:1.3;transform:translateY(-7px); margin-top:0;" class="img-fluid">
                 </div>
-                <div style="display:flex; flex-direction:row; justify-content:space-between; padding-top:10px;">
+                <div style="display:flex; flex-direction:row; justify-content:space-between; padding-top:5px;">
                   <div class="mb-0">
                     <button class="btn btn-sm btn-light quantity-decrease">-</button>
                     <b style="padding-left:1rem; padding-right:1rem;">${item.quantity}</b>
@@ -1806,6 +1924,13 @@
                     <hr/>
                     </div>
                     `);
+            // $('#cartItemsOnFill').append(`
+            // <div class="cart-item" style="height:50px;padding-top:0;" data-index="${index}">
+            //   <div style="display:flex; flex-direction:row; justify-content:space-between; align-items:start;">
+            //     <h6 class="mb-0">${item.title}</h6> <pre style="color:silver;"> ( Free delivery ) </pre> <p class="mb-0">${item.price} Rs</p>
+            //     <img src="${item.img}" width="40px" height="40px" style="scale:1.1;" class="img-fluid">
+            //     </div <hr></div>
+            //         `);
           });
         }
         calculateTotal(); // Update total price
@@ -1895,6 +2020,10 @@
         }
       });
 
+      $('.buyNowButton').on('click', function () {
+        $('#cartItemsAreaInAlert').addClass('d-none');
+        $('#checkout-form').removeClass('d-none');
+      });
       $('#order-now').on('click', function () {
         if (cart.length === 0) {
           stopGreenToastMsgs = true;
@@ -1957,7 +2086,7 @@
     deliveryEndDate.setDate(today.getDate() + 7); 
     var startFormatted = formatDate(deliveryStartDate);
     var endFormatted = formatDate(deliveryEndDate);
-    $('#delivery-estimate').text(`Estimated delivery between ${startFormatted} and ${endFormatted}.`);
+    $('#deliveryEstimate').html(`Estimated delivery between <b style="color:black;">${startFormatted}</b> and <b style="color:black">${endFormatted}</b>.`);
     });
   </script>
   <script>

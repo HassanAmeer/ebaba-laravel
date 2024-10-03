@@ -37,8 +37,20 @@ class bannerDesignController extends AdminController
 
         $grid->column('bigAreaBgImage', __('bigAreaBgImage'))->image($baseUrl.'/uploads/',75,75);
         $grid->column('smallAreaBgImage', __('smallAreaBgImage'))->image($baseUrl.'/uploads/',75,75);
-        $grid->column('bigAreaDesign', __('bigAreaDesign'));
-        $grid->column('smallAreaDesign', __('smallAreaDesign'));
+      
+        // $grid->column('bigAreaDesign', __('bigAreaDesign'));
+        $grid->column('bigAreaDesign', __('Left Big Banner Design'))->display(function ($code) {
+            return <<<HTML
+             <div style="padding: 15px; border-radius: 5px;background-color: #f9f9f9; position: relative;"><div style="max-height: 150px; overflow-y: auto;">{$code}</div></div>
+             HTML;
+            })->style('min-width:20rem;');
+            
+        // $grid->column('smallAreaDesign', __('smallAreaDesign'));
+        $grid->column('smallAreaDesign', __('Right Small Banner Design'))->display(function ($code) {
+            return <<<HTML
+             <div style="padding: 15px; border-radius: 5px;background-color: #f9f9f9; position: relative;"><div style="max-height: 150px; overflow-y: auto;">{$code}</div></div>
+            HTML;
+        })->style('min-width:20rem;');
 
         $grid->column('bigAreaOpacity', __('bigAreaOpacity'));
         $grid->column('smallAreaOpacity', __('smallAreaOpacity'));
@@ -126,8 +138,9 @@ class bannerDesignController extends AdminController
         $form->switch('showContentInBigArea', __('showContentInBigArea'));
         $form->switch('showContentInSmallArea', __('showContentInSmallArea'));
 
-        $form->ckeditor('bigAreaDesign')->options(['lang' => 'en', 'height' => 200,'contentsCss' => '/css/frontend-body-content.css']);
-        $form->ckeditor('smallAreaDesign')->options(['lang' => 'en', 'height' => 200,'contentsCss' => '/css/frontend-body-content.css']);
+        $form->ckeditor('bigAreaDesign')->options(['lang' => 'en', 'height' => 100, 'allowedContent' => true, 'extraAllowedContent' => 'div[*];','contentsCss' => '/css/frontend-body-content.css']);
+
+        $form->ckeditor('smallAreaDesign')->options(['lang' => 'en', 'height' => 100, 'allowedContent' => true, 'extraAllowedContent' => 'div[*];','contentsCss' => '/css/frontend-body-content.css']);
         $form->number('duraion', __('duraion'));
         $form->switch('showInSlide', __('showInSlide'));
         // $form->textarea('designCode', __('DesignCode'));

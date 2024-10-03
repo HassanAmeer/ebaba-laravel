@@ -34,22 +34,67 @@ class productsController extends AdminController
         $grid = new Grid(new products());
 
         $grid->column('id', __('Id'));
-        $grid->column('category', __('Category'));
-        $grid->column('title', __('Title'));
-        $grid->column('shortDesc', __('ShortDesc'));
-        $grid->column('description', __('Description'));
+        
+        $grid->column('showProduct', __('showProduct'))->switch([
+            'on' => ['value' => 1, 'text' => 'open', 'color' => 'primary'],
+            'off' => ['value' => 2, 'text' => 'close', 'color' => 'danger'],
+        ]);
+
+        $grid->column('category', __('Category'))->color('indigo');
+        $grid->column('title', __('Title'))->color('green');
+        // $grid->column('shortDesc', __('ShortDesc'));
+        $grid->column('shortDesc', __('ShortDesc Design'))->display(function ($code) {
+            return <<<HTML
+             <div style="padding: 15px; border-radius: 5px;background-color: #f9f9f9; position: relative;"><div style="max-height: 150px; overflow-y: auto;">{$code}</div></div>
+            HTML;
+        })->style('min-width:20rem;');
+        // $grid->column('description', __('Description'));
+        $grid->column('description', __('Description Design'))->display(function ($code) {
+            return <<<HTML
+             <div style="padding: 15px; border-radius: 5px;background-color: #f9f9f9; position: relative;"><div style="max-height: 150px; overflow-y: auto;">{$code}</div></div>
+            HTML;
+        })->style('min-width:20rem;');
         $grid->column('image', __('Image'))->image($baseUrl.'/uploads/',75,75);
         $grid->column('images', __('Images'))->image($baseUrl.'/uploads/',75,75);
-        $grid->column('price', __('Price'));
-        $grid->column('showSale', __('ShowSale'));
-        $grid->column('sale', __('Sale'));
-        $grid->column('showStock', __('Show stock'));
-        $grid->column('stock', __('Stock'));
-        $grid->column('showVariations', __('ShowVariations'));
+        $grid->column('price', __('Price'))->color('green');
+        // $grid->column('designPriceForDetail', __('designPriceForDetail'));
+        $grid->column('designPriceForDetail', __('Price Design For Details'))->display(function ($code) {
+            return <<<HTML
+             <div style="padding: 15px; border-radius: 5px;background-color: #f9f9f9; position: relative;"><div style="max-height: 150px; overflow-y: auto;">{$code}</div></div>
+            HTML;
+        })->style('min-width:20rem;');
+        $grid->column('designPriceForGridItems', __('Price Design For Grid Items'))->display(function ($code) {
+            return <<<HTML
+             <div style="padding: 15px; border-radius: 5px;background-color: #f9f9f9; position: relative;"><div style="max-height: 150px; overflow-y: auto;">{$code}</div></div>
+            HTML;
+        })->style('min-width:20rem;');
+        $grid->column('showSale', __('ShowSale'))->switch();
+        // $grid->column('sale', __('Sale'));
+        $grid->column('sale', __('Sale Design'))->display(function ($code) {
+            return <<<HTML
+             <div style="padding: 15px; border-radius: 5px;background-color: #f9f9f9; position: relative;"><div style="max-height: 150px; overflow-y: auto;">{$code}</div></div>
+            HTML;
+        })->style('min-width:20rem;');
+        $grid->column('showStock', __('Show stock'))->switch();
+        // $grid->column('stock', __('Stock'));
+        $grid->column('stock', __('Stock Design'))->display(function ($code) {
+            return <<<HTML
+             <div style="padding: 15px; border-radius: 5px;background-color: #f9f9f9; position: relative;"><div style="max-height: 150px; overflow-y: auto;">{$code}</div></div>
+            HTML;
+        })->style('min-width:20rem;');
+        $grid->column('showVariations', __('ShowVariations'))->switch();
         $grid->column('addVartiaons', __('AddVartiaons'));
-        $grid->column('isSoldOut', __('IsSoldOut'));
-        $grid->column('isfreeAnyItemWithThis', __('IsfreeAnyItemWithThis'));
-        $grid->column('freeItem', __('FreeItem'));
+        $grid->column('isSoldOut', __('IsSoldOut'))->switch();
+        $grid->column('isfreeAnyItemWithThis', __('IsfreeAnyItemWithThis'))->switch();
+        // $grid->column('freeItem', __('FreeItem'));
+        $grid->column('freeItem', __('FreeItem Design'))->display(function ($code) {
+            return <<<HTML
+             <div style="padding: 15px; border-radius: 5px;background-color: #f9f9f9; position: relative;"><div style="max-height: 150px; overflow-y: auto;">{$code}</div></div>
+            HTML;
+        })->style('min-width:20rem;');
+
+        $grid->column('showtDaysLeft', __('Show Days Left'))->switch()->color('red');
+        $grid->column('daysLeft', __('Days Left'))->color('red');
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
         $grid->column('deleted_at', __('Deleted at'));
@@ -74,6 +119,7 @@ class productsController extends AdminController
         $show = new Show(products::findOrFail($id));
 
         $show->field('id', __('Id'));
+        $show->field('showProduct', __('showProduct'));
         $show->field('category', __('Category'));
         $show->field('title', __('Title'));
         $show->field('shortDesc', __('ShortDesc'));
@@ -81,15 +127,21 @@ class productsController extends AdminController
         $show->field('image', __('Image'))->image($baseUrl.'/uploads/',75,75);
         $show->field('images', __('Images'))->image($baseUrl.'/uploads/',75,75);
         $show->field('price', __('Price'));
-        $show->field('showSale', __('ShowSale'));
+        $show->field('designPriceForDetail', __('designPriceForDetail'));
+        $show->field('designPriceForGridItems', __('designPriceForGridItems'));
+        $show->field('showSale', __('ShowSale'))->switch();
         $show->field('sale', __('Sale'));
-        $show->field('showStock', __('Show stock'));
+        $show->field('showStock', __('Show stock'))->switch();
         $show->field('stock', __('Stock'));
-        $show->field('showVariations', __('ShowVariations'));
+        $show->field('showVariations', __('ShowVariations'))->switch();
         $show->field('addVartiaons', __('AddVartiaons'));
-        $show->field('isSoldOut', __('IsSoldOut'));
+        $show->field('isSoldOut', __('IsSoldOut'))->switch()->color('grey');;
         $show->field('isfreeAnyItemWithThis', __('IsfreeAnyItemWithThis'));
         $show->field('freeItem', __('FreeItem'));
+
+
+        $show->field('showtDaysLeft', __('Show Days Left'))->switch()->color('red');
+        $show->field('daysLeft', __('Days Left'))->color('red');
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
         $show->field('deleted_at', __('Deleted at'));
@@ -106,31 +158,38 @@ class productsController extends AdminController
     {
         $form = new Form(new products());
 
+        $form->switch('showProduct', __('showProduct'));
+
         // $form->text('category', __('Category'));
         $form->select('category', 'Select Category')->options(categoriesmodel::all()->pluck('name', 'name'))->rules('required')->default('none');
 
         $form->text('title', __('Title'));
         // $form->textarea('shortDesc', __('ShortDesc'));
-        $form->ckeditor('shortDesc')->options(['lang' => 'en', 'height' => 100,'contentsCss' => '/css/frontend-body-content.css']);
-        $form->ckeditor('description')->options(['lang' => 'en', 'height' => 100,'contentsCss' => '/css/frontend-body-content.css']);
+        $form->ckeditor('shortDesc')->options(['lang' => 'en', 'height' => 100, 'allowedContent' => true, 
+        'extraAllowedContent' => 'div[*];','contentsCss' => '/css/frontend-body-content.css']);
+        $form->ckeditor('description')->options(['lang' => 'en', 'height' => 100, 'allowedContent' => true, 'extraAllowedContent' => 'div[*];','contentsCss' => '/css/frontend-body-content.css']);
         $form->image('image', __('Image'))->default('https://store-in.puma.com/VendorpageTheme/Enterprise/EThemeForPuma/images/product-not-found.jpg');
         $form->multipleImage('images', __('Images'));
-        // $form->text('price', __('Price'));
-        $form->ckeditor('price')->options(['lang' => 'en', 'height' => 100,'contentsCss' => '/css/frontend-body-content.css']);
+        $form->text('price', __('Price'));
+        $form->ckeditor('designPriceForDetail')->options(['lang' => 'en', 'height' => 100, 'allowedContent' => true, 'extraAllowedContent' => 'div[*];','contentsCss' => '/css/frontend-body-content.css']);
+        $form->ckeditor('designPriceForGridItems')->options(['lang' => 'en', 'height' => 100, 'allowedContent' => true, 'extraAllowedContent' => 'div[*];','contentsCss' => '/css/frontend-body-content.css']);
         $form->switch('showSale', __('ShowSale'));
         // $form->text('sale', __('Sale'));
-        $form->ckeditor('sale')->options(['lang' => 'en', 'height' => 100,'contentsCss' => '/css/frontend-body-content.css']);
+        $form->ckeditor('sale')->options(['lang' => 'en', 'height' => 100, 'allowedContent' => true, 
+        'extraAllowedContent' => 'div[*];','contentsCss' => '/css/frontend-body-content.css']);
         $form->switch('showStock', __('Show stock'));
         // $form->text('stock', __('Stock'));
-        $form->ckeditor('stock')->options(['lang' => 'en', 'height' => 100,'contentsCss' => '/css/frontend-body-content.css']);
+        $form->ckeditor('stock')->options(['lang' => 'en', 'height' => 100, 'allowedContent' => true, 'extraAllowedContent' => 'div[*];','contentsCss' => '/css/frontend-body-content.css']);
         $form->switch('showVariations', __('ShowVariations'));
         $form->text('addVartiaons', __('AddVartiaons'));
         $form->switch('isSoldOut', __('IsSoldOut'));
         $form->switch('isfreeAnyItemWithThis', __('IsfreeAnyItemWithThis'));
         // $form->textarea('freeItem', __('FreeItem'));
-        $form->ckeditor('freeItem')->options(['lang' => 'en', 'height' => 100,'contentsCss' => '/css/frontend-body-content.css']);
+        $form->ckeditor('freeItem')->options(['lang' => 'en', 'height' => 100, 'allowedContent' => true, 'extraAllowedContent' => 'div[*];','contentsCss' => '/css/frontend-body-content.css']);
 
-
+        $form->switch('showtDaysLeft', __('Show Days Left'));
+        $form->number('daysLeft', __('Days Left'));
+        // dd($request->input('freeItem'));
 
 
    
