@@ -8,6 +8,7 @@ use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Show;
 use \App\Models\products;
 use \App\Models\categoriesmodel;
+use \App\Models\VariationsModel;
 
 class productsController extends AdminController
 {
@@ -23,6 +24,17 @@ class productsController extends AdminController
      *
      * @return Grid
      */
+
+     protected $baseUrl;
+
+     public function __construct()
+     {
+         $requestScheme = isset($_SERVER['REQUEST_SCHEME']) ? $_SERVER['REQUEST_SCHEME'] : 'http';
+         $host = $_SERVER['HTTP_HOST'];
+         $this->baseUrl = $requestScheme . '://' . $host;
+     }
+ 
+
     protected function grid()
     {
         $requestScheme = isset($_SERVER['REQUEST_SCHEME']) ? $_SERVER['REQUEST_SCHEME'] : 'http';
@@ -95,7 +107,30 @@ class productsController extends AdminController
 
         $grid->column('showtDaysLeft', __('Show Days Left'))->switch()->color('red');
         $grid->column('daysLeft', __('Days Left'))->color('red');
+
+        // $grid->column('variationsF', 'Variations')->display(function () {
+        //     return $this->variationsF->map(function ($variation) {
+        //         return "Color: <span style='background-color: {$variation->color_code}; width: 20px; height: 20px; display: inline-block;'></span>, 
+        //                 Price: {$variation->price}, 
+        //                 Image: <img src='" . $this->baseUrl . '/uploads/' . asset($variation->image) . "' alt='Color Image' style='width: 50px; height: 50px;'/>";
+        //     })->implode('<br>');
+        // });
+        // In your detail view setup
+$grid->column('variationsF', 'Variations')->display(function () {
+    return $this->variationsF->map(function ($variation) {
+        return <<<HTML
+            <div style="margin-bottom: 10px;">
+                <span style="background-color: {$variation->color_code}; width: 20px; height: 20px; display: inline-block; border: 1px solid #ccc; margin-right: 5px;"></span>
+                <strong>Price:</strong> {$variation->price},
+                <strong>Image:</strong> <img src="{$this->baseUrl}/uploads/{$variation->image}" alt="Color Image" style="width: 50px; height: 50px;"/>
+            </div>
+        HTML;
+    })->implode('');
+});
+
+
         $grid->column('created_at', __('Created at'));
+
         $grid->column('updated_at', __('Updated at'));
         $grid->column('deleted_at', __('Deleted at'));
 
@@ -142,6 +177,20 @@ class productsController extends AdminController
 
         $show->field('showtDaysLeft', __('Show Days Left'))->switch()->color('red');
         $show->field('daysLeft', __('Days Left'))->color('red');
+
+      // In your detail view setup
+$show->field('variationsF', 'Variations')->display(function () {
+    return $this->variationsF->map(function ($variation) {
+        return <<<HTML
+            <div style="margin-bottom: 10px;">
+                <span style="background-color: {$variation->color_code}; width: 20px; height: 20px; display: inline-block; border: 1px solid #ccc; margin-right: 5px;"></span>
+                <strong>Price:</strong> {$variation->price},
+                <strong>Image:</strong> <img src="{$this->baseUrl}/uploads/{$variation->image}" alt="Color Image" style="width: 50px; height: 50px;"/>
+            </div>
+        HTML;
+    })->implode('');
+});
+
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
         $show->field('deleted_at', __('Deleted at'));
@@ -191,8 +240,17 @@ class productsController extends AdminController
         $form->number('daysLeft', __('Days Left'));
         // dd($request->input('freeItem'));
 
-
-   
+        $form->hasMany('variationsF', function (Form\NestedForm $form) {
+            $form->color('color_code', 'Color Code')->rules('required');  // Make sure color is required
+            $form->image('image', 'Image')->removable()->rules('required|image');  // Ensure the image is uploaded
+            $form->currency('price', 'Price')->symbol('$')->rules('required|numeric');  // Ensure price is a number
+        });
+        
+        // $form->hasMany('variationsF', 'Variations')->title('title')->fields(function (Form\NestedForm $form) {
+        //     $form->text('color_code', __('Color Code'))->rules('required');
+        //     $form->text('price', __('Price'))->rules('required|numeric');
+        //     $form->image('image', __('Variation Image'))->rules('image');
+        // });
         return $form;
     }
 }

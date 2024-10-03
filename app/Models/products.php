@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class products extends Model
 {
     use SoftDeletes;
+    
+    public function variationsF()
+    {
+        return $this->hasMany(VariationsModel::class, 'products_id'); 
+        
+    }
+    
 }
