@@ -39,6 +39,7 @@ class CreateSettingsTable extends Migration
             $table->boolean('showOfferInFooter')->nullable();
             $table->boolean('showItemInFooter')->nullable();
             $table->string('PromotionBannerDesign')->nullable();
+            $table->string('designOfferInFooter')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

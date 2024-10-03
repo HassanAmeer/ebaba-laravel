@@ -24,7 +24,7 @@ class CreateProductsTable extends Migration
             $table->string('price')->nullable();
             $table->boolean('showSale')->nullable();
             $table->string('sale')->nullable();
-            $table->boolean('show stock')->nullable();
+            $table->boolean('showStock')->nullable();
             $table->string('stock')->comment('500')->nullable();
             $table->boolean('showVariations')->nullable();
             $table->string('addVartiaons')->nullable();

@@ -50,13 +50,14 @@ class settingsController extends AdminController
         $grid->column('showRefundPolicy', __('ShowRefundPolicy'))->switch();
         $grid->column('showReturndPolicy', __('ShowReturndPolicy'))->switch();
         $grid->column('showTermsCondition', __('ShowTermsCondition'))->switch();
-        $grid->column('showPromotionBanner', __('ShowPromotionBanner'))->switch();
         $grid->column('showRequestItemsSection', __('ShowRequestItemsSection'))->switch();
-
+        
         $grid->column('showToastMessages', __('showToastMessages'))->switch();
         $grid->column('showBanner2InHeader', __('showBanner2InHeader'))->switch();
+        $grid->column('showItemInFooter', __('show Product Item InFooter'))->switch();
         $grid->column('showOfferInFooter', __('showOfferInFooter'))->switch();
-        $grid->column('showItemInFooter', __('showItemInFooter'))->switch();
+        $grid->column('designOfferInFooter',__('designOfferInFooter'));
+        $grid->column('showPromotionBanner', __('ShowPromotionBanner'))->switch();
         $grid->column('PromotionBannerDesign',__('PromotionBannerDesign'));
 
         $grid->column('created_at', __('Created at'));
@@ -100,14 +101,16 @@ class settingsController extends AdminController
         $show->field('showRefundPolicy', __('ShowRefundPolicy'));
         $show->field('showReturndPolicy', __('ShowReturndPolicy'));
         $show->field('showTermsCondition', __('ShowTermsCondition'));
-        $show->field('showPromotionBanner', __('ShowPromotionBanner'));
         $show->field('showRequestItemsSection', __('ShowRequestItemsSection'));
-
+        
         $show->field('showToastMessages', __('showToastMessages'));
         $show->field('showBanner2InHeader', __('showBanner2InHeader'));
+        $show->field('showItemInFooter', __('show Product Item In Footer'));
         $show->field('showOfferInFooter', __('showOfferInFooter'));
-        $show->field('showItemInFooter', __('showItemInFooter'));
+        $show->field('designOfferInFooter',__('designOfferInFooter'));
+        $show->field('showPromotionBanner', __('ShowPromotionBanner'));
         $show->field('PromotionBannerDesign',__('PromotionBannerDesign'));
+        
 
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
@@ -141,15 +144,18 @@ class settingsController extends AdminController
         $form->switch('showRefundPolicy', __('ShowRefundPolicy'));
         $form->switch('showReturndPolicy', __('ShowReturndPolicy'));
         $form->switch('showTermsCondition', __('ShowTermsCondition'));
-        $form->switch('showPromotionBanner', __('ShowPromotionBanner'));
         $form->switch('showRequestItemsSection', __('ShowRequestItemsSection'));
-
+        
         $form->switch('showToastMessages', __('showToastMessages'));
         $form->switch('showBanner2InHeader', __('showBanner2InHeader'));
+        $form->switch('showItemInFooter', __('show Product Item In Footer'));
         $form->switch('showOfferInFooter', __('showOfferInFooter'));
-        $form->switch('showItemInFooter', __('showItemInFooter'));
-        $form->ckeditor('PromotionBannerDesign')->options(['lang' => 'en', 'height' => 100,'contentsCss' => '/css/frontend-body-content.css']);
+        
+        $form->ckeditor('designOfferInFooter')->options(['lang' => 'en', 'height' => 100,'contentsCss' => '/css/frontend-body-content.css']);
 
+        $form->switch('showPromotionBanner', __('ShowPromotionBanner'));
+        $form->ckeditor('PromotionBannerDesign')->options(['lang' => 'en', 'height' => 100,'contentsCss' => '/css/frontend-body-content.css']);
+        
         return $form;
     }
 }

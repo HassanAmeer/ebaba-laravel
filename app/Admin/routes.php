@@ -21,6 +21,9 @@ Route::group([
     $router->resource('bannerDesigns', bannerDesignController::class);
     $router->resource('top-slide-texts', topSlideTextController::class);
     $router->resource('toast-messages', toastMessageController::class);
+    $router->resource('design-code-lists', designCodeListController::class);
+
+
     
     
 

@@ -25,6 +25,12 @@ class productsController extends AdminController
      */
     protected function grid()
     {
+        $requestScheme = isset($_SERVER['REQUEST_SCHEME']) ? $_SERVER['REQUEST_SCHEME'] : 'http';
+        $host = $_SERVER['HTTP_HOST'];
+        $baseUrl = $requestScheme . '://' . $host;
+        // echo $baseUrl;
+        // dd("$baseUrl");
+        
         $grid = new Grid(new products());
 
         $grid->column('id', __('Id'));
@@ -32,12 +38,12 @@ class productsController extends AdminController
         $grid->column('title', __('Title'));
         $grid->column('shortDesc', __('ShortDesc'));
         $grid->column('description', __('Description'));
-        $grid->column('image', __('Image'));
-        $grid->column('images', __('Images'));
+        $grid->column('image', __('Image'))->image($baseUrl.'/uploads/',75,75);
+        $grid->column('images', __('Images'))->image($baseUrl.'/uploads/',75,75);
         $grid->column('price', __('Price'));
         $grid->column('showSale', __('ShowSale'));
         $grid->column('sale', __('Sale'));
-        $grid->column('show stock', __('Show stock'));
+        $grid->column('showStock', __('Show stock'));
         $grid->column('stock', __('Stock'));
         $grid->column('showVariations', __('ShowVariations'));
         $grid->column('addVartiaons', __('AddVartiaons'));
@@ -59,6 +65,12 @@ class productsController extends AdminController
      */
     protected function detail($id)
     {
+        $requestScheme = isset($_SERVER['REQUEST_SCHEME']) ? $_SERVER['REQUEST_SCHEME'] : 'http';
+        $host = $_SERVER['HTTP_HOST'];
+        $baseUrl = $requestScheme . '://' . $host;
+        // echo $baseUrl;
+        // dd("$baseUrl");
+
         $show = new Show(products::findOrFail($id));
 
         $show->field('id', __('Id'));
@@ -66,12 +78,12 @@ class productsController extends AdminController
         $show->field('title', __('Title'));
         $show->field('shortDesc', __('ShortDesc'));
         $show->field('description', __('Description'));
-        $show->field('image', __('Image'));
-        $show->field('images', __('Images'));
+        $show->field('image', __('Image'))->image($baseUrl.'/uploads/',75,75);
+        $show->field('images', __('Images'))->image($baseUrl.'/uploads/',75,75);
         $show->field('price', __('Price'));
         $show->field('showSale', __('ShowSale'));
         $show->field('sale', __('Sale'));
-        $show->field('show stock', __('Show stock'));
+        $show->field('showStock', __('Show stock'));
         $show->field('stock', __('Stock'));
         $show->field('showVariations', __('ShowVariations'));
         $show->field('addVartiaons', __('AddVartiaons'));
@@ -108,7 +120,7 @@ class productsController extends AdminController
         $form->switch('showSale', __('ShowSale'));
         // $form->text('sale', __('Sale'));
         $form->ckeditor('sale')->options(['lang' => 'en', 'height' => 100,'contentsCss' => '/css/frontend-body-content.css']);
-        $form->switch('show stock', __('Show stock'));
+        $form->switch('showStock', __('Show stock'));
         // $form->text('stock', __('Stock'));
         $form->ckeditor('stock')->options(['lang' => 'en', 'height' => 100,'contentsCss' => '/css/frontend-body-content.css']);
         $form->switch('showVariations', __('ShowVariations'));

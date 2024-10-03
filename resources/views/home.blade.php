@@ -863,146 +863,39 @@
     <h2 class="text-center mb-4">Products</h2>
     <div class="product-row row row-cols-1 row-cols-sm-3 row-cols-md-4 g-4">
 
+    @foreach($productsList as $key)
       <div class="col" data-aos="fade-up" data-aos-duration="1500">
         <div class="card product-card">
           <div style="position: relative;">
-            <img src="ultrapod.png" class="card-img-top" alt="Product Image">
+            <img src="{{ asset($baseUrl.'/uploads/'.$key['image']) }}" class="card-img-top" alt="Product Image">
             <div class="salesDesignedArea" style="background-color: yellow;">
-              <div
+              <!-- <div
                 style="position: absolute; z-index: 1; top:5px; left: 7px; box-shadow: 2px 2px 2px white; border-radius: 7px;">
                 <div style="background: rgba(0, 138, 78, 0.709); border-radius: 7px;">
                   <b style="color: white; padding: 3px;"> Save 50% </b>
                 </div>
-              </div>
+              </div> -->
+              {!! $key['sale'] !!}
             </div>
           </div>
           <div class="card-body d-flex flex-column align-items-center">
-            <b class="card-title itemTitle">Product Title</b>
+            <b class="card-title itemTitle">{{$key['title']}}</b>
             <div class="itemPriceDesignedArea">
-              <div class="price-section">
+              <!-- <div class="price-section">
                 <p class="sale-price">$24.99</p>
                 <p class="actual-price">$39.99</p>
-              </div>
+              </div> -->
+              {!! $key['price'] !!}
             </div>
             <div class="add-to-cart">
-              <button class="btn btn-dark rounded-3 w-100 addToCart toggleSidebarBtns" data-pid="1" data-img="cart.png"
-                data-title="Sample Product" data-price="20">Add to Cart</button>
+              <button class="btn btn-dark rounded-3 w-100 addToCart toggleSidebarBtns" data-pid="{{$key['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$key['image']) }}"
+                data-title="{{$key['title']}}" data-price="{{$key['price']}}">Add to Cart</button>
             </div>
           </div>
         </div>
       </div>
-      <div class="col" data-aos="fade-up" data-aos-duration="1500">
-        <div class="card product-card">
-          <div style="position: relative;">
-            <img src="ultrapod.png" class="card-img-top" alt="Product Image">
-            <div class="salesDesignedArea" style="background-color: yellow;">
-              <div
-                style="position: absolute; z-index: 1; top:5px; left: 7px; box-shadow: 2px 2px 2px white; border-radius: 7px;">
-                <div style="background: rgba(0, 138, 78, 0.709); border-radius: 7px;">
-                  <b style="color: white; padding: 3px;"> Save 50% </b>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-body d-flex flex-column align-items-center">
-            <b class="card-title itemTitle">Product Title</b>
-            <div class="itemPriceDesignedArea">
-              <div class="price-section">
-                <p class="sale-price">$24.99</p>
-                <p class="actual-price">$39.99</p>
-              </div>
-            </div>
-            <div class="add-to-cart">
-              <button class="btn btn-dark rounded-3 w-100 addToCart toggleSidebarBtns" data-pid="1" data-img="cart.png"
-                data-title="Sample Product" data-price="20">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col" data-aos="fade-up" data-aos-duration="1500">
-        <div class="card product-card">
-          <div style="position: relative;">
-            <img src="ultrapod.png" class="card-img-top" alt="Product Image">
-            <div class="salesDesignedArea" style="background-color: yellow;">
-              <div
-                style="position: absolute; z-index: 1; top:5px; left: 7px; box-shadow: 2px 2px 2px white; border-radius: 7px;">
-                <div style="background: rgba(0, 138, 78, 0.709); border-radius: 7px;">
-                  <b style="color: white; padding: 3px;"> Save 50% </b>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-body d-flex flex-column align-items-center">
-            <b class="card-title itemTitle">Product Title</b>
-            <div class="itemPriceDesignedArea">
-              <div class="price-section">
-                <p class="sale-price">$24.99</p>
-                <p class="actual-price">$39.99</p>
-              </div>
-            </div>
-            <div class="add-to-cart">
-              <button class="btn btn-dark rounded-3 w-100 addToCart toggleSidebarBtns" data-pid="1" data-img="cart.png"
-                data-title="Sample Product" data-price="20">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col" data-aos="fade-up" data-aos-duration="1500">
-        <div class="card product-card">
-          <div style="position: relative;">
-            <img src="ultrapod.png" class="card-img-top" alt="Product Image">
-            <div class="salesDesignedArea" style="background-color: yellow;">
-              <div
-                style="position: absolute; z-index: 1; top:5px; left: 7px; box-shadow: 2px 2px 2px white; border-radius: 7px;">
-                <div style="background: rgba(0, 138, 78, 0.709); border-radius: 7px;">
-                  <b style="color: white; padding: 3px;"> Save 50% </b>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-body d-flex flex-column align-items-center">
-            <b class="card-title itemTitle">Product Title</b>
-            <div class="itemPriceDesignedArea">
-              <div class="price-section">
-                <p class="sale-price">$24.99</p>
-                <p class="actual-price">$39.99</p>
-              </div>
-            </div>
-            <div class="add-to-cart">
-              <button class="btn btn-dark rounded-3 w-100 addToCart toggleSidebarBtns" data-pid="1" data-img="cart.png"
-                data-title="Sample Product" data-price="20">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col" data-aos="fade-up" data-aos-duration="1500">
-        <div class="card product-card">
-          <div style="position: relative;">
-            <img src="ultrapod.png" class="card-img-top" alt="Product Image">
-            <div class="salesDesignedArea" style="background-color: yellow;">
-              <div
-                style="position: absolute; z-index: 1; top:5px; left: 7px; box-shadow: 2px 2px 2px white; border-radius: 7px;">
-                <div style="background: rgba(0, 138, 78, 0.709); border-radius: 7px;">
-                  <b style="color: white; padding: 3px;"> Save 50% </b>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-body d-flex flex-column align-items-center">
-            <b class="card-title itemTitle">Product Title</b>
-            <div class="itemPriceDesignedArea">
-              <div class="price-section">
-                <p class="sale-price">$24.99</p>
-                <p class="actual-price">$39.99</p>
-              </div>
-            </div>
-            <div class="add-to-cart">
-              <button class="btn btn-dark rounded-3 w-100 addToCart toggleSidebarBtns" data-pid="1" data-img="cart.png"
-                data-title="Sample Product" data-price="20">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-      </div>
+
+@endforeach
       <!-- Repeat similar blocks for other products -->
     </div>
   </section>
@@ -1094,47 +987,42 @@
     }
   </style>
 
+
+@if(!empty($productsList) && count($productsList) > 0)
+@php
+        $firstItem = $productsList[0];
+        @endphp
   <div class="itemDetailBox">
 
     <div class="itemDetailImgAreaLeft">
       <div style="position: relative;">
         <center>
-          <img src="ultrapod.png" style="width: 60%;" class="card-img-top" id="thumbnailImg" alt="Product Image">
+          <img src="{{ asset($baseUrl.'/uploads/'.$firstItem['image']) }}" style="width: 60%;" class="card-img-top" id="thumbnailImg" alt="Product Image">
         </center>
-        <div
-          style="position: absolute; z-index: 1; top: 1rem; left: 1rem; box-shadow: 2px 2px 2px white; border-radius: 7px;">
-          <div style="background: rgba(0, 138, 78, 0.709); border-radius: 7px ;">
-            <b style="color: white; padding: 0.8rem;"> Save 50% </b>
-          </div>
-        </div>
+        {!! $firstItem['sale'] !!}
       </div>
       <div class="itemImages"
         style="display: flex;flex-direction: row; justify-content:flex-start; align-items: center; width: 100%; height: 8rem; padding-left: 1rem; padding-right: 1rem;">
         <!-- <i class="fa fa-chevron-left preItemImgBtn" style="color: grey; font-size: x-large;"></i> -->
-        <img class="itemImg" src="cart.png" alt="">
-        <img class="itemImg" src="ultrapod.png" alt="">
-        <img class="itemImg" src="ultrapod.png" alt="">
-        <img class="itemImg" src="ultrapod.png" alt="">
-        <img class="itemImg" src="ultrapod.png" alt="">
-        <img class="itemImg" src="ultrapod.png" alt="">
-        <img class="itemImg" src="ultrapod.png" alt="">
-        <img class="itemImg" src="ultrapod.png" alt="">
+        @foreach($productsList as $key)
+        <img class="itemImg" src="{{ asset($baseUrl.'/uploads/'.$key) }}" alt="">
+        @endforeach
         <!-- <i class="fa fa-chevron-right nextItemImgBtn" style="color: grey; font-size: x-large;"></i> -->
       </div>
     </div>
 
     <div class="itemDetailsAreaRight">
-      <h2>A9 Pro Airpods Pro | Screen Airpods A9 Pro Lcd Earbuds</h2>
+      <h2>      {{ $firstItem['title'] }}      </h2>
       <br>
+
       <p style="color: green; opacity: 0.5;">Free Shipping</p>
+      @if($firstItem['showStock'] == 1)
+      {!! $firstItem['price'] !!}
+      @endif
 
 
 
-
-      <div class="price-section" style="justify-content: start;">
-        <p class="sale-price">$24.99</p>
-        <p class="actual-price">$39.99</p>
-      </div>
+      {!! $firstItem['price'] !!}
       <p style="color: grey;">  <i class="fa fa-eye text-muted"> </i> <b id="viewersCount" class="text-dark"> 13 </b> Persons View At This Time </p>
       <!-- <div style="background-color: black; padding-bottom: 2px; color: white; width: 50%;"></div> -->
       <b style="padding-left: 0; font-size: 0.6rem;">Hurry, Only 10 left!</b>
@@ -1142,38 +1030,33 @@
 
       <!-- shiping tax -->
       <div class="mb-0" style="display: flex; flex-direction: row; justify-content: start;align-items: center;">
-        <button class="btn btn-sm btn-light quantityDecFromDetail" data-pid="3" data-img="cart.png"
-          data-title="Sample Product" data-price="20">-</button>
+        <button class="btn btn-sm btn-light quantityDecFromDetail" data-pid="{{$firstItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$firstItem['image']) }}"
+        data-title="{{$firstItem['title']}}" data-price="{{$firstItem['price']}}">-</button>
         <b style="padding-left:1rem; padding-right:1rem;" class="globalItemQuantityIs"> 1 </b>
-        <button class="btn btn-sm btn-light quantityIncFromDetail" data-pid="3" data-img="cart.png"
-          data-title="Sample Product" data-price="20">+</button>
-        <button class="btn btn-dark addToCart toggleSidebarBtns" style="margin-left: 1rem; width: 100%;" data-pid="3"
-          data-img="cart.png" data-title="Sample Product" data-price="20">Order Now</button>
+        <button class="btn btn-sm btn-light quantityIncFromDetail" data-pid="{{$firstItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$firstItem['image']) }}"
+        data-title="{{$firstItem['title']}}" data-price="{{$firstItem['price']}}">+</button>
+        <button class="btn btn-dark addToCart toggleSidebarBtns" style="margin-left: 1rem; width: 100%;" data-pid="{{$firstItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$firstItem['image']) }}"
+        data-title="{{$firstItem['title']}}" data-price="{{$firstItem['price']}}">Order Now</button>
       </div>
       <br>
       <p style="color: grey;" id="delivery-estimate">Estimated delivery between Monday 07 October and Thursday 10 October.</p>
 
       <hr>
-      <div
-        style="height: 5rem; width: 100%; background-color:whitesmoke; display: flex;flex-direction: row; justify-content: space-between; align-items: center;">
-        <img style="height: 4rem; background-color: white;" src="watch.png" alt="">
-        <p style="color: black; padding-right: 1rem;"> 1 watch free </p>
-      </div>
+      {!! $firstItem['freeItem'] !!}
     </div>
   </div>
 
+  
+  @endif
   <br><br>
 
 
 
 
 
-
-
-
-
-
-
+  @if($settingsData['showPromotionBanner'] == 1)
+  {!! $settingsData['PromotionBannerDesign'] !!}
+  @endif
 
 
   <!-- start cart -->
@@ -1708,10 +1591,11 @@
     }
   </style>
 
-
+@if($settingsData['showItemInFooter'] == 1 || $settingsData['showOfferInFooter']  == 1)
   <div class="stickyItem" data-aos="zoom-out-up" data-aos-duration="1000">
     <center>
       <div id="sticyItemInner">
+      @if($settingsData['showItemInFooter'] == 1)
         <div>
           <img src="{{$settingsData}}" style="width: 6rem; height: 5rem;" alt="">
           <b class="text-light"> title</b>
@@ -1727,9 +1611,22 @@
             style="margin-left: 1rem; width: 100%; background-color: rgb(168, 211, 168);" data-pid="3"
             data-img="cart.png" data-title="Sample Product" data-price="20">Order Now</button>
         </div>
+        @elseif($settingsData['showOfferInFooter'] == 1)
+           <div>{!! $settingsData['designOfferInFooter'] !!}</div>
+        @endif
       </div>
     </center>
   </div>
+@endif
+
+  <!-- <div>
+<marquee>
+<blockquote>
+<h2 style="font-style:italic;color:white;">&OElig; Baba buy now get <strong>1 free</strong></h2>
+</blockquote>
+<p>&nbsp;</p>
+</marquee>
+</div> -->
 
 
   <!-- Footer -->
@@ -2104,15 +2001,21 @@
     let stopGreenToastMsgs = false;
     document.addEventListener('DOMContentLoaded', async function () {
       // const stringsArray = ["First message", "Second message", "Third message", "Fourth message"];
-      const stringsArray = @json($toastMessageList);
-      for (let repeat = 0; repeat < 5; repeat++) {
-        if (stopGreenToastMsgs) break;
-        for (let index = 0; index < stringsArray.length; index++) {
+      var showToastMessages = @json($settingsData['showToastMessages']);
+      if (parseInt(showToastMessages.toString(), 10) == 1) {
+        const stringsArray = @json($toastMessageList);
+        for (let repeat = 0; repeat < 5; repeat++) {
           if (stopGreenToastMsgs) break;
-          const element = stringsArray[index]['title'];
-          showGreenToast(element, parseInt(stringsArray[index]['duration'].toString(), 10));
-          await delay(parseInt(stringsArray[index]['duration'].toString(), 10));
+          for (let index = 0; index < stringsArray.length; index++) {
+            if (stopGreenToastMsgs) break;
+            const element = stringsArray[index]['title'];
+            showGreenToast(element, parseInt(stringsArray[index]['duration'].toString(), 10));
+            await delay(parseInt(stringsArray[index]['duration'].toString(), 10));
+          }
         }
+      }else{
+        stopGreenToastMsgs = true;
+        $('.customGreenToast').removeClass('d-block').addClass('d-none');
       }
     });
 

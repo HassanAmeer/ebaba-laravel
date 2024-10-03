@@ -9,7 +9,8 @@ use \App\Models\topSlideText;
 use \App\Models\toastMessage;
 use \App\Models\bannerDesign;
 use \App\Models\bannerImagesOnly;
-
+use \App\Models\products;
+use \App\Models\categoriesmodel;
 
 class HomeController extends Controller
 {
@@ -23,12 +24,13 @@ class HomeController extends Controller
         $toastMessageList = toastMessage::all();
         $BannerDesign2List = bannerDesign::all();
         $bannerImagesOnlyList = bannerImagesOnly::all();
+        $productsList = products::all();
         // $catgModel = catgModel::orderBy('id', 'desc')->get();
         // if($catgModel->count() < 1){
         //     $catgModel = 'Empty Records';
         // }
         // dd("$settingsData");
-        return view('home', compact(['baseUrl','settingsData','topSlideTextList','toastMessageList','BannerDesign2List','bannerImagesOnlyList']));
+        return view('home', compact(['baseUrl','settingsData','topSlideTextList','toastMessageList','BannerDesign2List','bannerImagesOnlyList','productsList']));
 
     }
 }
