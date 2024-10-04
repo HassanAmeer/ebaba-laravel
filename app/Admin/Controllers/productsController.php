@@ -9,6 +9,7 @@ use OpenAdmin\Admin\Show;
 use \App\Models\products;
 use \App\Models\categoriesmodel;
 use \App\Models\VariationsModel;
+use \App\Models\ColorsVariations;
 
 class productsController extends AdminController
 {
@@ -108,27 +109,43 @@ class productsController extends AdminController
         $grid->column('showtDaysLeft', __('Show Days Left'))->switch()->color('red');
         $grid->column('daysLeft', __('Days Left'))->color('red');
 
-        // $grid->column('variationsF', 'Variations')->display(function () {
-        //     return $this->variationsF->map(function ($variation) {
-        //         return "Color: <span style='background-color: {$variation->color_code}; width: 20px; height: 20px; display: inline-block;'></span>, 
-        //                 Price: {$variation->price}, 
-        //                 Image: <img src='" . $this->baseUrl . '/uploads/' . asset($variation->image) . "' alt='Color Image' style='width: 50px; height: 50px;'/>";
-        //     })->implode('<br>');
-        // });
-        // In your detail view setup
-$grid->column('variationsF', 'Variations')->display(function () {
-    return $this->variationsF->map(function ($variation) {
-        return <<<HTML
-            <div style="margin-bottom: 10px;">
-                <span style="background-color: {$variation->color_code}; width: 20px; height: 20px; display: inline-block; border: 1px solid #ccc; margin-right: 5px;"></span>
-                <strong>Price:</strong> {$variation->price},
-                <strong>Image:</strong> <img src="{$this->baseUrl}/uploads/{$variation->image}" alt="Color Image" style="width: 50px; height: 50px;"/>
-            </div>
-        HTML;
-    })->implode('');
-});
+        $grid->column('showSizeVariations', __('showSizeVariations'))->switch()->color('grey');
+        $grid->column('sizeVariationsF', 'Size Variations')->display(function () {
+            if ($this->sizeVariationsF->isEmpty()) {
+                return '<span>No Size variations available.</span>';
+            }
+            
+            return $this->sizeVariationsF->map(function ($variation) {
+                return <<<HTML
+                       <div style="margin-bottom: 5px;">
+                        <strong>Size:</strong> <span>{$variation->productSize}</span>,
+                        <strong>Price:</strong> <span>{$variation->productPrice}</span>
+                        <a class="icon-pen-alt text-warning" href="{$this->baseUrl}/admin/size-variations/{$variation->id}/edit" data-variationId="{$variation->id}" data-price="{$variation->productPrice}"></a>
+                    </div>
+                HTML;
+            })->implode('');
+        })->color('grey');
+        $grid->column('showColorVariations', __('showColorVariations'))->switch()->color('green');
+        $grid->column('colorsVariationsF', 'ColorsVariations')->display(function () {
+                if ($this->colorsVariationsF->isEmpty()) {
+                    return '<span>No  Color variations available.</span>';
+                }
+                
+                return $this->colorsVariationsF->map(function ($variation) {
+                    return <<<HTML
+                        <div style="margin-bottom: 10px;">
+                            <span style="background-color: {$variation->productColorCode}; width: 20px; height: 20px; display: inline-block; border: 1px solid #ccc; margin-right: 5px;"></span>
+                            <strong>Price:</strong> <span class="variation-price" id="price-{$variation->id}">{$variation->productPrice}</span>,
+                            <strong>Image:</strong> <img src="{$this->baseUrl}/uploads/{$variation->productImage}" alt="Color Image" style="width: 30px; height: 30px;"/>
+                            <a class="icon-pen-alt text-warning" href="{$this->baseUrl}/admin/colors-variations/{$variation->id}/edit" data-variationId="{$variation->id}" data-price="{$variation->productPrice}"></a>
+                            <!-- <a class="icon-trash-alt text-danger" href="{$this->baseUrl}/admin/colors-variations/{$variation->id}/delete" data-variationId="{$variation->id}" data-price="{$variation->productPrice}"></a> -->
+                        </div>
+                    HTML;
+                })->implode('');
+            })->color('green');
 
 
+      
         $grid->column('created_at', __('Created at'));
 
         $grid->column('updated_at', __('Updated at'));
@@ -174,22 +191,42 @@ $grid->column('variationsF', 'Variations')->display(function () {
         $show->field('isfreeAnyItemWithThis', __('IsfreeAnyItemWithThis'));
         $show->field('freeItem', __('FreeItem'));
 
-
         $show->field('showtDaysLeft', __('Show Days Left'))->switch()->color('red');
         $show->field('daysLeft', __('Days Left'))->color('red');
 
-      // In your detail view setup
-$show->field('variationsF', 'Variations')->display(function () {
-    return $this->variationsF->map(function ($variation) {
-        return <<<HTML
-            <div style="margin-bottom: 10px;">
-                <span style="background-color: {$variation->color_code}; width: 20px; height: 20px; display: inline-block; border: 1px solid #ccc; margin-right: 5px;"></span>
-                <strong>Price:</strong> {$variation->price},
-                <strong>Image:</strong> <img src="{$this->baseUrl}/uploads/{$variation->image}" alt="Color Image" style="width: 50px; height: 50px;"/>
-            </div>
-        HTML;
-    })->implode('');
-});
+        $show->field('showSizeVariations', __('showSizeVariations'))->switch();
+        $show->field('sizeVariationsF', 'Size Variations')->display(function () {
+            if ($this->sizeVariationsF->isEmpty()) {
+                return '<span>No Size variations available.</span>';
+            }
+            
+            return $this->sizeVariationsF->map(function ($variation) {
+                return <<<HTML
+                       <div style="margin-bottom: 5px;">
+                        <strong>Size:</strong> <span>{$variation->productSize}</span>,
+                        <strong>Price:</strong> <span>{$variation->productPrice}</span>
+                        <a class="icon-pen-alt text-warning" href="{$this->baseUrl}/admin/size-variations/{$variation->id}/edit" data-variationId="{$variation->id}" data-price="{$variation->productPrice}"></a>
+                    </div>
+                HTML;
+            })->implode('');
+        })->color('green');
+        $show->field('showColorVariations', __('showColorVariations'))->switch()->color('green');
+        $show->field('colorsVariationsF', 'ColorsVariations')->display(function () {
+            if ($this->colorsVariationsF->isEmpty()) {
+                return '<span>No Color variations available.</span>';
+            }
+            
+            return $this->colorsVariationsF->map(function ($variation) {
+                return <<<HTML
+                    <div style="margin-bottom: 10px;">
+                        <span style="background-color: {$variation->productColorCode}; width: 20px; height: 20px; display: inline-block; border: 1px solid #ccc; margin-right: 5px;"></span>
+                        <strong>Price:</strong> <span class="variation-price" id="price-{$variation->id}">{$variation->productPrice}</span>,
+                        <strong>Image:</strong> <img src="{$this->baseUrl}/uploads/{$variation->productImage}" alt="Color Image" style="width: 25px; height: 25px;"/>
+                        <a class="btn btn-warning edit-price" href=".'$this->baseUrl'./admin/colors-variations/{$variation->id}/edit" data-variationId="{$variation->id}" data-price="{$variation->productPrice}">Edit Price</button>
+                    </div>
+                HTML;
+            })->implode('');
+        })->color('green');
 
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
@@ -239,18 +276,24 @@ $show->field('variationsF', 'Variations')->display(function () {
         $form->switch('showtDaysLeft', __('Show Days Left'));
         $form->number('daysLeft', __('Days Left'));
         // dd($request->input('freeItem'));
-
-        $form->hasMany('variationsF', function (Form\NestedForm $form) {
-            $form->color('color_code', 'Color Code')->rules('required');  // Make sure color is required
-            $form->image('image', 'Image')->removable()->rules('required|image');  // Ensure the image is uploaded
-            $form->currency('price', 'Price')->symbol('$')->rules('required|numeric');  // Ensure price is a number
-        });
         
-        // $form->hasMany('variationsF', 'Variations')->title('title')->fields(function (Form\NestedForm $form) {
-        //     $form->text('color_code', __('Color Code'))->rules('required');
-        //     $form->text('price', __('Price'))->rules('required|numeric');
-        //     $form->image('image', __('Variation Image'))->rules('image');
-        // });
+        $form->switch('showSizeVariations', __('showSizeVariations'));
+        $form->hasMany('sizeVariationsF', function (Form\NestedForm $form) {
+            $form->text('productSize', 'Product Size')->rules('required');  
+            $form->currency('productPrice', 'Product Price')->symbol('PKR')->rules('required|numeric');  
+        });
+
+        $form->switch('showColorVariations', __('showColorVariations'));
+        $form->hasMany('colorsVariationsF', function (Form\NestedForm $form) {
+            $form->color('productColorCode', 'Color Code')->rules('required');  
+            $form->image('productImage', 'Image')->removable()->rules('required|image'); 
+            $form->currency('productPrice', 'Price')->symbol('PKR')->rules('required|numeric');  
+        });
+        // $form->select('variationsF', 'variationsF')->options(VariationsModel::all()->pluck('color_code', 'image'));
+     
         return $form;
     }
 }
+
+
+ 

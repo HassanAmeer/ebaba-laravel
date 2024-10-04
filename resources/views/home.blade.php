@@ -1103,8 +1103,7 @@ width:70%;
         {!! $firstItem['sale'] !!}
       </div>
       @if(!empty($firstItem['images']) && is_array($firstItem['images']) && count($firstItem['images']) > 0)
-      <div class="itemImages"
-        style="display: flex;flex-direction: row; justify-content:flex-start; align-items: center; width: 100%; height: 8rem; padding-left: 1rem; padding-right: 1rem;">
+      <div class="itemImages">
         <!-- <i class="fa fa-chevron-left preItemImgBtn" style="color: grey; font-size: x-large;"></i> -->
         @foreach($firstItem['images'] as $key)
         <img class="itemImg" src="{{ asset($baseUrl.'/uploads/'.$key) }}" alt="">
@@ -1553,6 +1552,7 @@ width:70%;
 
     .footer ul li a:hover {
       text-decoration: underline;
+      scale:1.2;
     }
 
     .footer form {
@@ -1589,6 +1589,7 @@ width:70%;
 
     .social-icons li a:hover {
       color: greenyellow;
+      scale:1.2;
     }
 
     .footerSubtitleColor {
@@ -1629,11 +1630,11 @@ width:70%;
               @if($settingsData['showPrivacyPolicy'] == 1)
               <li class="footerSubtitleColor"><a href="#">Privacy Policy</a></li>
               @endif
-              @if($settingsData['showReturndPolicy'] == 1)
-              <li class="footerSubtitleColor"><a href="#">Returns Policy</a></li>
+              @if($settingsData['showShippingPolicy'] == 1)
+              <li class="footerSubtitleColor"><a href="#">Shipping Policy</a></li>
               @endif
-              @if($settingsData['showRefundPolicy'] == 1)
-              <li class="footerSubtitleColor"><a href="#">Refund Policy</a></li>
+              @if($settingsData['showReturnRefundPolicy'] == 1)
+              <li class="footerSubtitleColor"><a href="#">Return Refund Policy</a></li>
               @endif
               @if($settingsData['showTermsCondition'] == 1)
               <li class="footerSubtitleColor"><a href="#">Terms of Service</a></li>\

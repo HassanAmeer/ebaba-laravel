@@ -9,10 +9,14 @@ class products extends Model
 {
     use SoftDeletes;
     
-    public function variationsF()
+    public function colorsVariationsF()
     {
-        return $this->hasMany(VariationsModel::class, 'products_id'); 
-        
+        return $this->hasMany(ColorsVariations::class); 
+    }
+
+    public function sizeVariationsF()
+    {
+        return $this->hasMany(sizeVariations::class); 
     }
     
 }

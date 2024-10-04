@@ -14,7 +14,7 @@ class VariationsModel extends Model
 
     public function product()
     {
-        return $this->belongsTo(products::class, 'products_id'); // Make sure the relation points to the correct model name
+        return $this->belongsTo(products::class); // Make sure the relation points to the correct model name
     }
 }
 

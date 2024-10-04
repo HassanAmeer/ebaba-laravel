@@ -28,8 +28,8 @@ class CreateSettingsTable extends Migration
             $table->string('instagramLink')->nullable();
             $table->boolean('showBannerImagesOnlyInHead')->nullable();
             $table->boolean('showPrivacyPolicy')->nullable();
-            $table->boolean('showRefundPolicy')->nullable();
-            $table->boolean('showReturndPolicy')->nullable();
+            $table->boolean('showShippingPolicy')->nullable();
+            $table->boolean('showReturnRefundPolicy')->nullable();
             $table->boolean('showTermsCondition')->nullable();
             $table->boolean('showPromotionBanner')->nullable();
             $table->boolean('showRequestItemsSection')->nullable();

@@ -47,8 +47,8 @@ class settingsController extends AdminController
         $grid->column('instagramLink', __('InstagramLink'));
         $grid->column('showBannerImagesOnlyInHead', __('ShowBannerImagesOnlyInHead'))->switch();
         $grid->column('showPrivacyPolicy', __('ShowPrivacyPolicy'))->switch();
-        $grid->column('showRefundPolicy', __('ShowRefundPolicy'))->switch();
-        $grid->column('showReturndPolicy', __('ShowReturndPolicy'))->switch();
+        $grid->column('showShippingPolicy', __('showShippingPolicy'))->switch();
+        $grid->column('showReturnRefundPolicy', __('showReturnRefundPolicy'))->switch();
         $grid->column('showTermsCondition', __('ShowTermsCondition'))->switch();
         $grid->column('showRequestItemsSection', __('ShowRequestItemsSection'))->switch();
         
@@ -108,8 +108,8 @@ class settingsController extends AdminController
         $show->field('instagramLink', __('InstagramLink'));
         $show->field('showBannerImagesOnlyInHead', __('ShowBannerImagesOnlyInHead'));
         $show->field('showPrivacyPolicy', __('ShowPrivacyPolicy'));
-        $show->field('showRefundPolicy', __('ShowRefundPolicy'));
-        $show->field('showReturndPolicy', __('ShowReturndPolicy'));
+        $show->field('showShippingPolicy', __('showShippingPolicy'));
+        $show->field('showReturnRefundPolicy', __('showReturnRefundPolicy'));
         $show->field('showTermsCondition', __('ShowTermsCondition'));
         $show->field('showRequestItemsSection', __('ShowRequestItemsSection'));
         
@@ -153,8 +153,8 @@ class settingsController extends AdminController
         $form->text('instagramLink', __('InstagramLink'));
         $form->switch('showBannerImagesOnlyInHead', __('ShowBannerImagesOnlyInHead'));
         $form->switch('showPrivacyPolicy', __('ShowPrivacyPolicy'));
-        $form->switch('showRefundPolicy', __('ShowRefundPolicy'));
-        $form->switch('showReturndPolicy', __('ShowReturndPolicy'));
+        $form->switch('showShippingPolicy', __('showShippingPolicy'));
+        $form->switch('showReturnRefundPolicy', __('showReturnRefundPolicy'));
         $form->switch('showTermsCondition', __('ShowTermsCondition'));
         $form->switch('showRequestItemsSection', __('ShowRequestItemsSection'));
         

@@ -30,7 +30,8 @@ class CreateProductsTable extends Migration
             $table->string('sale')->nullable();
             $table->boolean('showStock')->nullable();
             $table->string('stock')->comment('500')->nullable();
-            $table->boolean('showVariations')->nullable();
+            $table->boolean('showColorVariations')->nullable();
+            $table->boolean('showSizeVariations')->nullable();
             $table->string('addVartiaons')->nullable();
             $table->boolean('isSoldOut')->nullable();
             $table->boolean('isfreeAnyItemWithThis')->nullable();
