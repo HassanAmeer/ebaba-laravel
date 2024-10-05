@@ -11,6 +11,7 @@ use \App\Models\bannerDesign;
 use \App\Models\bannerImagesOnly;
 use \App\Models\products;
 use \App\Models\categoriesmodel;
+use \App\Models\ColorsVariations;
 
 class HomeController extends Controller
 {
@@ -24,8 +25,11 @@ class HomeController extends Controller
         $toastMessageList = toastMessage::all();
         $BannerDesign2List = bannerDesign::all();
         $bannerImagesOnlyList = bannerImagesOnly::all();
-        $productsList = Products::where('showProduct', 1)->get();
+        $productsList = Products::where('showProduct', 1)->with('colorsVariationsF')->with('sizeVariationsF')->get();
 
+        // $output = "<pre>" . htmlspecialchars($productsList) . "</pre>";
+        // echo json_encode(["output" => $output]);
+        
         // $catgModel = catgModel::orderBy('id', 'desc')->get();
         // if($catgModel->count() < 1){
         //     $catgModel = 'Empty Records';

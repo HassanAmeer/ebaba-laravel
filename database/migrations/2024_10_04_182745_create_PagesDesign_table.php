@@ -19,6 +19,7 @@ class CreatePagesDesignTable extends Migration
             $table->longText('shippingPolicy')->comment('returnPolicy')->nullable();
             $table->longText('returnRefundPolicy')->comment('returnRefundPolicy')->nullable();
             $table->longText('termsCondition')->comment('termsCondition')->nullable();
+            $table->longText('contactUs')->comment('contactUs')->nullable();
             $table->timestamps();
         });
     }

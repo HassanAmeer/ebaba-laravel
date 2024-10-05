@@ -1127,9 +1127,38 @@ width:70%;
 
       <p style="color: grey;">  <i class="fa fa-eye text-muted"> </i> <b id="viewersCount" class="text-dark"> 13 </b> Persons View At This Time </p>
       
-      <div>
+      <div id="designPriceSection">
         {!! $firstItem['designPriceForDetail'] !!}
       </div>
+      
+ 
+
+      
+
+      <div style="display: flex; flex-direction: row; justify-content: flex-start;">
+        @if(!empty($firstItem->colorsVariationsF) && count($firstItem->colorsVariationsF) > 0)
+            @foreach($firstItem->colorsVariationsF as $variation)
+                <div style="padding: 5px;">
+                    <div class="productColorsBox"
+                        data-productcolorcode="{{ $variation->productColorCode }}"
+                        data-productimage="{{ asset($baseUrl.'/uploads/'.$variation->productImage) }}"
+                        data-productprice="{{ $variation->productPrice }}"
+                        style="border-radius: 10px; border: 1px solid silver; background-color: {{ $variation->productColorCode }};
+                              width: 2.2rem; height: 2.2rem; padding-right: 8px;">
+                    </div>
+                </div>
+            @endforeach
+        @endif
+        <div class="colorsPrice" style="color: black; font-weight: bold;"></div>
+    </div>
+
+
+
+      
+
+
+
+
 
       @if($firstItem['showtDaysLeft'] == 1)
       <b style="padding-left: 0; font-size: 0.6rem;" class="shimmerVibrate">Hurry, {!! $firstItem['daysLeft'] !!} days left!</b>
@@ -1162,6 +1191,43 @@ width:70%;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 
   @if($settingsData['showPromotionBanner'] == 1)
@@ -2148,9 +2214,32 @@ width:70%;
         $('.customGreenToast').removeClass('d-block').addClass('d-none');
       }
     });
-
-
   </script>
+
+
+<script>
+   $(document).ready(function () {
+      // Handle image selection to update the main product image
+      $('.productColorsBox').on('click', function () {
+        let productColorCode = $(this).data('productcolorcode');
+        let productImage = $(this).data('productimage');
+        let productPrice = parseInt($(this).data('productprice').toString(),10) || 0;
+        $('#thumbnailImg').attr('src', productImage);
+
+        $('#designPriceSection').append(`
+            <div class="scaleAnimation shimmerVibrate" style="width: 7rem; height: 7rem; background-image: url('http://127.0.0.1:8000/assets/bgsale.png'); background-size: cover; background-position: center; border-radius: 10rem; overflow: hidden; position: absolute; top:0;right:0; display: flex; flex-direction: column; justify-content: center;">
+            <br>
+            <h5 style="text-align: center;">
+            <div style="color:silver; scale:0.8;"> Rs </div>
+            <p style="font-weight: bold;color:white;">${productPrice} </p> 
+            </h5>
+            </div>`);
+      });
+    });
+  
+</script>
+
+
 
 </body>
 

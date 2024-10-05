@@ -51,6 +51,11 @@ class PagesDesignController extends AdminController
              <div style="padding: 15px; border-radius: 5px;background-color: #f9f9f9; position: relative;"><div style="max-height: 150px; overflow-y: auto;">{$code}</div></div>
             HTML;
         })->style('min-width:30rem;');
+        $grid->column('contactUs', __('contact Us Design'))->display(function ($code) {
+            return <<<HTML
+             <div style="padding: 15px; border-radius: 5px;background-color: #f9f9f9; position: relative;"><div style="max-height: 150px; overflow-y: auto;">{$code}</div></div>
+            HTML;
+        })->style('min-width:30rem;');
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -72,6 +77,7 @@ class PagesDesignController extends AdminController
         $show->field('shippingPolicy', __('Shipping Policy'));
         $show->field('returnRefundPolicy', __('Return Refund Policy'));
         $show->field('termsCondition', __('Terms Condition'));
+        $show->field('contactUs', __('contact Us Design'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -99,6 +105,8 @@ class PagesDesignController extends AdminController
         $form->ckeditor('returnRefundPolicy')->options(['lang' => 'en', 'height' => 300, 'allowedContent' => true, 
         'extraAllowedContent' => 'div[*];','contentsCss' => '/css/frontend-body-content.css']);
         $form->ckeditor('termsCondition')->options(['lang' => 'en', 'height' => 300, 'allowedContent' => true, 
+        'extraAllowedContent' => 'div[*];','contentsCss' => '/css/frontend-body-content.css']);
+        $form->ckeditor('contactUs')->options(['lang' => 'en', 'height' => 300, 'allowedContent' => true, 
         'extraAllowedContent' => 'div[*];','contentsCss' => '/css/frontend-body-content.css']);
 
         return $form;
