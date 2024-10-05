@@ -1012,7 +1012,10 @@
       }
 
       .itemImg {
-        width: 6rem;
+        width: 3rem;
+      }
+      #thumbnailImg{
+        min-height:12rem;
       }
     }
 
@@ -1030,7 +1033,10 @@
       }
 
       .itemImg {
-        width: 7rem;
+        width: 5rem;
+      }
+      #thumbnailImg{
+        min-height:20rem;
       }
     }
 
@@ -1060,9 +1066,9 @@
       align-items: center;
       width: 100%;
       max-width: 100%;
-      height: 8rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
+      height: 5rem;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
       overflow-x: auto;
       scroll-behavior: smooth;
     }
@@ -1108,7 +1114,7 @@
       <div class="itemImages">
         <!-- <i class="fa fa-chevron-left preItemImgBtn" style="color: grey; font-size: x-large;"></i> -->
         @foreach($filterItem['images'] as $key)
-        <img class="itemImg" src="{{ asset($baseUrl.'/uploads/'.$key) }}" alt="">
+        <div style="padding:0.2rem;"><img class="itemImg" src="{{ asset($baseUrl.'/uploads/'.$key) }}" alt=""></div>
         @endforeach
         <!-- <i class="fa fa-chevron-right nextItemImgBtn" style="color: grey; font-size: x-large;"></i> -->
       </div>
@@ -1808,7 +1814,7 @@
              $filterItem = $productsList[$filterdIdIs-1];
              @endphp
             <div>
-              <img src="{{asset($baseUrl.'/uploads/'.$filterItem['image']) }}" style="width: 5rem; height: 4rem;" alt="">
+              <img src="{{asset($baseUrl.'/uploads/'.$filterItem['image']) }}" style="width: 4.5rem; height: 4rem;" alt="">
               <b class="text-light"> {{$filterItem['title']}}</b>
             </div>
             
