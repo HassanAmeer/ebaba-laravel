@@ -15,6 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('Orders', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('productId')->nullable();
             $table->boolean('deliverd')->nullable();
             $table->boolean('isRejected')->nullable();
             $table->string('userName')->nullable();

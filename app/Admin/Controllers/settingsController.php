@@ -7,6 +7,7 @@ use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Show;
 use \App\Models\settings;
+use \App\Models\products;
 
 class settingsController extends AdminController
 {
@@ -56,6 +57,7 @@ class settingsController extends AdminController
         $grid->column('showBanner2InHeader', __('showBanner2InHeader'))->switch();
         $grid->column('showItemInFooter', __('show Product Item InFooter'))->switch();
         $grid->column('showOfferInFooter', __('showOfferInFooter'))->switch();
+        $grid->column('selectedItemIdForFooter', __('selectedItemIdForFooter'));
         // $grid->column('designOfferInFooter',__('designOfferInFooter'));
         $grid->column('designOfferInFooter', __('Design in Footer'))->display(function ($code) {
             return <<<HTML
@@ -117,6 +119,7 @@ class settingsController extends AdminController
         $show->field('showBanner2InHeader', __('showBanner2InHeader'));
         $show->field('showItemInFooter', __('show Product Item In Footer'));
         $show->field('showOfferInFooter', __('showOfferInFooter'));
+        $show->field('selectedItemIdForFooter', __('selectedItemIdForFooter'));
         $show->field('designOfferInFooter',__('designOfferInFooter'));
        
         $show->field('showPromotionBanner', __('ShowPromotionBanner'));
@@ -162,6 +165,8 @@ class settingsController extends AdminController
         $form->switch('showBanner2InHeader', __('showBanner2InHeader'));
         $form->switch('showItemInFooter', __('show Product Item In Footer'));
         $form->switch('showOfferInFooter', __('showOfferInFooter'));
+        // $form->number('selectedItemIdForFooter', __('selectedItemIdForFooter'));
+        $form->select('selectedItemIdForFooter', 'selectedItemIdForFooter')->options(products::all()->pluck('title', 'id','image'));
         
         $form->ckeditor('designOfferInFooter')->options(['lang' => 'en', 'height' => 100, 'allowedContent' => true, 'extraAllowedContent' => 'div[*];','contentsCss' => '/css/frontend-body-content.css']);
 
