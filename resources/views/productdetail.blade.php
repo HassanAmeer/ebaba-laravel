@@ -509,8 +509,10 @@
 
         <ul class="nav-links">
           <li><a href="{{$baseUrl}}">Home</a></li>
-          <li><a href="{{ route('getAllProductsF') }}">All Products</a></li>
-          <li><a href="#"> Top Rated </a></li>
+          <li><a href="{{ route('allproducts') }}">All Products</a></li>
+          @if($settingsData['showItemInFooter'] == 1)
+          <li><a href="{{ route('details',[$settingsData['selectedItemIdForFooter']]) }}"> Top Rated </a></li>
+          @endif
           <li><a href="{{ route('contactUs') }}">Contact</a></li>
         </ul>
       </div>
@@ -521,17 +523,25 @@
           <i class='bx bx-sun sun'></i>
         </div> -->
 
+        <form action="{{ route('allproducts', '') }}" method="GET">
         <div class="searchBox">
           <div class="searchToggle">
             <i class='bx bx-x cancel'></i>
             <i class='bx bx-search search'></i>
           </div>
-
+          
           <div class="search-field">
-            <input type="text" placeholder="Search...">
-            <i class='bx bx-search'></i>
-          </div>
-        </div>
+            <!-- <input type="text" placeholder="Search...">
+            <i class='bx bx-search'></i> -->
+
+                <input type="text" name="q" placeholder="Search..." required>
+                <button style="background:transparent;outline:none;border:none;" type="submit">
+                    <i class='bx bx-search' style="transform:translateY(-50%);"></i>
+                </button>
+                
+              </div>
+            </div>
+          </form>
       </div>
     </div>
   </nav>
@@ -835,7 +845,11 @@
 
 
 
-
+    @if($singleProduct['isSoldOut'] ==1)
+    <div style="display:flex;flex-direction:row;">
+    <div style="color:silver; font-size:2.8rem; font-weight:bolder; font-family:Baskerville; align-items:center;" clsss="scaleAnimation shimmer"> Items Sold Out  </div> <b style="text-decoration: line-through;"> </b>
+    </div>
+    @else
 
       @if($singleProduct['showtDaysLeft'] == 1)
       <b style="padding-left: 0; font-size: 0.6rem;" class="shimmerVibrate">Hurry, {!! $singleProduct['daysLeft'] !!} days left!</b>
@@ -851,7 +865,7 @@
         <button class="btn btn-dark outlineBtnBlack addToCart toggleSidebarBtns shimmer" style="margin-left: 1rem; width: 100%; font-size: 0.6rem;" data-pid="{{$singleProduct['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$singleProduct['image']) }}" data-title="{{$singleProduct['title']}}" data-price="{{$singleProduct['price']}}" data-freeitem="{{ $singleProduct['isfreeAnyItemWithThis'] == 1 ? $singleProduct['freeItem'] : ''}}">Add To Cart </button>
         <button class="btn btn-dark buyNowBtn toggleSidebarBtns shimmer" style="margin-left: 1rem; width: 100%; font-size: 0.6rem; color:white;" data-pid="{{$singleProduct['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$singleProduct['image']) }}" data-title="{{$singleProduct['title']}}" data-price="{{$singleProduct['price']}}" data-freeitem="{{ $singleProduct['isfreeAnyItemWithThis'] == 1 ? $singleProduct['freeItem'] : ''}}"> Buy Now </button>
       </div>
-
+@endif
       <hr>
       @if($singleProduct['isfreeAnyItemWithThis'] == 1)
       {!! $singleProduct['freeItem'] !!}
@@ -1257,7 +1271,7 @@
             <div class="col" style="position: relative;" data-aos="fade-up" data-aos-duration="1500">
                 <div class="card product-card p-0">
                 <div style="position: relative;">
-                    <img src="{{ asset($baseUrl.'/uploads/'.$key['image']) }}" class="card-img-top" alt="Product Image">
+                    <a href="{{ route('details',[$key['id']]) }}"><img src="{{ asset($baseUrl.'/uploads/'.$key['image']) }}" class="card-img-top" alt="Product Image"></a>
                     <div class="salesDesignedArea">
                     
                     
@@ -1272,7 +1286,11 @@
                 {!! $key['designPriceForGridItems'] !!}
                 <div class="card-body p-0 d-flex flex-column align-items-center">
                     <div class="w-100">
+                    @if($key['isSoldOut'] ==1)
+                    <div style="color:silver;font-family:Baskerville; align-items:center;font-weight:900; " clsss="scaleAnimation shimmer">Item Sold Out</div>
+                    @else
                     <button class="btn rounded-3 btn-sm p-0 outlineBtnBlack buyNowBtn toggleSidebarBtns shimmer" style="width:70%;" data-pid="{{$key['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$key['image']) }}" data-title="{{$key['title']}}" data-price="{{$key['price']}}" data-freeitem="{{ $key['isfreeAnyItemWithThis'] == 1 ? $key['freeItem'] : ''}}">Buy Now</button>
+                    @endif
                     </div>
                 </div>
                 </div>

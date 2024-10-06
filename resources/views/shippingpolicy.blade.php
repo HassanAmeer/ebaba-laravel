@@ -509,8 +509,11 @@
 
         <ul class="nav-links">
           <li><a href="{{$baseUrl}}">Home</a></li>
-          <li><a href="{{ route('getAllProductsF') }}">All Products</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="{{ route('allproducts') }}">All Products</a></li>
+          @if($settingsData['showItemInFooter'] == 1)
+          <li><a href="{{ route('details',[$settingsData['selectedItemIdForFooter']]) }}"> Top Rated </a></li>
+          @endif
+          <li><a href="{{ route('contactUs') }}">Contact</a></li>
         </ul>
       </div>
 
@@ -520,17 +523,25 @@
           <i class='bx bx-sun sun'></i>
         </div> -->
 
+        <form action="{{ route('allproducts', '') }}" method="GET">
         <div class="searchBox">
           <div class="searchToggle">
             <i class='bx bx-x cancel'></i>
             <i class='bx bx-search search'></i>
           </div>
-
+          
           <div class="search-field">
-            <input type="text" placeholder="Search...">
-            <i class='bx bx-search'></i>
-          </div>
-        </div>
+            <!-- <input type="text" placeholder="Search...">
+            <i class='bx bx-search'></i> -->
+
+                <input type="text" name="q" placeholder="Search..." required>
+                <button style="background:transparent;outline:none;border:none;" type="submit">
+                    <i class='bx bx-search' style="transform:translateY(-50%);"></i>
+                </button>
+                
+              </div>
+            </div>
+          </form>
       </div>
     </div>
   </nav>

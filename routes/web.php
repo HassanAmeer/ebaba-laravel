@@ -35,7 +35,7 @@ use App\Http\Controllers\CkEditorUploadImageController;
 // });
 
 Route::get('/', [HomeController::class, 'getHomeDataF']); 
-Route::get('getAllProductsF', [GetAllProductsController::class, 'getAllProductsF'])->name('getAllProductsF');
+Route::get('allproducts/{q?}', [GetAllProductsController::class, 'getAllProductsF'])->name('allproducts');
 
 Route::get('contactUs', [ContactUsController::class, 'contactUsF'])->name('contactUs');
 Route::get('privacyPolicy', [privacyPolicyController::class, 'privacyPolicyF'])->name('privacyPolicy');
