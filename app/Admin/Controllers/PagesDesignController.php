@@ -6,7 +6,7 @@ use OpenAdmin\Admin\Controllers\AdminController;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Show;
-use \App\ModelsPagesDesign;
+use \App\Models\PagesDesign;
 
 class PagesDesignController extends AdminController
 {
@@ -15,7 +15,7 @@ class PagesDesignController extends AdminController
      *
      * @var string
      */
-    protected $title = 'ModelsPagesDesign';
+    protected $title = 'PagesDesign';
 
     /**
      * Make a grid builder.
@@ -24,7 +24,7 @@ class PagesDesignController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new ModelsPagesDesign());
+        $grid = new Grid(new PagesDesign());
 
         $grid->column('id', __('Id'));
         // $grid->column('privacyPolicy', __('PrivacyPolicy'));
@@ -70,7 +70,7 @@ class PagesDesignController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(ModelsPagesDesign::findOrFail($id));
+        $show = new Show(PagesDesign::findOrFail($id));
 
         $show->field('id', __('Id'));
         $show->field('privacyPolicy', __('Privacy Policy'));
@@ -91,7 +91,7 @@ class PagesDesignController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new ModelsPagesDesign());
+        $form = new Form(new PagesDesign());
 
         // $form->textarea('privacyPolicy', __('PrivacyPolicy'));
         // $form->textarea('returnPolicy', __('ReturnPolicy'));

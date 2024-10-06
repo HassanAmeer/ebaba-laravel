@@ -4,6 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userside\HomeController;
 use App\Http\Controllers\userside\OrdersController;
 use App\Http\Controllers\userside\productsReviews;
+use App\Http\Controllers\userside\GetAllProductsController;
+use App\Http\Controllers\userside\ContactUsController;
+use App\Http\Controllers\userside\privacyPolicyController;
+use App\Http\Controllers\userside\shippingPolicyController;
+use App\Http\Controllers\userside\returnPolicyController;
+use App\Http\Controllers\userside\termsConditionController;
+use App\Http\Controllers\userside\productDetailsController;
 use App\Http\Controllers\CkEditorUploadImageController;
 
 
@@ -28,6 +35,16 @@ use App\Http\Controllers\CkEditorUploadImageController;
 // });
 
 Route::get('/', [HomeController::class, 'getHomeDataF']); 
+Route::get('getAllProductsF', [GetAllProductsController::class, 'getAllProductsF'])->name('getAllProductsF');
+
+Route::get('contactUs', [ContactUsController::class, 'contactUsF'])->name('contactUs');
+Route::get('privacyPolicy', [privacyPolicyController::class, 'privacyPolicyF'])->name('privacyPolicy');
+Route::get('shippingPolicy', [shippingPolicyController::class, 'shippingPolicyF'])->name('shippingPolicy');
+Route::get('returnPolicy', [returnPolicyController::class, 'returnPolicyF'])->name('returnPolicy');
+Route::get('termsCondition', [termsConditionController::class, 'termsConditionF'])->name('termsCondition');
+
+Route::get('details/{id}', [productDetailsController::class, 'productDetailsF'])->name('details');
+
 Route::post('submit.order', [OrdersController::class, 'submitOrderF'])->name('submit.order');
 Route::post('submit.review', [productsReviews::class, 'productsReviewsF'])->name('submit.review');
 

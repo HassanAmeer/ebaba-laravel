@@ -510,9 +510,7 @@
         <ul class="nav-links">
           <li><a href="{{$baseUrl}}">Home</a></li>
           <li><a href="{{ route('getAllProductsF') }}">All Products</a></li>
-          @if($settingsData['showItemInFooter'] == 1)
-          <li><a href="{{ route('details',[$settingsData['selectedItemIdForFooter']]) }}"> Top Rated </a></li>
-          @endif
+          <li><a href="#"> Top Rated </a></li>
           <li><a href="{{ route('contactUs') }}">Contact</a></li>
         </ul>
       </div>
@@ -586,200 +584,546 @@
 
   </script>
 
-  <!-- bannerSlides slides start -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<hr>
+  <!--  -->
   <style>
-    /* For large screens (e.g., desktops) */
-    @media screen and (min-width: 1024px) {
-      .bannerSlides {
-        height: 70vh;
+    @media only screen and (max-width: 600px) {
+      .itemDetailBox {
+        flex-direction: column;
       }
 
-      .banner-design-outer {
-        width: 70%;
-        min-height: 600px;
-        min-width: 70rem;
-      }
-
-      .banner-design-inner {
-        height: 350px;
-        width: 30%;
-        min-width: 25rem;
-      }
-    }
-
-    /* For tablets or small landscape screens */
-    @media screen and (min-width: 600px) and (max-width: 1024px) {
-      .bannerSlides {
-        height: 55vh;
-      }
-
-      .banner-design-outer {
+      .itemDetailsAreaRight {
         width: 80%;
-        min-height: 400px;
-        min-width: 45rem;
       }
 
-      .banner-design-inner {
-        height: 250px;
-        width: 35%;
-        min-width: 15rem;
-
-      }
-    }
-
-    /* For mobile devices */
-    @media screen and (max-width: 600px) {
-      .bannerSlides {
-        height: 30vh;
-      }
-
-      .banner-design-outer {
+      .itemDetailImgAreaLeft {
         width: 90%;
-
-        min-width: 28rem;
-        min-height: 300px;
       }
 
-      .banner-design-inner {
-        height: 150px;
+      .itemImg {
+        width: 3rem;
+      }
+      #thumbnailImg{
+        min-height:12rem;
+      }
+    }
+
+    @media screen and (min-width: 600px) and (orientation: landscape) {
+      .itemDetailBox {
+        flex-direction: row;
+      }
+
+      .itemDetailsAreaRight {
+        width: 35%;
+      }
+
+      .itemDetailImgAreaLeft {
         width: 45%;
-        min-width: 10rem;
+      }
+
+      .itemImg {
+        width: 5rem;
+      }
+      #thumbnailImg{
+        min-height:20rem;
       }
     }
 
-    .bannerSlides {
-      position: relative;
-      overflow: hidden;
-      background-color: whitesmoke;
-      color: white;
-    }
+    .itemDetailsAreaRight {
+        position: relative;
+      }
 
-    .bannerSlides-content {
-      position: absolute;
-      width: 100%;
-      height: 100%;
+    /*  */
+    .itemDetailBox {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .active {
-      opacity: 1;
-    }
-
-    .navigation {
-      position: absolute;
-      top: 50%;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      transform: translateY(-50%);
-    }
-
-    .bannerSlidesItem {
-      position: relative;
-      width: 100%;
-      display: flex;
+      margin: auto;
+      width: auto;
       align-items: center;
       justify-content: center;
     }
 
-    .banner-design-outer {
-      width: 80%;
-      background-color: white;
-      /* position: relative; */
-      z-index: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      /* box-shadow: 5px 5px 10px #CCC; */
-    }
-
-    .banner-design-inner {
-      position: absolute;
-      top: 35%;
-      right: 2%;
-      background-color: white;
-      box-shadow: 5px 5px 10px #CCC;
-      display: flex;
+    .itemDetailImgAreaLeft {
       align-items: center;
       justify-content: center;
-      z-index: 15;
-      transform: translateY(0);
+    }
+
+
+    .itemImages {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      max-width: 100%;
+      height: 5rem;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+    }
+
+    .itemImg {
+      justify-content: center;
+      display: flex;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .sizeBtn{
+      background:none;
+      border:1px solid black;
+      border-radius:5px;
+      color:black;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    .sizeBtn:hover{
+      background:black;
+      color:white;
+
     }
   </style>
 
 
+@if($singleProduct != "no")
+  <div class="itemDetailBox">
 
-
-
-
-@if($settingsData['showBanner2InHeader'] == 1)
-  <div class="bannerSlides">
-@foreach($BannerDesign2List as $key)
-   @if($key['showInSlide'] == 1)
-    <div class="bannerSlides-content active" data-duration="{{ $key['duraion'] }}">
-      <div class="bannerSlidesItem">
+    <div class="itemDetailImgAreaLeft">
+      <div style="position: relative;">
         <center>
-        @if($key['showBgImageInBigArea'] == 1)
-          <div class="banner-design-outer" style=" opacity: {{$key['bigAreaOpacity'] }}; background-color: {{$key['bigAreaColor']}}; background-image:url('{{ asset($baseUrl.'/uploads/'.$key['bigAreaBgImage']) }}');">
-            @else 
-            <div class="banner-design-outer" style=" opacity: {{$key['bigAreaOpacity'] }}; background-color: {{$key['bigAreaColor']}};">
-            @endif
-            
-
-            @if($key['showContentInBigArea'] == 1)
-            {!! $key['bigAreaDesign'] !!}
-            @endif
-           
-            @if($key['showBgImageInSmallArea'] == 1)
-            <div class="banner-design-inner" style=" opacity: {{$key['smallAreaOpacity'] }}; background-color: {{$key['smallAreaColor']}}; display: flex; flex-direction: column;justify-content: center; background-image:url('{{ asset($baseUrl . '/uploads/' . $key['smallAreaBgImage']) }}');"> @else
-            <div class="banner-design-inner" style="opacity: {{$key['smallAreaOpacity'] }}; background-color: {{$key['smallAreaColor']}}; display: flex; flex-direction: column;justify-content: center;"> 
-            @endif
-
-              @if($key['showContentInSmallArea'] == 1)
-              {!!$key['smallAreaDesign']!!}
-              @endif
-              <div id="nextBanner" class="fas fa-chevron-right text-dark"
-                style="scale:1; padding: 1rem; border: 1px solid grey; border-radius: 30%;"></div>
-            </div>
-          </div>
+          <img src="{{ asset($baseUrl.'/uploads/'.$singleProduct['image']) }}" style="width: 60%;" class="card-img-top scaleAnimation" id="thumbnailImg" alt="Product Image">
         </center>
+        {!! $singleProduct['sale'] !!}
       </div>
-    </div>
-    @endif
-    @endforeach
-    
-    <div class="navigation">
-      <div class="prevBanner fas fa-chevron-left text-dark" style="scale: 3; padding: 3rem;"></div>
-    </div>
-  </div>
-  <!-- bannerSlides slides end -->
-  
-  <!-- imageSlides slides start -->
-  @elseif($settingsData['showBannerImagesOnlyInHead'] == 1)
-  <div class="bannerSlides">
-  @foreach($bannerImagesOnlyList as $key)
-      @if($key['showInSlide'] ==1)
-         <a href="{{$key['link']}}" target="_blank"><div class="bannerSlides-content" data-duration="{{ $key['duration'] }}">
-        <img src="{{ asset($baseUrl.'/uploads/'.$key['image']) }}" class=" d-block w-100" alt="...">
-        </div></a>
+      @if(!empty($singleProduct['images']) && is_array($singleProduct['images']) && count($singleProduct['images']) > 0)
+      <div class="itemImages">
+        <!-- <i class="fa fa-chevron-left preItemImgBtn" style="color: grey; font-size: x-large;"></i> -->
+        @foreach($singleProduct['images'] as $key)
+        <div style="padding:0.2rem;"><img class="itemImg" src="{{ asset($baseUrl.'/uploads/'.$key) }}" alt=""></div>
+        @endforeach
+        <!-- <i class="fa fa-chevron-right nextItemImgBtn" style="color: grey; font-size: x-large;"></i> -->
+      </div>
       @endif
-    @endforeach
+    </div>
 
-    <div class="navigation">
-      <div class="prevBanner fas fa-chevron-left text-dark" style="scale: 3; padding: 3rem;"></div>
-      <div class="nextBanner fas fa-chevron-right text-dark" style="scale:2; padding: 3rem;"></div>
+    <div class="itemDetailsAreaRight">
+      <h2 style="font-weight:bolder; font-family:Baskerville">      {{ $singleProduct['title'] }}      </h2>
+      <p style="color: black; opacity: 0.7;font-family:Courier New">100% Free Delivery</p>
+      <p style="color: grey; font-family:Fantasy">  <i class="fa fa-eye text-muted" style="opacity:0.5;"> </i> <b id="viewersCount" class="text-dark b" style="font-weight:900; letter-spacing:2px; font-family:Baskerville"> 13 </b> Persons View At This Time </p>
+      <br>
+
+
+
+      
+      <div id="designPriceSection">
+        {!! $singleProduct['designPriceForDetail'] !!}
+      </div>
+      
+ 
+
+      
+<div style="display: flex; flex-direction: row; justify-content: space-between;">
+      <div style="display: flex; flex-direction: row; justify-content: flex-start;">
+        @if(!empty($singleProduct->colorsVariationsF) && count($singleProduct->colorsVariationsF) > 0 && $singleProduct['showColorVariations'] == 1)
+            @foreach($singleProduct->colorsVariationsF as $variation)
+                <div style="padding: 5px;">
+                    <div class="productVariationsBoxBtn"
+                        data-productid="{{ $singleProduct['id'] }}"
+                        data-productcolorcode="{{ $variation->productColorCode }}"
+                        data-productimage="{{ asset($baseUrl.'/uploads/'.$variation->productImage) }}"
+                        data-productprice="{{ $variation->productPrice }}"
+                        style="border-radius: 10px; border: 1px solid silver; background-color: {{ $variation->productColorCode }};
+                              width: 2rem; height: 2rem; padding-right: 8px;">
+                    </div>
+                </div>
+            @endforeach
+        @endif
+        @if(!empty($singleProduct->sizeVariationsF) && count($singleProduct->sizeVariationsF) > 0 && $singleProduct['showSizeVariations'] == 1)
+            @foreach($singleProduct->sizeVariationsF as $variation)
+                <div style="padding: 5px;">
+                    <button class="productVariationsBoxBtn btn btn-sm sizeBtn"
+                        data-productid="{{ $singleProduct['id'] }}"
+                        data-productsize="{{ $variation->productSize }}"
+                        data-productprice="{{ $variation->productPrice }}"> {{ $variation->productSize }}
+                    </button>
+                </div>
+            @endforeach
+        @endif
+  </div>
+
+
+        <!-- for rating start -->
+
+      <style>
+        .ratingsShowOnlyOuter{
+          display:flex; flex-direction:row; direction: rtl; 
+        }
+        @media only screen and (max-width: 600px) {
+          #ratedText{
+          padding-right:0.1rem;
+          color:black; font-family:Courier New;
+          font-size:1.1rem;
+          }
+          .starv{
+            font-size:1rem;
+          }
+          }
+
+        @media screen and (min-width: 600px) and (orientation: landscape) {
+          #ratedText{
+          padding-right:1rem;
+          color:black; font-family:Courier New;
+          font-size:2rem;
+          }
+          .starv{
+            font-size:2rem;
+          }
+         }
+
+      </style>
+
+<div>     
+@php
+    $totalRating = 0; 
+    $ratingCount = 0; 
+@endphp
+
+@foreach($singleProduct->reviewsproductsf as $getRatings)
+    @if($getRatings->showThis == 1) 
+        @php
+            $totalRating += $getRatings->userRating; 
+            $ratingCount++; 
+        @endphp
+    @endif
+@endforeach
+
+@php
+    $averageRating = ($ratingCount > 0) ? ($totalRating / $ratingCount) : 0; 
+@endphp
+   <a href="#inputCommentSection" style="text-decoration:none;">
+   <div class="ratingsShowOnly shimmer" data-generaterating="{{$averageRating}}" style="width:100%; display:flex; flex-direction:row;justify-content:flex-end; align-items:end;">
+        <div id="ratedText">  </div>
+        <i class="starv">&#9733;</i>
+        <i class="starv">&#9733;</i>
+        <i class="starv">&#9733;</i>
+        <i class="starv">&#9733;</i>
+        <i class="starv">&#9733;</i>
+    </div>
+   </a>
+  </div>
+
+        <!-- for rating end -->
+    </div>
+
+
+
+      
+
+
+
+
+
+      @if($singleProduct['showtDaysLeft'] == 1)
+      <b style="padding-left: 0; font-size: 0.6rem;" class="shimmerVibrate">Hurry, {!! $singleProduct['daysLeft'] !!} days left!</b>
+      @endif
+
+      <!-- shiping tax -->
+      <div class="mb-0" style="display: flex; flex-direction: row; justify-content: start;align-items: center;">
+        <button class="btn btn-sm btn-light quantityDecFromDetail" data-pid="{{$singleProduct['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$singleProduct['image']) }}"
+        data-title="{{$singleProduct['title']}}" data-price="{{$singleProduct['price']}}" data-freeitem="{{ $singleProduct['isfreeAnyItemWithThis'] == 1 ? $singleProduct['freeItem'] : ''}}">-</button>
+        <b style="padding-left:1rem; padding-right:1rem;" class="globalItemQuantityIs"> 1 </b>
+        <button class="btn btn-sm btn-light quantityIncFromDetail" data-pid="{{$singleProduct['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$singleProduct['image']) }}"
+        data-title="{{$singleProduct['title']}}" data-price="{{$singleProduct['price']}}" data-freeitem="{{ $singleProduct['isfreeAnyItemWithThis'] == 1 ? $singleProduct['freeItem'] : ''}}">+</button>
+        <button class="btn btn-dark outlineBtnBlack addToCart toggleSidebarBtns shimmer" style="margin-left: 1rem; width: 100%; font-size: 0.6rem;" data-pid="{{$singleProduct['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$singleProduct['image']) }}" data-title="{{$singleProduct['title']}}" data-price="{{$singleProduct['price']}}" data-freeitem="{{ $singleProduct['isfreeAnyItemWithThis'] == 1 ? $singleProduct['freeItem'] : ''}}">Add To Cart </button>
+        <button class="btn btn-dark buyNowBtn toggleSidebarBtns shimmer" style="margin-left: 1rem; width: 100%; font-size: 0.6rem; color:white;" data-pid="{{$singleProduct['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$singleProduct['image']) }}" data-title="{{$singleProduct['title']}}" data-price="{{$singleProduct['price']}}" data-freeitem="{{ $singleProduct['isfreeAnyItemWithThis'] == 1 ? $singleProduct['freeItem'] : ''}}"> Buy Now </button>
+      </div>
+
+      <hr>
+      @if($singleProduct['isfreeAnyItemWithThis'] == 1)
+      {!! $singleProduct['freeItem'] !!}
+      @endif
+      
+      <p style="color: grey;font-family:serif" class="shimmer" id="deliveryEstimate">Estimated delivery between Monday 07 October to Thursday 10 October.</p>
+
+
+      <style>
+    .share-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .share-icons a:hover {
+        color: black; 
+        scale:1.5;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .share-icons a {
+        margin-left: 5px;
+        color: grey;
+        text-decoration: none;
+        font-size: 0.8rem;
+        transition: color 0.7s ease, color 0.5s ease; 
+    }
+    #shareText,#ratingRightsubtitle{
+      font-size:1rem;
+      font-family:Courier;
+    }
+    }
+
+    @media screen and (min-width: 600px) and (orientation: landscape) {
+      .share-icons a {
+        margin-left: 10px;
+        color: grey;
+        text-decoration: none;
+        font-size: 1.2rem;
+        transition: color 0.7s ease, color 0.5s ease; 
+    }
+    #shareText,#ratingRightsubtitle{
+      font-size:1rem;
+      font-family:Courier;
+    }
+
+    }
+
+
+</style>
+
+      <div class="share-container">
+      <div class="share-icons" style="font-family:Courier New; display:flex; flex-direction:row; align-items:center;">
+        <div id="shareText">Share: </div>
+        <a href="https://wa.me/?text={{ route('details',[$singleProduct['id']]) }}" class="fab fa-whatsapp" target="_blank"></a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ route('details',[$singleProduct['id']]) }}" class="fab fa-facebook" target="_blank"></a>
+        <a href="https://www.instagram.com/?url={{ route('details',[$singleProduct['id']]) }}" class="fab fa-instagram" target="_blank"></a>
+        <a href="https://twitter.com/share?url={{ route('details',[$singleProduct['id']]) }}&text={{ route('details',[$singleProduct['title']]) }}" class="fab fa-twitter" target="_blank"></a>
+        <a href="https://pinterest.com/pin/create/button/?url={{ route('details',[$singleProduct['id']]) }}&media=&description={{ route('details',[$singleProduct['shortDesc']]) }}" class="fab fa-pinterest" target="_blank"></a>
+        <a href="mailto:?subject={{ route('details',[$singleProduct['id']]) }}&body={{ route('details',[$singleProduct['title']]) }}" class="fa fa-envelope" target="_blank"></a>
+    </div>
+    <span id="ratingRightsubtitle">Chance to win!</span>
+</div>
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      @if($singleProduct['showStock'] == 1)
+      {!! $singleProduct['stock'] !!}
+      @endif
+
+
+
+
     </div>
   </div>
+
+  <div style="padding:4%; position:relative;">
+   {!! $singleProduct['description'] !!}</div>
+
   @endif
-  <!-- imageSlides slides end -->
 
 
 
 
+
+
+  <style>
+       /* * {
+            font-family: "Courier New", Courier, monospace;
+        } */
+  .clasificacion {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+    cursor: pointer;
+  }
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  label {
+    color: silver;
+  }
+
+  label:hover,
+  label:hover ~ label {
+    color: black;
+  }
+
+  input[type="radio"]:checked ~ label {
+    color: black;
+  }
+
+  .ratingSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  #inputCommentSection, #useerCommentsSection {
+    width: 48%;
+  }
+
+  #inputCommentSection textarea,
+  #inputCommentSection input[type="email"],
+  #inputCommentSection input[type="name"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+
+  .btn-outline-dark {
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    margin-top: 10px;
+    transition: 0.3s ease;
+  }
+
+  .btn-outline-dark:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+  }
+
+  .fa-user {
+    padding-right: 10px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .ratingSection {
+      flex-direction: column;
+      padding:3%;
+    }
+
+    #inputCommentSection,
+    #useerCommentsSection {
+      width: 100%;
+    }
+    .clasificacion{
+      font-size:2rem;
+    }
+    .commentImg{
+      width:2rem; height:2rem; position:absolute; right:0; top:0.5rem; border-radius:8px; background:silver; opacity:0.5;
+    }
+  }
+
+  @media screen and (min-width: 600px) and (orientation: landscape) {
+    .ratingSection {
+      flex-direction: row;
+      padding:4%;
+
+    }
+
+    #inputCommentSection,
+    #useerCommentsSection {
+      width: 45%;
+    }
+    .clasificacion{
+      font-size:3rem;
+    }
+    .commentImg{
+      width:3rem; height:3rem; position:absolute; right:0; top:1rem; border-radius:8px; background:silver; opacity:0.5;
+    }
+  }
+  .commentImg:hover{
+    top:0rem;
+     opacity:0.9;
+     scale:1.5;
+  }
+</style>
+
+@if($singleProduct['allowReviews'] ==1)
+<div class="ratingSection">
+  <div id="inputCommentSection">
+    <div style="display: flex; flex-direction: row; align-items:center; width :100% justify-content: space-between;">
+      <!-- <strong style="width:25%;">Add Comments</strong> -->
+      <h4 style="width:50%;font-weight:bold;">Add Comment</h4>
+    
+        <div class="clasificacion" style="">
+          <input id="radio1" type="radio" name="estrellas" value="5"><label for="radio1">&#9733;</label>
+          <input id="radio2" type="radio" name="estrellas" value="4"><label for="radio2">&#9733;</label>
+          <input id="radio3" type="radio" name="estrellas" value="3"><label for="radio3">&#9733;</label>
+          <input id="radio4" type="radio" name="estrellas" value="2"><label for="radio4">&#9733;</label>
+          <input id="radio5" type="radio" name="estrellas" value="1"><label for="radio5">&#9733;</label>
+        </div>
+    </div>
+    <input id="productidforratinginouthidden" value="{{$singleProduct['id']}}" type="hidden">
+    <textarea id="ratingcommenttextinput" id="" rows="7" placeholder="Write your comment here..." style="outline:none !important;"></textarea>
+    <input id="ratinguseremailphoneinput" placeholder="Phone Number Or Email" style="outline:none !important;" type="email">
+    <input id="ratingusername" type="name" name="ratingusername" placeholder="Enter your name" style="outline:none !important;">
+    <input id="ratingImg" type="file" name="ratingImg" placeholder="Image Optional" style="outline:none !important; color:black;">
+    <button class="btn btn-outline-dark w-100 addCommentBtn">Add Comment</button>
+  </div>
+
+  
+
+    <div id="useerCommentsSection" style="display: flex; flex-direction: column; padding-top:0.5rem;">
+    @if($singleProduct['reviewsproductsf'] && $singleProduct['reviewsproductsf']->isNotEmpty())
+    @foreach($singleProduct['reviewsproductsf'] as $commentsOfUsers)
+    @if($commentsOfUsers['showThis'] ==1)
+        <div style="position:relative;">
+            <div style="display: flex; flex-direction: row; align-items:center;">
+                <center>
+                    <div style="border-radius:28px; border:1px solid black; padding:2px">
+                        <i class="fa fa-user text-dark p-2"></i>
+                    </div>
+                </center>
+                <strong style="padding-left:1rem;">{{ $commentsOfUsers->userName }}</strong>
+            </div>
+            <p style="color:grey; font-family:Courier New;padding-top:6px; border-bottom:0.1px solid silver;">
+                {{ $commentsOfUsers->userComment }}
+            </p>
+            @if(!empty($commentsOfUsers->userUploadedImage))
+                <a href="{{ asset('uploads/'.$commentsOfUsers->userUploadedImage) }}" target="_blank"><img src="{{ asset('uploads/'.$commentsOfUsers->userUploadedImage) }}" class="commentImg" alt="User Uploaded Image" /></a>
+            @endif
+        </div>
+        @endif
+    @endforeach
+    @else
+        <p>No reviews available.</p>
+    @endif   
+  </div>
+</div>
+@endif   
+
+<hr>
 
 
   <!-- Products Section -->
@@ -906,576 +1250,39 @@
   </style>
 
   <section class="container my-5">
-    <h1 class="text-center mb-4 colored-character" style="font-family:Cursive">Products</h1>
+    <h1 class="text-center mb-4 colored-character" style="font-family:Cursive">Related Products</h1>
     <div class="product-row row row-cols-1 row-cols-sm-3 row-cols-md-4 g-4">
 
-    @foreach($productsList as $key)
-      
-     <div class="col" style="position: relative;" data-aos="fade-up" data-aos-duration="1500">
-        <div class="card product-card p-0">
-          <div style="position: relative;">
-           <a href="{{ route('details', [$key['id']]) }}"> <img src="{{ asset($baseUrl.'/uploads/'.$key['image']) }}" class="card-img-top" alt="Product Image"> </a>
-            <div class="salesDesignedArea">
-              {!! $key['sale'] !!}
-            </div>
-          </div>
-            <center>
-            <b class="card-title itemTitle p-0">{{$key['title']}}</b>
-            </center>
-          {!! $key['designPriceForGridItems'] !!}
-          <div class="card-body p-0 d-flex flex-column align-items-center">
-            <div class="w-100">
-            <button class="btn rounded-3 btn-sm p-0 outlineBtnBlack buyNowBtn toggleSidebarBtns shimmer" style="width:70%;" data-pid="{{$key['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$key['image']) }}" data-title="{{$key['title']}}" data-price="{{$key['price']}}" data-freeitem="{{ $key['isfreeAnyItemWithThis'] == 1 ? $key['freeItem'] : ''}}">Buy Now</button>
-            </div>
-          </div>
-        </div>
-      </div>
+            @foreach($productsList as $key)
+            <div class="col" style="position: relative;" data-aos="fade-up" data-aos-duration="1500">
+                <div class="card product-card p-0">
+                <div style="position: relative;">
+                    <img src="{{ asset($baseUrl.'/uploads/'.$key['image']) }}" class="card-img-top" alt="Product Image">
+                    <div class="salesDesignedArea">
+                    
+                    
+                    <!-- <div style="position: absolute; z-index: 1; top:5px; left: 7px; box-shadow: 2px 2px 2px white; border-radius: 7px;"> <div style="background-color: rgba(0, 138, 78, 0.709); border-radius: 7px;"> <b style="color: white; padding: 3px;"> Save 50% </b>  </div> </div> -->
 
-    @endforeach
-      <!-- Repeat similar blocks for other products -->
+                    {!! $key['sale'] !!}
+                    </div>
+                </div>
+                    <center>
+                    <b class="card-title itemTitle p-0">{{$key['title']}}</b>
+                    </center>
+                {!! $key['designPriceForGridItems'] !!}
+                <div class="card-body p-0 d-flex flex-column align-items-center">
+                    <div class="w-100">
+                    <button class="btn rounded-3 btn-sm p-0 outlineBtnBlack buyNowBtn toggleSidebarBtns shimmer" style="width:70%;" data-pid="{{$key['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$key['image']) }}" data-title="{{$key['title']}}" data-price="{{$key['price']}}" data-freeitem="{{ $key['isfreeAnyItemWithThis'] == 1 ? $key['freeItem'] : ''}}">Buy Now</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+        @endforeach
+        
+        <!-- Repeat similar blocks for other products -->
     </div>
   </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <!--  -->
-  <style>
-    @media only screen and (max-width: 600px) {
-      .itemDetailBox {
-        flex-direction: column;
-      }
-
-      .itemDetailsAreaRight {
-        width: 80%;
-      }
-
-      .itemDetailImgAreaLeft {
-        width: 90%;
-      }
-
-      .itemImg {
-        width: 3rem;
-      }
-      #thumbnailImg{
-        min-height:12rem;
-      }
-    }
-
-    @media screen and (min-width: 600px) and (orientation: landscape) {
-      .itemDetailBox {
-        flex-direction: row;
-      }
-
-      .itemDetailsAreaRight {
-        width: 35%;
-      }
-
-      .itemDetailImgAreaLeft {
-        width: 45%;
-      }
-
-      .itemImg {
-        width: 5rem;
-      }
-      #thumbnailImg{
-        min-height:20rem;
-      }
-    }
-
-    .itemDetailsAreaRight {
-        position: relative;
-      }
-
-    /*  */
-    .itemDetailBox {
-      display: flex;
-      margin: auto;
-      width: auto;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .itemDetailImgAreaLeft {
-      align-items: center;
-      justify-content: center;
-    }
-
-
-    .itemImages {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      align-items: center;
-      width: 100%;
-      max-width: 100%;
-      height: 5rem;
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-    }
-
-    .itemImg {
-      justify-content: center;
-      display: flex;
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-
-    .sizeBtn{
-      background:none;
-      border:1px solid black;
-      border-radius:5px;
-      color:black;
-      outline: none !important;
-      box-shadow: none !important;
-    }
-    .sizeBtn:hover{
-      background:black;
-      color:white;
-
-    }
-  </style>
-
-
-@if(!empty($productsList) && count($productsList) > 0 && isset($productsList[$settingsData['selectedItemIdForFooter'] - 1]))
-        @php
-        $filterdIdIs = $settingsData['selectedItemIdForFooter'];
-        $filterItem = $productsList[$filterdIdIs-1];
-        @endphp
-  <div class="itemDetailBox">
-
-    <div class="itemDetailImgAreaLeft">
-      <div style="position: relative;">
-        <center>
-          <img src="{{ asset($baseUrl.'/uploads/'.$filterItem['image']) }}" style="width: 60%;" class="card-img-top scaleAnimation" id="thumbnailImg" alt="Product Image">
-        </center>
-        {!! $filterItem['sale'] !!}
-      </div>
-      @if(!empty($filterItem['images']) && is_array($filterItem['images']) && count($filterItem['images']) > 0)
-      <div class="itemImages">
-        <!-- <i class="fa fa-chevron-left preItemImgBtn" style="color: grey; font-size: x-large;"></i> -->
-        @foreach($filterItem['images'] as $key)
-        <div style="padding:0.2rem;"><img class="itemImg" src="{{ asset($baseUrl.'/uploads/'.$key) }}" alt=""></div>
-        @endforeach
-        <!-- <i class="fa fa-chevron-right nextItemImgBtn" style="color: grey; font-size: x-large;"></i> -->
-      </div>
-      @endif
-    </div>
-
-    <div class="itemDetailsAreaRight">
-      <h2 style="font-weight:bolder; font-family:Baskerville">      {{ $filterItem['title'] }}      </h2>
-      <p style="color: black; opacity: 0.7;font-family:Courier New">100% Free Delivery</p>
-      <p style="color: grey; font-family:Fantasy">  <i class="fa fa-eye text-muted" style="opacity:0.5;"> </i> <b id="viewersCount" class="text-dark b" style="font-weight:900; letter-spacing:2px; font-family:Baskerville"> 13 </b> Persons View At This Time </p>
-      <br>
-
-
-
-      
-      <div id="designPriceSection">
-        {!! $filterItem['designPriceForDetail'] !!}
-      </div>
-      
- 
-
-      
-<div style="display: flex; flex-direction: row; justify-content: space-between;">
-      <div style="display: flex; flex-direction: row; justify-content: flex-start;">
-        @if(!empty($filterItem->colorsVariationsF) && count($filterItem->colorsVariationsF) > 0 && $filterItem['showColorVariations'] == 1)
-            @foreach($filterItem->colorsVariationsF as $variation)
-                <div style="padding: 5px;">
-                    <div class="productVariationsBoxBtn"
-                        data-productid="{{ $filterItem['id'] }}"
-                        data-productcolorcode="{{ $variation->productColorCode }}"
-                        data-productimage="{{ asset($baseUrl.'/uploads/'.$variation->productImage) }}"
-                        data-productprice="{{ $variation->productPrice }}"
-                        style="border-radius: 10px; border: 1px solid silver; background-color: {{ $variation->productColorCode }};
-                              width: 2rem; height: 2rem; padding-right: 8px;">
-                    </div>
-                </div>
-            @endforeach
-        @endif
-        @if(!empty($filterItem->sizeVariationsF) && count($filterItem->sizeVariationsF) > 0 && $filterItem['showSizeVariations'] == 1)
-            @foreach($filterItem->sizeVariationsF as $variation)
-                <div style="padding: 5px;">
-                    <button class="productVariationsBoxBtn btn btn-sm sizeBtn"
-                        data-productid="{{ $filterItem['id'] }}"
-                        data-productsize="{{ $variation->productSize }}"
-                        data-productprice="{{ $variation->productPrice }}"> {{ $variation->productSize }}
-                    </button>
-                </div>
-            @endforeach
-        @endif
-  </div>
-
-
-        <!-- for rating start -->
-
-      <style>
-        .ratingsShowOnlyOuter{
-          display:flex; flex-direction:row; direction: rtl; 
-        }
-        @media only screen and (max-width: 600px) {
-          #ratedText{
-          padding-right:0.1rem;
-          color:black; font-family:Courier New;
-          font-size:1.1rem;
-          }
-          .starv{
-            font-size:1rem;
-          }
-          }
-
-        @media screen and (min-width: 600px) and (orientation: landscape) {
-          #ratedText{
-          padding-right:1rem;
-          color:black; font-family:Courier New;
-          font-size:2rem;
-          }
-          .starv{
-            font-size:2rem;
-          }
-         }
-
-      </style>
-
-<div>     
-@php
-    $totalRating = 0; 
-    $ratingCount = 0; 
-@endphp
-
-@foreach($filterItem->reviewsproductsf as $getRatings)
-    @if($getRatings->showThis == 1) 
-        @php
-            $totalRating += $getRatings->userRating; 
-            $ratingCount++; 
-        @endphp
-    @endif
-@endforeach
-
-@php
-    $averageRating = ($ratingCount > 0) ? ($totalRating / $ratingCount) : 0; 
-@endphp
-   <a href="#inputCommentSection" style="text-decoration:none;">
-   <div class="ratingsShowOnly shimmer" data-generaterating="{{$averageRating}}" style="width:100%; display:flex; flex-direction:row;justify-content:flex-end; align-items:end;">
-        <div id="ratedText">  </div>
-        <i class="starv">&#9733;</i>
-        <i class="starv">&#9733;</i>
-        <i class="starv">&#9733;</i>
-        <i class="starv">&#9733;</i>
-        <i class="starv">&#9733;</i>
-    </div>
-   </a>
-  </div>
-
-        <!-- for rating end -->
-    </div>
-
-
-
-      
-
-
-
-
-
-      @if($filterItem['showtDaysLeft'] == 1)
-      <b style="padding-left: 0; font-size: 0.6rem;" class="shimmerVibrate">Hurry, {!! $filterItem['daysLeft'] !!} days left!</b>
-      @endif
-
-      <!-- shiping tax -->
-      <div class="mb-0" style="display: flex; flex-direction: row; justify-content: start;align-items: center;">
-        <button class="btn btn-sm btn-light quantityDecFromDetail" data-pid="{{$filterItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$filterItem['image']) }}"
-        data-title="{{$filterItem['title']}}" data-price="{{$filterItem['price']}}" data-freeitem="{{ $filterItem['isfreeAnyItemWithThis'] == 1 ? $filterItem['freeItem'] : ''}}">-</button>
-        <b style="padding-left:1rem; padding-right:1rem;" class="globalItemQuantityIs"> 1 </b>
-        <button class="btn btn-sm btn-light quantityIncFromDetail" data-pid="{{$filterItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$filterItem['image']) }}"
-        data-title="{{$filterItem['title']}}" data-price="{{$filterItem['price']}}" data-freeitem="{{ $filterItem['isfreeAnyItemWithThis'] == 1 ? $filterItem['freeItem'] : ''}}">+</button>
-        <button class="btn btn-dark outlineBtnBlack addToCart toggleSidebarBtns shimmer" style="margin-left: 1rem; width: 100%; font-size: 0.6rem;" data-pid="{{$filterItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$filterItem['image']) }}" data-title="{{$filterItem['title']}}" data-price="{{$filterItem['price']}}" data-freeitem="{{ $filterItem['isfreeAnyItemWithThis'] == 1 ? $filterItem['freeItem'] : ''}}">Add To Cart </button>
-        <button class="btn btn-dark buyNowBtn toggleSidebarBtns shimmer" style="margin-left: 1rem; width: 100%; font-size: 0.6rem; color:white;" data-pid="{{$filterItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$filterItem['image']) }}" data-title="{{$filterItem['title']}}" data-price="{{$filterItem['price']}}" data-freeitem="{{ $filterItem['isfreeAnyItemWithThis'] == 1 ? $filterItem['freeItem'] : ''}}"> Buy Now </button>
-      </div>
-
-      <hr>
-      @if($filterItem['isfreeAnyItemWithThis'] == 1)
-      {!! $filterItem['freeItem'] !!}
-      @endif
-      
-      <p style="color: grey;font-family:serif" class="shimmer" id="deliveryEstimate">Estimated delivery between Monday 07 October to Thursday 10 October.</p>
-
-
-      <style>
-    .share-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .share-icons a:hover {
-        color: black; 
-        scale:1.5;
-    }
-
-    @media only screen and (max-width: 600px) {
-      .share-icons a {
-        margin-left: 5px;
-        color: grey;
-        text-decoration: none;
-        font-size: 0.8rem;
-        transition: color 0.7s ease, color 0.5s ease; 
-    }
-    #shareText,#ratingRightsubtitle{
-      font-size:1rem;
-      font-family:Courier;
-    }
-    }
-
-    @media screen and (min-width: 600px) and (orientation: landscape) {
-      .share-icons a {
-        margin-left: 10px;
-        color: grey;
-        text-decoration: none;
-        font-size: 1.2rem;
-        transition: color 0.7s ease, color 0.5s ease; 
-    }
-    #shareText,#ratingRightsubtitle{
-      font-size:1rem;
-      font-family:Courier;
-    }
-
-    }
-
-
-</style>
-
-      <div class="share-container">
-    <div class="share-icons" style="font-family:Courier New; display:flex; flex-direction:row; align-items:center;">
-        <div id="shareText">Share: </div>
-        <a href="https://wa.me/?text={{ route('details',[$filterItem['id']]) }}" class="fab fa-whatsapp" target="_blank"></a>
-        <a href="https://www.facebook.com/sharer/sharer.php?u={{ route('details',[$filterItem['id']]) }}" class="fab fa-facebook" target="_blank"></a>
-        <a href="https://www.instagram.com/?url={{ route('details',[$filterItem['id']]) }}" class="fab fa-instagram" target="_blank"></a>
-        <a href="https://twitter.com/share?url={{ route('details',[$filterItem['id']]) }}&text={{ route('details',[$filterItem['title']]) }}" class="fab fa-twitter" target="_blank"></a>
-        <a href="https://pinterest.com/pin/create/button/?url={{ route('details',[$filterItem['id']]) }}&media=&description={{ route('details',[$filterItem['shortDesc']]) }}" class="fab fa-pinterest" target="_blank"></a>
-        <a href="mailto:?subject={{ route('details',[$filterItem['id']]) }}&body={{ route('details',[$filterItem['title']]) }}" class="fa fa-envelope" target="_blank"></a>
-    </div>
-    <span id="ratingRightsubtitle">Chance to win!</span>
-</div>
-     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      @if($filterItem['showStock'] == 1)
-      {!! $filterItem['stock'] !!}
-      @endif
-
-
-
-
-    </div>
-  </div>
-
-  <div style="padding:4%; position:relative;">
-   {!! $filterItem['description'] !!}</div>
-
-  @endif
-
-
-
-
-
-
-  <style>
-       /* * {
-            font-family: "Courier New", Courier, monospace;
-        } */
-  .clasificacion {
-    direction: rtl;
-    unicode-bidi: bidi-override;
-    cursor: pointer;
-  }
-
-  input[type="radio"] {
-    display: none;
-  }
-
-  label {
-    color: silver;
-  }
-
-  label:hover,
-  label:hover ~ label {
-    color: black;
-  }
-
-  input[type="radio"]:checked ~ label {
-    color: black;
-  }
-
-  .ratingSection {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  #inputCommentSection, #useerCommentsSection {
-    width: 48%;
-  }
-
-  #inputCommentSection textarea,
-  #inputCommentSection input[type="email"],
-  #inputCommentSection input[type="name"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid black;
-    border-radius: 5px;
-  }
-
-  .btn-outline-dark {
-    background-color: black;
-    color: white;
-    border: 1px solid white;
-    margin-top: 10px;
-    transition: 0.3s ease;
-  }
-
-  .btn-outline-dark:hover {
-    background-color: white;
-    color: black;
-    border: 1px solid black;
-  }
-
-  .fa-user {
-    padding-right: 10px;
-  }
-
-  @media only screen and (max-width: 600px) {
-    .ratingSection {
-      flex-direction: column;
-      padding:3%;
-    }
-
-    #inputCommentSection,
-    #useerCommentsSection {
-      width: 100%;
-    }
-    .clasificacion{
-      font-size:2rem;
-    }
-    .commentImg{
-      width:2rem; height:2rem; position:absolute; right:0; top:0.5rem; border-radius:8px; background:silver; opacity:0.5;
-    }
-  }
-
-  @media screen and (min-width: 600px) and (orientation: landscape) {
-    .ratingSection {
-      flex-direction: row;
-      padding:4%;
-
-    }
-
-    #inputCommentSection,
-    #useerCommentsSection {
-      width: 45%;
-    }
-    .clasificacion{
-      font-size:3rem;
-    }
-    .commentImg{
-      width:3rem; height:3rem; position:absolute; right:0; top:1rem; border-radius:8px; background:silver; opacity:0.5;
-    }
-  }
-  .commentImg:hover{
-    top:0rem;
-     opacity:0.9;
-     scale:1.5;
-  }
-</style>
-
-@if($filterItem['allowReviews'] ==1)
-<div class="ratingSection">
-  <div id="inputCommentSection">
-    <div style="display: flex; flex-direction: row; align-items:center; width :100% justify-content: space-between;">
-      <!-- <strong style="width:25%;">Add Comments</strong> -->
-      <h4 style="width:50%;font-weight:bold;">Add Comment</h4>
-    
-        <div class="clasificacion" style="">
-          <input id="radio1" type="radio" name="estrellas" value="5"><label for="radio1">&#9733;</label>
-          <input id="radio2" type="radio" name="estrellas" value="4"><label for="radio2">&#9733;</label>
-          <input id="radio3" type="radio" name="estrellas" value="3"><label for="radio3">&#9733;</label>
-          <input id="radio4" type="radio" name="estrellas" value="2"><label for="radio4">&#9733;</label>
-          <input id="radio5" type="radio" name="estrellas" value="1"><label for="radio5">&#9733;</label>
-        </div>
-    </div>
-    <input id="productidforratinginouthidden" value="{{$filterItem['id']}}" type="hidden">
-    <textarea id="ratingcommenttextinput" id="" rows="7" placeholder="Write your comment here..." style="outline:none !important;"></textarea>
-    <input id="ratinguseremailphoneinput" placeholder="Phone Number Or Email" style="outline:none !important;" type="email">
-    <input id="ratingusername" type="name" name="ratingusername" placeholder="Enter your name" style="outline:none !important;">
-    <input id="ratingImg" type="file" name="ratingImg" placeholder="Image Optional" style="outline:none !important; color:black;">
-    <button class="btn btn-outline-dark w-100 addCommentBtn">Add Comment</button>
-  </div>
-
-  
-
-    <div id="useerCommentsSection" style="display: flex; flex-direction: column; padding-top:0.5rem;">
-    @if($filterItem['reviewsproductsf'] && $filterItem['reviewsproductsf']->isNotEmpty())
-    @foreach($filterItem['reviewsproductsf'] as $commentsOfUsers)
-    @if($commentsOfUsers['showThis'] ==1)
-        <div style="position:relative;">
-            <div style="display: flex; flex-direction: row; align-items:center;">
-                <center>
-                    <div style="border-radius:28px; border:1px solid black; padding:2px">
-                        <i class="fa fa-user text-dark p-2"></i>
-                    </div>
-                </center>
-                <strong style="padding-left:1rem;">{{ $commentsOfUsers->userName }}</strong>
-            </div>
-            <p style="color:grey; font-family:Courier New;padding-top:6px; border-bottom:0.1px solid silver;">
-                {{ $commentsOfUsers->userComment }}
-            </p>
-            @if(!empty($commentsOfUsers->userUploadedImage))
-                <a href="{{ asset('uploads/'.$commentsOfUsers->userUploadedImage) }}" target="_blank"><img src="{{ asset('uploads/'.$commentsOfUsers->userUploadedImage) }}" class="commentImg" alt="User Uploaded Image" /></a>
-            @endif
-        </div>
-        @endif
-    @endforeach
-    @else
-        <p>No reviews available.</p>
-    @endif   
-  </div>
-</div>
-@endif   
-
 
 
 
@@ -2592,7 +2399,7 @@
         // for show changes
         $('#thumbnailImg').attr('src', productimage);
         $('#designPriceSection').append(`
-            <div class="scaleAnimation shimmerVibrate" style="width: 7rem; height: 7rem; background-image: url('{{$baseUrl}}/assets/bgsale.png'); background-size: cover; background-position: center; border-radius: 10rem; overflow: hidden; position: absolute; top:0;right:0; display: flex; flex-direction: column; justify-content: center;">
+            <div class="scaleAnimation shimmerVibrate" style="width: 7rem; height: 7rem; background-image: url('http://127.0.0.1:8000/assets/bgsale.png'); background-size: cover; background-position: center; border-radius: 10rem; overflow: hidden; position: absolute; top:0;right:0; display: flex; flex-direction: column; justify-content: center;">
             <br>
             <h5 style="text-align: center;">
             <div style="color:silver; scale:0.8;"> Rs </div>

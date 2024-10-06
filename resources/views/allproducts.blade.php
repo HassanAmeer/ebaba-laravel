@@ -24,7 +24,21 @@
 
 <body>
 <style>
+.red-serif {
+  font-family: "Times New Roman", Times, serif; 
+            color: black; 
+            text-shadow: 1px 1px 0 red, 
+                         -1px -1px 0 red,
+                         -1px 1px 0 red,
+                         1px -1px 0 red; 
+}
 
+.colored-character {
+            font-family: "Times New Roman", Times, serif;
+            background: linear-gradient(to top, indigo 40%, black 50%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; 
+        }
 .shimmer {
             color: #333;
             position: relative;
@@ -189,7 +203,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
     * {
-      font-family: 'Poppins', sans-serif;
+      /* font-family: 'Poppins', sans-serif; */
       transition: all 0.4s ease;
     }
 
@@ -199,25 +213,28 @@
       --body-color: F4F7F9;
       /* --body-color: #E4E9F7; */
       --nav-color: white;
-      --search-border: rgb(194, 215, 194);
-      --side-nav: #010718;
+      /* --search-border: rgb(194, 215, 194); */
+      --search-border: black;
+      --search-text: black;
+      --search-bg: black;
+      --side-nav: black;
       --text-color: black;
       --search-bar: black;
       --search-text: white;
     }
 
-    body {
+    /* body {
       height: 100vh;
       background-color: var(--body-color);
-    }
+    } */
 
-    body.dark {
+    /* body.dark {
       --body-color: #18191A;
       --nav-color: #242526;
       --side-nav: #242526;
       --text-color: #CCC;
       --search-bar: #242526;
-    }
+    } */
 
     nav {
       position: relative;
@@ -268,7 +285,7 @@
 
     .nav-bar .nav-links {
       display: flex;
-      align-items: center;
+      align-items: start;
     }
 
     .nav-bar .nav-links li {
@@ -432,18 +449,17 @@
 
       .menu {
         position: fixed;
-        height: 100%;
-        width: 320px;
+        height: 100;
+        width: 200px;
         left: -100%;
         top: 0;
-        padding: 20px;
         background-color: var(--side-nav);
-        z-index: 100;
+        z-index: 999;
         transition: all 0.4s ease;
       }
 
       nav.active .menu {
-        left: -0%;
+        left: 0%;
       }
 
       nav.active .nav-bar .navLogo a {
@@ -455,7 +471,7 @@
         display: block;
         width: 100%;
         display: flex;
-        align-items: center;
+        align-items: start;
         justify-content: space-between;
       }
 
@@ -473,6 +489,7 @@
       .nav-links li a {
         display: block;
         margin-top: 20px;
+        color:white;
       }
     }
   </style>
@@ -492,8 +509,7 @@
 
         <ul class="nav-links">
           <li><a href="{{$baseUrl}}">Home</a></li>
-          <li><a href="#">All Products</a></li>
-          <li><a href="#"> My Products </a></li>
+          <li><a href="{{ route('getAllProductsF') }}">All Products</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
       </div>
@@ -567,263 +583,11 @@
 
   </script>
 
-  <!-- imgSlides slides start -->
-  <!-- <style>
-    @media screen and (min-width: 600px) and (orientation: landscape) {
-      .imgSlides {
-        height: 70vh;
-      }
-    }
-
-    @media screen and (max-width: 600px) {
-      .imgSlides {
-        height: 37vh;
-      }
-    }
-
-    .imgSlides {
-      position: relative;
-      /* height: 80vh; */
-      /* Set the height of the imgSlides */
-      overflow: hidden;
-      background-color: whitesmoke;
-      /* Background color */
-      color: white;
-      /* Text color */
-    }
-
-    .imgSlides-content {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      /* Start hidden */
-      transition: opacity 0.5s ease;
-      /* Fade transition */
-    }
-
-    .active {
-      opacity: 1;
-    }
-
-    .navigation {
-      position: absolute;
-      top: 50%;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      transform: translateY(-50%);
-    }
-  </style>
-  <div class="imgSlides">
-    <div class="imgSlides-content active"> <img
-        src="ultrapod.png"
-        class=" d-block w-100" alt="..."></div>
-    <div class="imgSlides-content"> <img
-        src="https://img.freepik.com/premium-vector/limited-time-offer-sale-poster-sale-banner-design-template-with-3d-editable-text-effect_535749-334.jpg"
-        class=" d-block w-100" alt="..."></div>
-    <div class="imgSlides-content"> <img
-        src="ultrapod.png"
-        class=" d-block w-100" alt="..."></div>
-    <div class="navigation">
-      <div id="prevImg" class="fas fa-chevron-left text-dark" style="scale: 2; padding: 3rem;"></div>
-      <div id="nextImg" class="fas fa-chevron-right text-dark" style="scale:2; padding: 3rem;"></div>
-    </div>
-  </div> -->
-  <!-- imgSlides slides end -->
-
-
-  <!-- bannerSlides slides start -->
-  <style>
-    /* For large screens (e.g., desktops) */
-    @media screen and (min-width: 1024px) {
-      .bannerSlides {
-        height: 70vh;
-      }
-
-      .banner-design-outer {
-        width: 70%;
-        min-height: 600px;
-        min-width: 70rem;
-      }
-
-      .banner-design-inner {
-        height: 350px;
-        width: 30%;
-        min-width: 25rem;
-      }
-    }
-
-    /* For tablets or small landscape screens */
-    @media screen and (min-width: 600px) and (max-width: 1024px) {
-      .bannerSlides {
-        height: 55vh;
-      }
-
-      .banner-design-outer {
-        width: 80%;
-        min-height: 400px;
-        min-width: 45rem;
-      }
-
-      .banner-design-inner {
-        height: 250px;
-        width: 35%;
-        min-width: 15rem;
-
-      }
-    }
-
-    /* For mobile devices */
-    @media screen and (max-width: 600px) {
-      .bannerSlides {
-        height: 30vh;
-      }
-
-      .banner-design-outer {
-        width: 90%;
-
-        min-width: 28rem;
-        min-height: 300px;
-      }
-
-      .banner-design-inner {
-        height: 150px;
-        width: 45%;
-        min-width: 10rem;
-      }
-    }
-
-    .bannerSlides {
-      position: relative;
-      overflow: hidden;
-      background-color: whitesmoke;
-      color: white;
-    }
-
-    .bannerSlides-content {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .active {
-      opacity: 1;
-    }
-
-    .navigation {
-      position: absolute;
-      top: 50%;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      transform: translateY(-50%);
-    }
-
-    .bannerSlidesItem {
-      position: relative;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .banner-design-outer {
-      width: 80%;
-      background-color: white;
-      /* position: relative; */
-      z-index: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      /* box-shadow: 5px 5px 10px #CCC; */
-    }
-
-    .banner-design-inner {
-      position: absolute;
-      top: 35%;
-      right: 2%;
-      background-color: white;
-      box-shadow: 5px 5px 10px #CCC;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 15;
-      transform: translateY(0);
-    }
-  </style>
 
 
 
 
 
-
-@if($settingsData['showBanner2InHeader'] == 1)
-  <div class="bannerSlides">
-@foreach($BannerDesign2List as $key)
-   @if($key['showInSlide'] == 1)
-    <div class="bannerSlides-content active" data-duration="{{ $key['duraion'] }}">
-      <div class="bannerSlidesItem">
-        <center>
-        @if($key['showBgImageInBigArea'] == 1)
-          <div class="banner-design-outer" style=" opacity: {{$key['bigAreaOpacity'] }}; background-color: {{$key['bigAreaColor']}}; background-image:url('{{ asset($baseUrl.'/uploads/'.$key['bigAreaBgImage']) }}');">
-            @else 
-            <div class="banner-design-outer" style=" opacity: {{$key['bigAreaOpacity'] }}; background-color: {{$key['bigAreaColor']}};">
-            @endif
-            
-
-            @if($key['showContentInBigArea'] == 1)
-            {!! $key['bigAreaDesign'] !!}
-            @endif
-           
-            @if($key['showBgImageInSmallArea'] == 1)
-            <div class="banner-design-inner" style=" opacity: {{$key['smallAreaOpacity'] }}; background-color: {{$key['smallAreaColor']}}; display: flex; flex-direction: column;justify-content: center; background-image:url('{{ asset($baseUrl . '/uploads/' . $key['smallAreaBgImage']) }}');"> @else
-            <div class="banner-design-inner" style="opacity: {{$key['smallAreaOpacity'] }}; background-color: {{$key['smallAreaColor']}}; display: flex; flex-direction: column;justify-content: center;"> 
-            @endif
-
-              @if($key['showContentInSmallArea'] == 1)
-              {!!$key['smallAreaDesign']!!}
-              @endif
-              <div id="nextBanner" class="fas fa-chevron-right text-dark"
-                style="scale:1; padding: 1rem; border: 1px solid grey; border-radius: 30%;"></div>
-            </div>
-          </div>
-        </center>
-      </div>
-    </div>
-    @endif
-    @endforeach
-    
-    <div class="navigation">
-      <div class="prevBanner fas fa-chevron-left text-dark" style="scale: 3; padding: 3rem;"></div>
-    </div>
-  </div>
-  <!-- bannerSlides slides end -->
-  
-  <!-- imageSlides slides start -->
-  @elseif($settingsData['showBannerImagesOnlyInHead'] == 1)
-  <div class="bannerSlides">
-  @foreach($bannerImagesOnlyList as $key)
-      @if($key['showInSlide'] ==1)
-        <div class="bannerSlides-content" data-duration="{{ $key['duration'] }}"> <img src="{{ asset($baseUrl.'/uploads/'.$key['image']) }}" class=" d-block w-100" alt="..."></div>
-      @endif
-    @endforeach
-
-    <div class="navigation">
-      <div class="prevBanner fas fa-chevron-left text-dark" style="scale: 3; padding: 3rem;"></div>
-      <div class="nextBanner fas fa-chevron-right text-dark" style="scale:2; padding: 3rem;"></div>
-    </div>
-  </div>
-  @endif
-  <!-- imageSlides slides end -->
 
 
 
@@ -942,6 +706,9 @@
       color:black;
       outline: none !important;
       box-shadow: none !important;
+      /* font-family: Cursive; */
+      font-family: Courier New;
+      font-weight:bold;
     }
     .outlineBtnBlack:hover{
       background:black;
@@ -951,7 +718,7 @@
   </style>
 
   <section class="container my-5">
-    <h2 class="text-center mb-4">Products</h2>
+    <h1 class="text-center mb-4 colored-character" style="font-family:Cursive">Products</h1>
     <div class="product-row row row-cols-1 row-cols-sm-3 row-cols-md-4 g-4">
 
     @foreach($productsList as $key)
@@ -973,7 +740,7 @@
           {!! $key['designPriceForGridItems'] !!}
           <div class="card-body p-0 d-flex flex-column align-items-center">
             <div class="w-100">
-            <button class="btn rounded-3 btn-sm outlineBtnBlack buyNowBtn toggleSidebarBtns shimmer" style="width:70%;" data-pid="{{$key['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$key['image']) }}" data-title="{{$key['title']}}" data-price="{{$key['price']}}" data-freeitem="{{ $key['isfreeAnyItemWithThis'] == 1 ? $key['freeItem'] : ''}}">Buy Now</button>
+            <button class="btn rounded-3 btn-sm p-0 outlineBtnBlack buyNowBtn toggleSidebarBtns shimmer" style="width:70%;" data-pid="{{$key['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$key['image']) }}" data-title="{{$key['title']}}" data-price="{{$key['price']}}" data-freeitem="{{ $key['isfreeAnyItemWithThis'] == 1 ? $key['freeItem'] : ''}}">Buy Now</button>
             </div>
           </div>
         </div>
@@ -996,223 +763,7 @@
 
 
 
-  <!--  -->
-  <style>
-    @media only screen and (max-width: 600px) {
-      .itemDetailBox {
-        flex-direction: column;
-      }
-
-      .itemDetailsAreaRight {
-        width: 80%;
-      }
-
-      .itemDetailImgAreaLeft {
-        width: 90%;
-      }
-
-      .itemImg {
-        width: 3rem;
-      }
-      #thumbnailImg{
-        min-height:12rem;
-      }
-    }
-
-    @media screen and (min-width: 600px) and (orientation: landscape) {
-      .itemDetailBox {
-        flex-direction: row;
-      }
-
-      .itemDetailsAreaRight {
-        width: 35%;
-      }
-
-      .itemDetailImgAreaLeft {
-        width: 45%;
-      }
-
-      .itemImg {
-        width: 5rem;
-      }
-      #thumbnailImg{
-        min-height:20rem;
-      }
-    }
-
-    .itemDetailsAreaRight {
-        position: relative;
-      }
-
-    /*  */
-    .itemDetailBox {
-      display: flex;
-      margin: auto;
-      width: auto;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .itemDetailImgAreaLeft {
-      align-items: center;
-      justify-content: center;
-    }
-
-
-    .itemImages {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      align-items: center;
-      width: 100%;
-      max-width: 100%;
-      height: 5rem;
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-    }
-
-    .itemImg {
-      justify-content: center;
-      display: flex;
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-
-    .sizeBtn{
-      background:none;
-      border:1px solid black;
-      border-radius:5px;
-      color:black;
-      outline: none !important;
-      box-shadow: none !important;
-    }
-    .sizeBtn:hover{
-      background:black;
-      color:white;
-
-    }
-  </style>
-
-
-@if(!empty($productsList) && count($productsList) > 0 && isset($productsList[$settingsData['selectedItemIdForFooter'] - 1]))
-        @php
-        $filterdIdIs = $settingsData['selectedItemIdForFooter'];
-        $filterItem = $productsList[$filterdIdIs-1];
-        @endphp
-  <div class="itemDetailBox">
-
-    <div class="itemDetailImgAreaLeft">
-      <div style="position: relative;">
-        <center>
-          <img src="{{ asset($baseUrl.'/uploads/'.$filterItem['image']) }}" style="width: 60%;" class="card-img-top scaleAnimation" id="thumbnailImg" alt="Product Image">
-        </center>
-        {!! $filterItem['sale'] !!}
-      </div>
-      @if(!empty($filterItem['images']) && is_array($filterItem['images']) && count($filterItem['images']) > 0)
-      <div class="itemImages">
-        <!-- <i class="fa fa-chevron-left preItemImgBtn" style="color: grey; font-size: x-large;"></i> -->
-        @foreach($filterItem['images'] as $key)
-        <div style="padding:0.2rem;"><img class="itemImg" src="{{ asset($baseUrl.'/uploads/'.$key) }}" alt=""></div>
-        @endforeach
-        <!-- <i class="fa fa-chevron-right nextItemImgBtn" style="color: grey; font-size: x-large;"></i> -->
-      </div>
-      @endif
-    </div>
-
-    <div class="itemDetailsAreaRight">
-      <h2 style="font-weight:bolder;">      {{ $filterItem['title'] }}      </h2>
-      <br>
-
-      <p style="color: green; opacity: 0.5;">100% Free Delivery</p>
-     
-      @if($filterItem['showStock'] == 1)
-      {!! $filterItem['stock'] !!}
-      @endif
-
-
-
-      <p style="color: grey;">  <i class="fa fa-eye text-muted"> </i> <b id="viewersCount" class="text-dark"> 13 </b> Persons View At This Time </p>
-      
-      <div id="designPriceSection">
-        {!! $filterItem['designPriceForDetail'] !!}
-      </div>
-      
  
-
-      
-
-      <div style="display: flex; flex-direction: row; justify-content: flex-start;">
-        @if(!empty($filterItem->colorsVariationsF) && count($filterItem->colorsVariationsF) > 0 && $filterItem['showColorVariations'] == 1)
-            @foreach($filterItem->colorsVariationsF as $variation)
-                <div style="padding: 5px;">
-                    <div class="productVariationsBoxBtn"
-                        data-productid="{{ $filterItem['id'] }}"
-                        data-productcolorcode="{{ $variation->productColorCode }}"
-                        data-productimage="{{ asset($baseUrl.'/uploads/'.$variation->productImage) }}"
-                        data-productprice="{{ $variation->productPrice }}"
-                        style="border-radius: 10px; border: 1px solid silver; background-color: {{ $variation->productColorCode }};
-                              width: 2rem; height: 2rem; padding-right: 8px;">
-                    </div>
-                </div>
-            @endforeach
-        @endif
-        @if(!empty($filterItem->sizeVariationsF) && count($filterItem->sizeVariationsF) > 0 && $filterItem['showSizeVariations'] == 1)
-            @foreach($filterItem->sizeVariationsF as $variation)
-                <div style="padding: 5px;">
-                    <button class="productVariationsBoxBtn btn btn-sm sizeBtn"
-                        data-productid="{{ $filterItem['id'] }}"
-                        data-productsize="{{ $variation->productSize }}"
-                        data-productprice="{{ $variation->productPrice }}"> {{ $variation->productSize }}
-                    </button>
-                </div>
-            @endforeach
-        @endif
-    </div>
-
-
-
-      
-
-
-
-
-
-      @if($filterItem['showtDaysLeft'] == 1)
-      <b style="padding-left: 0; font-size: 0.6rem;" class="shimmerVibrate">Hurry, {!! $filterItem['daysLeft'] !!} days left!</b>
-      @endif
-
-      <!-- shiping tax -->
-      <div class="mb-0" style="display: flex; flex-direction: row; justify-content: start;align-items: center;">
-        <button class="btn btn-sm btn-light quantityDecFromDetail" data-pid="{{$filterItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$filterItem['image']) }}"
-        data-title="{{$filterItem['title']}}" data-price="{{$filterItem['price']}}" data-freeitem="{{ $filterItem['isfreeAnyItemWithThis'] == 1 ? $filterItem['freeItem'] : ''}}">-</button>
-        <b style="padding-left:1rem; padding-right:1rem;" class="globalItemQuantityIs"> 1 </b>
-        <button class="btn btn-sm btn-light quantityIncFromDetail" data-pid="{{$filterItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$filterItem['image']) }}"
-        data-title="{{$filterItem['title']}}" data-price="{{$filterItem['price']}}" data-freeitem="{{ $filterItem['isfreeAnyItemWithThis'] == 1 ? $filterItem['freeItem'] : ''}}">+</button>
-        <button class="btn btn-dark outlineBtnBlack addToCart toggleSidebarBtns shimmer" style="margin-left: 1rem; width: 100%; font-size: 0.6rem;" data-pid="{{$filterItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$filterItem['image']) }}" data-title="{{$filterItem['title']}}" data-price="{{$filterItem['price']}}" data-freeitem="{{ $filterItem['isfreeAnyItemWithThis'] == 1 ? $filterItem['freeItem'] : ''}}">Add To Cart </button>
-        <button class="btn btn-dark buyNowBtn toggleSidebarBtns shimmer" style="margin-left: 1rem; width: 100%; font-size: 0.6rem; color:white;" data-pid="{{$filterItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$filterItem['image']) }}" data-title="{{$filterItem['title']}}" data-price="{{$filterItem['price']}}" data-freeitem="{{ $filterItem['isfreeAnyItemWithThis'] == 1 ? $filterItem['freeItem'] : ''}}"> Buy Now </button>
-      </div>
-
-      <hr>
-      <p style="color: grey;" class="shimmer" id="deliveryEstimate">Estimated delivery between Monday 07 October and Thursday 10 October.</p>
-
-      @if($filterItem['isfreeAnyItemWithThis'] == 1)
-      {!! $filterItem['freeItem'] !!}
-      @endif
-
-    </div>
-  </div>
-
-  <div style="padding:4%; position:relative;">
-   {!! $filterItem['description'] !!}</div>
-
-  @endif
-  <br><br>
-
-
-
-
 
 
 
@@ -1281,7 +832,7 @@
       top: 0;
       height: 100%;
       transition: right 0.3s ease-in-out;
-      z-index: 1050;
+      z-index: 980;
     }
 
     .custom-sidebar.show {
@@ -1415,7 +966,7 @@
       left: 50%;
       bottom: 5%;
       transform: translateX(-50%);
-      z-index: 1050;
+      z-index: 910;
     }
 
     @media only screen and (max-width: 600px) {
@@ -1464,7 +1015,7 @@
       position: fixed;
       bottom: 10%;
       left: 1%;
-      z-index: 1000;
+      z-index: 800;
       width: 4.5rem;
       height: 4.5rem;
     }
@@ -1528,7 +1079,7 @@
       position: fixed;
       bottom: 20%;
       left: 1%;
-      z-index: 1000;
+      z-index: 850;
       width: 4.5rem;
       height: 4.5rem;
     }
@@ -1596,12 +1147,12 @@
       position: sticky;
       bottom: 7%;
       right: 4%;
-      z-index: 1051;
+      z-index: 880;
       width: 2.5rem;
       height: 2.5rem;
     }
   </style>
-  <div style="position: fixed;right: 4%; z-index: 1055; bottom: 7%;">
+  <div style="position: fixed;right: 4%; z-index: 890; bottom: 7%;">
     <div class="sticky-top-scroll-btn" data-aos="fade-up" data-aos-duration="2000">
       <a href="#">
         <img src="{{ asset('assets/backtotop.png') }}" alt="Shopping Cart" class="position-relative"
@@ -2377,7 +1928,7 @@
     deliveryEndDate.setDate(today.getDate() + 7); 
     var startFormatted = formatDate(deliveryStartDate);
     var endFormatted = formatDate(deliveryEndDate);
-    $('#deliveryEstimate').html(`Estimated delivery between <b style="color:black;">${startFormatted}</b> and <b style="color:black">${endFormatted}</b>.`);
+    $('#deliveryEstimate').html(`Estimated delivery between <b style="color:black;">${startFormatted}</b> to <b style="color:black">${endFormatted}</b>.`);
     });
   </script>
   <script>
@@ -2440,10 +1991,75 @@
     });
   </script>
 
+<!--  -->
+<script>
+$(document).ready(function() {
+    var ratingValue = parseInt($('.ratingsShowOnly').data('generaterating'));
+    $('.ratingsShowOnly .starv').each(function(index) {
+        if (index < ratingValue) {
+            $(this).css('color', 'black');
+        } else {
+            $(this).css('color', 'silver');
+        }
+    });
+});
+</script>
 
+<script>
+    $(document).ready(function() {
+      let choosedrating = 4;
+        $('.clasificacion input').on('change', function() {
+            const rating = $(this).val();
+            stopGreenToastMsgs = true;
+            showGreenToast("Rating Added", 5000);
+        });
 
+      // add comment post start 
+    $('.addCommentBtn').on('click', function(event) {
+        event.preventDefault();
 
+        let productidforratinginouthidden = $('#productidforratinginouthidden').val();
+        let ratingcommenttextinput = $('#ratingcommenttextinput').val();
+        let ratinguseremailphoneinput = $('#ratinguseremailphoneinput').val();
+        let ratingusername = $('#ratingusername').val();
+        let formData = new FormData();
 
+        formData.append('ratingImg', $('#ratingImg')[0].files[0]);
+        formData.append('productidforratinginouthidden', productidforratinginouthidden);
+        formData.append('ratingcommenttextinput', ratingcommenttextinput);
+        formData.append('ratinguseremailphoneinput', ratinguseremailphoneinput);
+        formData.append('ratingusername', ratingusername);
+        formData.append('choosedrating', choosedrating);
+        formData.append('_token', '{{ csrf_token() }}'); // Add the CSRF token to FormData
+        alert('start');
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('submit.review') }}",
+            data: formData,
+            contentType: false, 
+            processData: false,
+            success: function(resp) {
+        alert('success');
+
+                stopGreenToastMsgs = true;
+                showGreenToast("comment added under review", 5000);
+            },
+            error: function(resp) {
+        alert('error');
+
+                stopGreenToastMsgs = true;
+                console.log(resp.responseText);
+                showGreenToast("An error occurred. Please try again.", 5000);
+            }
+        });
+        alert('end');
+    });
+});
+
+    // add comment post end 
+
+</script>
 
 </body>
 

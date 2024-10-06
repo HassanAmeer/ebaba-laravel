@@ -37,6 +37,7 @@ class CreateProductsTable extends Migration
             $table->boolean('isfreeAnyItemWithThis')->nullable();
             $table->longText('freeItem')->nullable();
             $table->boolean('showtDaysLeft')->nullable();
+            $table->boolean('allowReviews')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

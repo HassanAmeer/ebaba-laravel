@@ -146,6 +146,7 @@ class productsController extends AdminController
 
 
       
+        $grid->column('allowReviews', __('allowReviews'))->switch();
         $grid->column('created_at', __('Created at'));
 
         $grid->column('updated_at', __('Updated at'));
@@ -228,6 +229,7 @@ class productsController extends AdminController
             })->implode('');
         })->color('green');
 
+        $show->field('allowReviews', __('allowReviews'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
         $show->field('deleted_at', __('Deleted at'));
@@ -289,6 +291,9 @@ class productsController extends AdminController
             $form->image('productImage', 'Image')->removable()->rules('required|image'); 
             $form->currency('productPrice', 'Price')->symbol('PKR')->rules('required|numeric');  
         });
+
+        $form->switch('allowReviews', __('allowReviews'));
+
         // $form->select('variationsF', 'variationsF')->options(VariationsModel::all()->pluck('color_code', 'image'));
      
         return $form;
