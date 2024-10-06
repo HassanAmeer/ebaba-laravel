@@ -25,7 +25,20 @@ class HomeController extends Controller
         $toastMessageList = toastMessage::all();
         $BannerDesign2List = bannerDesign::all();
         $bannerImagesOnlyList = bannerImagesOnly::all();
-        $productsList = Products::where('showProduct', 1)->with('colorsVariationsF')->with('sizeVariationsF')->get();
+        // $productsList = Products::where('showProduct', 1)
+        //                 ->with(['colorsVariationsF', 'sizeVariationsF', 'reviewsProductsF' => function($query) {  $query->where('showThis', 1);   }])
+        //                 ->where('showThis', '1')
+        //                 ->get();
+        $productsList = Products::where('showProduct', 1)
+                        ->with('colorsVariationsF') // Eager load color variations
+                        ->with('sizeVariationsF')   // Eager load size variations
+                        ->with('reviewsproductsf')   // Eager load reviews
+                        // ->where('showThis', '1')     // Filter products that should be shown
+                        ->get();      
+
+
+
+
 
         // $output = "<pre>" . htmlspecialchars($productsList) . "</pre>";
         // echo json_encode(["output" => $output]);

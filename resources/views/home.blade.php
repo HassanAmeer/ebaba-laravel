@@ -24,7 +24,21 @@
 
 <body>
 <style>
+.red-serif {
+  font-family: "Times New Roman", Times, serif; 
+            color: black; 
+            text-shadow: 1px 1px 0 red, 
+                         -1px -1px 0 red,
+                         -1px 1px 0 red,
+                         1px -1px 0 red; 
+}
 
+.colored-character {
+            font-family: "Times New Roman", Times, serif;
+            background: linear-gradient(to top, indigo 40%, black 50%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; 
+        }
 .shimmer {
             color: #333;
             position: relative;
@@ -189,7 +203,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
     * {
-      font-family: 'Poppins', sans-serif;
+      /* font-family: 'Poppins', sans-serif; */
       transition: all 0.4s ease;
     }
 
@@ -942,6 +956,9 @@
       color:black;
       outline: none !important;
       box-shadow: none !important;
+      /* font-family: Cursive; */
+      font-family: Courier New;
+      font-weight:bold;
     }
     .outlineBtnBlack:hover{
       background:black;
@@ -951,7 +968,7 @@
   </style>
 
   <section class="container my-5">
-    <h2 class="text-center mb-4">Products</h2>
+    <h1 class="text-center mb-4 colored-character" style="font-family:Cursive">Products</h1>
     <div class="product-row row row-cols-1 row-cols-sm-3 row-cols-md-4 g-4">
 
     @foreach($productsList as $key)
@@ -973,7 +990,7 @@
           {!! $key['designPriceForGridItems'] !!}
           <div class="card-body p-0 d-flex flex-column align-items-center">
             <div class="w-100">
-            <button class="btn rounded-3 btn-sm outlineBtnBlack buyNowBtn toggleSidebarBtns shimmer" style="width:70%;" data-pid="{{$key['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$key['image']) }}" data-title="{{$key['title']}}" data-price="{{$key['price']}}" data-freeitem="{{ $key['isfreeAnyItemWithThis'] == 1 ? $key['freeItem'] : ''}}">Buy Now</button>
+            <button class="btn rounded-3 btn-sm p-0 outlineBtnBlack buyNowBtn toggleSidebarBtns shimmer" style="width:70%;" data-pid="{{$key['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$key['image']) }}" data-title="{{$key['title']}}" data-price="{{$key['price']}}" data-freeitem="{{ $key['isfreeAnyItemWithThis'] == 1 ? $key['freeItem'] : ''}}">Buy Now</button>
             </div>
           </div>
         </div>
@@ -1122,18 +1139,13 @@
     </div>
 
     <div class="itemDetailsAreaRight">
-      <h2 style="font-weight:bolder;">      {{ $filterItem['title'] }}      </h2>
+      <h2 style="font-weight:bolder; font-family:Cursive">      {{ $filterItem['title'] }}      </h2>
+      <p style="color: black; opacity: 0.7;font-family:Courier New">100% Free Delivery</p>
+      <p style="color: grey; font-family:Fantasy">  <i class="fa fa-eye text-muted" style="opacity:0.5;"> </i> <b id="viewersCount" class="text-dark"> 13 </b> Persons View At This Time </p>
       <br>
 
-      <p style="color: green; opacity: 0.5;">100% Free Delivery</p>
-     
-      @if($filterItem['showStock'] == 1)
-      {!! $filterItem['stock'] !!}
-      @endif
 
 
-
-      <p style="color: grey;">  <i class="fa fa-eye text-muted"> </i> <b id="viewersCount" class="text-dark"> 13 </b> Persons View At This Time </p>
       
       <div id="designPriceSection">
         {!! $filterItem['designPriceForDetail'] !!}
@@ -1142,7 +1154,7 @@
  
 
       
-
+<div style="display: flex; flex-direction: row; justify-content: space-between;">
       <div style="display: flex; flex-direction: row; justify-content: flex-start;">
         @if(!empty($filterItem->colorsVariationsF) && count($filterItem->colorsVariationsF) > 0 && $filterItem['showColorVariations'] == 1)
             @foreach($filterItem->colorsVariationsF as $variation)
@@ -1169,6 +1181,53 @@
                 </div>
             @endforeach
         @endif
+  </div>
+
+
+        <!-- for rating start -->
+
+      <style>
+        .ratingsShowOnlyOuter{
+          display:flex; flex-direction:row; direction: rtl; 
+        }
+        @media only screen and (max-width: 600px) {
+          #ratedText{
+          padding-right:0.1rem;
+          color:black; font-family:Courier New;
+          font-size:1.1rem;
+          }
+          .starv{
+            font-size:1rem;
+          }
+          }
+
+        @media screen and (min-width: 600px) and (orientation: landscape) {
+          #ratedText{
+          padding-right:1rem;
+          color:black; font-family:Courier New;
+          font-size:2rem;
+          }
+          .starv{
+            font-size:2rem;
+          }
+         }
+
+      </style>
+
+<div>     
+   <a href="#inputCommentSection" style="text-decoration:none;">
+   <div class="ratingsShowOnly shimmer" data-generaterating="3" style="width:100%; display:flex; flex-direction:row;justify-content:flex-end; align-items:end;">
+        <div id="ratedText">  </div>
+        <i class="starv">&#9733;</i>
+        <i class="starv">&#9733;</i>
+        <i class="starv">&#9733;</i>
+        <i class="starv">&#9733;</i>
+        <i class="starv">&#9733;</i>
+    </div>
+   </a>
+  </div>
+
+        <!-- for rating end -->
     </div>
 
 
@@ -1195,11 +1254,100 @@
       </div>
 
       <hr>
-      <p style="color: grey;" class="shimmer" id="deliveryEstimate">Estimated delivery between Monday 07 October and Thursday 10 October.</p>
-
       @if($filterItem['isfreeAnyItemWithThis'] == 1)
       {!! $filterItem['freeItem'] !!}
       @endif
+      
+      <p style="color: grey;font-family:serif" class="shimmer" id="deliveryEstimate">Estimated delivery between Monday 07 October to Thursday 10 October.</p>
+
+
+      <style>
+    .share-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .share-icons a:hover {
+        color: black; 
+        scale:1.5;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .share-icons a {
+        margin-left: 5px;
+        color: grey;
+        text-decoration: none;
+        font-size: 0.8rem;
+        transition: color 0.7s ease, color 0.5s ease; 
+    }
+    #shareText,#ratingRightsubtitle{
+      font-size:1rem;
+      font-family:Courier;
+    }
+    }
+
+    @media screen and (min-width: 600px) and (orientation: landscape) {
+      .share-icons a {
+        margin-left: 10px;
+        color: grey;
+        text-decoration: none;
+        font-size: 1.2rem;
+        transition: color 0.7s ease, color 0.5s ease; 
+    }
+    #shareText,#ratingRightsubtitle{
+      font-size:1rem;
+      font-family:Courier;
+    }
+
+    }
+
+
+</style>
+
+      <div class="share-container">
+    <div class="share-icons" style="font-family:Courier New; display:flex; flex-direction:row; align-items:center;">
+        <div id="shareText">Share: </div>
+        <a href="https://wa.me/?text=Check%20this%20out!" class="fab fa-whatsapp" target="_blank"></a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=YOUR_URL" class="fab fa-facebook" target="_blank"></a>
+        <a href="https://www.instagram.com/?url=YOUR_URL" class="fab fa-instagram" target="_blank"></a>
+        <a href="https://twitter.com/share?url=YOUR_URL&text=Check%20this%20out!" class="fab fa-twitter" target="_blank"></a>
+        <a href="https://pinterest.com/pin/create/button/?url=YOUR_URL&media=&description=YOUR_DESCRIPTION" class="fab fa-pinterest" target="_blank"></a>
+        <a href="mailto:?subject=Check%20this%20out!&body=Check%20this%20link:%20YOUR_URL" class="fa fa-envelope" target="_blank"></a>
+    </div>
+    <span id="ratingRightsubtitle">Chance to win!</span>
+</div>
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      @if($filterItem['showStock'] == 1)
+      {!! $filterItem['stock'] !!}
+      @endif
+
+
+
 
     </div>
   </div>
@@ -1208,11 +1356,173 @@
    {!! $filterItem['description'] !!}</div>
 
   @endif
-  <br><br>
 
 
 
 
+
+
+  <style>
+       /* * {
+            font-family: "Courier New", Courier, monospace;
+        } */
+  .clasificacion {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+    cursor: pointer;
+  }
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  label {
+    color: silver;
+  }
+
+  label:hover,
+  label:hover ~ label {
+    color: black;
+  }
+
+  input[type="radio"]:checked ~ label {
+    color: black;
+  }
+
+  .ratingSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  #inputCommentSection, #useerCommentsSection {
+    width: 48%;
+  }
+
+  #inputCommentSection textarea,
+  #inputCommentSection input[type="email"],
+  #inputCommentSection input[type="name"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+
+  .btn-outline-dark {
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    margin-top: 10px;
+    transition: 0.3s ease;
+  }
+
+  .btn-outline-dark:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+  }
+
+  .fa-user {
+    padding-right: 10px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .ratingSection {
+      flex-direction: column;
+      padding:3%;
+    }
+
+    #inputCommentSection,
+    #useerCommentsSection {
+      width: 100%;
+    }
+    .clasificacion{
+      font-size:2rem;
+    }
+    .commentImg{
+      width:2rem; height:2rem; position:absolute; right:0; top:0.5rem; border-radius:8px; background:silver; opacity:0.5;
+    }
+  }
+
+  @media screen and (min-width: 600px) and (orientation: landscape) {
+    .ratingSection {
+      flex-direction: row;
+      padding:4%;
+
+    }
+
+    #inputCommentSection,
+    #useerCommentsSection {
+      width: 45%;
+    }
+    .clasificacion{
+      font-size:3rem;
+    }
+    .commentImg{
+      width:3rem; height:3rem; position:absolute; right:0; top:1rem; border-radius:8px; background:silver; opacity:0.5;
+    }
+  }
+  .commentImg:hover{
+    top:0rem;
+     opacity:0.9;
+     scale:1.5;
+  }
+</style>
+
+<div class="ratingSection">
+
+  <div id="inputCommentSection">
+    <div style="display: flex; flex-direction: row; align-items:center; width :100% justify-content: space-between;">
+      <!-- <strong style="width:25%;">Add Comments</strong> -->
+      <h4 style="width:50%;font-weight:bold;">Add Comment</h4>
+    
+        <div class="clasificacion" style="">
+          <input id="radio1" type="radio" name="estrellas" value="5"><label for="radio1">&#9733;</label>
+          <input id="radio2" type="radio" name="estrellas" value="4"><label for="radio2">&#9733;</label>
+          <input id="radio3" type="radio" name="estrellas" value="3"><label for="radio3">&#9733;</label>
+          <input id="radio4" type="radio" name="estrellas" value="2"><label for="radio4">&#9733;</label>
+          <input id="radio5" type="radio" name="estrellas" value="1"><label for="radio5">&#9733;</label>
+        </div>
+    </div>
+    <input id="productidforratinginouthidden" value="{{$filterItem['id']}}" type="hidden">
+    <textarea id="ratingcommenttextinput" id="" rows="7" placeholder="Write your comment here..." style="outline:none !important;"></textarea>
+    <input id="ratinguseremailphoneinput" placeholder="Phone Number Or Email" style="outline:none !important;" type="email">
+    <input id="ratingusername" type="name" name="ratingusername" placeholder="Enter your name" style="outline:none !important;">
+    <input id="ratingImg" type="file" name="ratingImg" placeholder="Image Optional" style="outline:none !important; color:black;">
+    <button class="btn btn-outline-dark w-100 addCommentBtn">Add Comment</button>
+  </div>
+
+    <div id="useerCommentsSection" style="display: flex; flex-direction: column; padding-top:0.5rem;">
+         
+    @if($filterItem['reviewsproductsf'] && $filterItem['reviewsproductsf']->isNotEmpty())
+    @foreach($filterItem['reviewsproductsf'] as $commentsOfUsers)
+    @if($commentsOfUsers['showThis'] ==1)
+        <div style="position:relative;">
+            <div style="display: flex; flex-direction: row; align-items:center;">
+                <center>
+                    <div style="border-radius:28px; border:1px solid black; padding:2px">
+                        <i class="fa fa-user text-dark p-2"></i>
+                    </div>
+                </center>
+                <strong style="padding-left:1rem;">{{ $commentsOfUsers->userName }}</strong>
+            </div>
+            <p style="color:grey; font-family:Courier New;padding-top:6px; border-bottom:0.1px solid silver;">
+                {{ $commentsOfUsers->userComment }}
+            </p>
+            @if(!empty($commentsOfUsers->userUploadedImage))
+                <a href="{{ asset('uploads/'.$commentsOfUsers->userUploadedImage) }}" target="_blank"><img src="{{ asset('uploads/'.$commentsOfUsers->userUploadedImage) }}" class="commentImg" alt="User Uploaded Image" /></a>
+            @endif
+        </div>
+        @endif
+    @endforeach
+@else
+    <p>No reviews available.</p>
+@endif
+
+          
+   </div>
+</div>
 
 
 
@@ -2377,7 +2687,7 @@
     deliveryEndDate.setDate(today.getDate() + 7); 
     var startFormatted = formatDate(deliveryStartDate);
     var endFormatted = formatDate(deliveryEndDate);
-    $('#deliveryEstimate').html(`Estimated delivery between <b style="color:black;">${startFormatted}</b> and <b style="color:black">${endFormatted}</b>.`);
+    $('#deliveryEstimate').html(`Estimated delivery between <b style="color:black;">${startFormatted}</b> to <b style="color:black">${endFormatted}</b>.`);
     });
   </script>
   <script>
@@ -2440,10 +2750,75 @@
     });
   </script>
 
+<!--  -->
+<script>
+$(document).ready(function() {
+    var ratingValue = parseInt($('.ratingsShowOnly').data('generaterating'));
+    $('.ratingsShowOnly .starv').each(function(index) {
+        if (index < ratingValue) {
+            $(this).css('color', 'black');
+        } else {
+            $(this).css('color', 'silver');
+        }
+    });
+});
+</script>
 
+<script>
+    $(document).ready(function() {
+      let choosedrating = 4;
+        $('.clasificacion input').on('change', function() {
+            const rating = $(this).val();
+            stopGreenToastMsgs = true;
+            showGreenToast("Rating Added", 5000);
+        });
 
+      // add comment post start 
+    $('.addCommentBtn').on('click', function(event) {
+        event.preventDefault();
 
+        let productidforratinginouthidden = $('#productidforratinginouthidden').val();
+        let ratingcommenttextinput = $('#ratingcommenttextinput').val();
+        let ratinguseremailphoneinput = $('#ratinguseremailphoneinput').val();
+        let ratingusername = $('#ratingusername').val();
+        let formData = new FormData();
 
+        formData.append('ratingImg', $('#ratingImg')[0].files[0]);
+        formData.append('productidforratinginouthidden', productidforratinginouthidden);
+        formData.append('ratingcommenttextinput', ratingcommenttextinput);
+        formData.append('ratinguseremailphoneinput', ratinguseremailphoneinput);
+        formData.append('ratingusername', ratingusername);
+        formData.append('choosedrating', choosedrating);
+        formData.append('_token', '{{ csrf_token() }}'); // Add the CSRF token to FormData
+        alert('start');
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('submit.review') }}",
+            data: formData,
+            contentType: false, 
+            processData: false,
+            success: function(resp) {
+        alert('success');
+
+                stopGreenToastMsgs = true;
+                showGreenToast("comment added under review", 5000);
+            },
+            error: function(resp) {
+        alert('error');
+
+                stopGreenToastMsgs = true;
+                console.log(resp.responseText);
+                showGreenToast("An error occurred. Please try again.", 5000);
+            }
+        });
+        alert('end');
+    });
+});
+
+    // add comment post end 
+
+</script>
 
 </body>
 

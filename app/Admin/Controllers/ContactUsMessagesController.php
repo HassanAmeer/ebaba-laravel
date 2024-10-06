@@ -68,7 +68,7 @@ class ContactUsMessagesController extends AdminController
         $show->field('title', __('Title'));
         $show->field('name', __('Name'));
         $show->field('phone', __('Phone'));
-        $show->field('image', __('Image'))->image($this->baseUrl.'/uploads/',75,75);;
+        $show->field('image', __('Image'))->image($this->baseUrl.'/uploads/',75,75);
         $show->field('description', __('Description'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));

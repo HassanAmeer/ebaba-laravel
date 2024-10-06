@@ -25,6 +25,7 @@ Route::group([
     $router->resource('pagesDesigns', PagesDesignController::class);
     $router->resource('contact-us-messages', ContactUsMessagesController::class);
     $router->resource('orders', OrdersController::class);
+    $router->resource('reviews-products', reviewsProductsController::class);
 
 
     

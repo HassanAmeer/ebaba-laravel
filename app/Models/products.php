@@ -25,4 +25,9 @@ class products extends Model
         return $this->hasMany(sizeVariations::class); 
     }
     
+    public function reviewsproductsf()
+    {
+        return $this->hasMany(reviewsProducts::class); 
+    }
+    
 }

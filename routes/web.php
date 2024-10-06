@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userside\HomeController;
 use App\Http\Controllers\userside\OrdersController;
+use App\Http\Controllers\userside\productsReviews;
 use App\Http\Controllers\CkEditorUploadImageController;
 
 
@@ -28,6 +29,7 @@ use App\Http\Controllers\CkEditorUploadImageController;
 
 Route::get('/', [HomeController::class, 'getHomeDataF']); 
 Route::post('submit.order', [OrdersController::class, 'submitOrderF'])->name('submit.order');
+Route::post('submit.review', [productsReviews::class, 'productsReviewsF'])->name('submit.review');
 
 
 
