@@ -131,7 +131,6 @@
 
     .textSlider-content {
       position: absolute;
-      width: 100%;
       height: 100%;
       display: flex;
       justify-content: center;
@@ -164,6 +163,10 @@
       .textSliderNextBtn {
         padding: 1rem;
       }
+      .textSlider-content {
+      width: 80%;
+      margin-left:10%;
+      }
     }
 
     @media (min-width: 601px) {
@@ -174,12 +177,16 @@
       .textSliderNextBtn {
         padding: 3rem;
       }
+        .textSlider-content {
+      width: 88%;
+      margin-left:6%;
+      }
     }
   </style>
   <div class="textSlider" data-aos="fade-down" data-aos-duration="1500">
     @foreach($topSlideTextList as $key)
     @if( $key['showInSlider'] ==1)
-    <div class="textSlider-content active" data-duration="{{ $key['duration'] }}">{{$key['showMessage']}}</div>
+    <center><div class="textSlider-content active" data-duration="{{ $key['duration'] }}">{{$key['showMessage']}}</div></center>
     @endif
     @endforeach
     <div class="navigation">
@@ -658,7 +665,7 @@
     .bannerSlides {
       position: relative;
       overflow: hidden;
-      background-color: whitesmoke;
+      /*background-color: whitesmoke;*/
       color: white;
     }
 
@@ -761,7 +768,7 @@
     @endforeach
     
     <div class="navigation">
-      <div class="prevBanner fas fa-chevron-left text-dark" style="scale: 3; padding: 3rem;"></div>
+      <div class="prevBanner fas fa-chevron-left text-dark" style="scale: 2; padding: 3rem;"></div>
     </div>
   </div>
   <!-- bannerSlides slides end -->
@@ -778,7 +785,7 @@
     @endforeach
 
     <div class="navigation">
-      <div class="prevBanner fas fa-chevron-left text-dark" style="scale: 3; padding: 3rem;"></div>
+      <div class="prevBanner fas fa-chevron-left text-dark" style="scale: 2; padding: 3rem;"></div>
       <div class="nextBanner fas fa-chevron-right text-dark" style="scale:2; padding: 3rem;"></div>
     </div>
   </div>
@@ -796,10 +803,10 @@
       .salesDesignedArea {
         position: absolute;
         z-index: 5;
-        scale: 0.7;
+        scale: 0.9;
         width:150%;
         top:0;
-        left:-30px;
+        left:5px;
       }
 
       .itemTitle {
@@ -807,7 +814,7 @@
       }
 
       .{
-        scale: 0.8;
+        scale: 0.9;
       }
     }
 
@@ -863,7 +870,7 @@
     }
 
     .add-to-cart {
-      width: 80%;
+      width: 90%;
     }
 
 
@@ -876,9 +883,9 @@
       }
 
       .product-row .col {
-        flex: 0 0 33.33%;
+        flex: 0 0 49%;
         /* Show 3 items in a row */
-        max-width: 33.33%;
+        max-width: 49%;
       }
 
       .priceAreaForGrid{
@@ -913,15 +920,15 @@
 
   </style>
 
-  <section class="container my-5">
-    <h1 class="text-center mb-4 colored-character" style="font-family:Cursive">Products</h1>
-    <div class="product-row row row-cols-1 row-cols-sm-3 row-cols-md-4 g-4">
+  <section class="container p-0 my-5">
+    <h1 class="text-center mb-4" style="">Products</h1>
+    <div class="product-row row m-0 row-cols-1 row-cols-sm-3 row-cols-md-4 g-2">
 
     @foreach($productsList as $key)
       
-     <div class="col" style="position: relative;" data-aos="fade-up" data-aos-duration="1500">
+     <div class="col m-0 p-0" style="position: relative; background-color:whitesmoke;" data-aos="fade-up" data-aos-duration="1500">
         <div class="card product-card p-0">
-          <div style="position: relative;">
+          <div style="position: relative; padding:0;">
            <a href="{{ route('details', [$key['id']]) }}"> <img src="{{ asset($baseUrl.'/uploads/'.$key['image']) }}" class="card-img-top" alt="Product Image"> </a>
             <div class="salesDesignedArea">
               {!! $key['sale'] !!}
@@ -976,9 +983,13 @@
 
       .itemImg {
         width: 3rem;
+        background-color:whitesmoke;
+        border-radius:10px;
+        object-fit: cover;
       }
       #thumbnailImg{
-        min-height:12rem;
+        height:15rem;
+        object-fit: contain;
       }
     }
 
@@ -996,10 +1007,14 @@
       }
 
       .itemImg {
-        width: 5rem;
+        width: 6.5rem;
+        background-color:whitesmoke;
+        border-radius:10px;
+        object-fit: cover;
       }
       #thumbnailImg{
-        min-height:20rem;
+        height:27rem;
+        object-fit: contain;
       }
     }
 
@@ -1036,12 +1051,12 @@
       scroll-behavior: smooth;
     }
 
-    .itemImg {
-      justify-content: center;
-      display: flex;
-      overflow-x: auto;
-      white-space: nowrap;
-    }
+    /*.itemImg {*/
+    /*  justify-content: center;*/
+    /*  display: flex;*/
+    /*  overflow-x: auto;*/
+    /*  white-space: nowrap;*/
+    /*}*/
 
     .sizeBtn{
       background:none;
@@ -1059,6 +1074,73 @@
   </style>
 
 
+
+
+  
+  <style>
+.multiitemimagesslidbox{
+    width:100%;
+}
+.slider-container {
+    position: relative;
+    width: 99%;
+    overflow: hidden;
+    margin: auto;
+    display: flex;
+    align-items: center;
+}
+
+.slider {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.7s ease;
+}
+
+.slides img {
+    width: 80px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.dots {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: #bbb;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.activeDot {
+    background-color: #717171;
+}
+
+.multiitemimagesslidbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top:0.5rem;
+}
+
+
+
+  </style>
+  
+  
+  
+
 @if(!empty($productsList) && count($productsList) > 0 && isset($productsList[$settingsData['selectedItemIdForFooter'] - 1]))
         @php
         $filterdIdIs = $settingsData['selectedItemIdForFooter'];
@@ -1074,22 +1156,37 @@
         {!! $filterItem['sale'] !!}
       </div>
       @if(!empty($filterItem['images']) && is_array($filterItem['images']) && count($filterItem['images']) > 0)
-      <div class="itemImages">
+      <!--<div class="itemImages">-->
         <!-- <i class="fa fa-chevron-left preItemImgBtn" style="color: grey; font-size: x-large;"></i> -->
+          <div class="multiitemimagesslidbox">
+        <div class="slider-container">
+            
+            <div style="padding-right:0.8rem;"><button class="btn btn-dark outlineBtnBlack multiitemimagesslidboxprev"><i class="fas fa-chevron-left"></i></button></div>
+            
+            <div class="slider">
+                <div class="slides">
         @foreach($filterItem['images'] as $key)
-        <div style="padding:0.2rem;"><img class="itemImg" src="{{ asset($baseUrl.'/uploads/'.$key) }}" alt=""></div>
+        <!--<div style="padding:0.2rem;"><img class="itemImg" src="{ asset($baseUrl.'/uploads/'.$key) }" alt=""></div>-->
+        <img class="itemImg" src="{{ asset($baseUrl.'/uploads/'.$key) }}" alt="Image 1">
         @endforeach
+          </div>
+            </div>
+            <div style="padding-left:0.8rem;"><button class="multiitemimagesslidboxnext outlineBtnBlack btn btn-dark" style="cursor:pointer;"><i class="fas fa-chevron-right"></i></button></div>
+        </div>
+        <div class="dots"></div>
+    </div>
+        
         <!-- <i class="fa fa-chevron-right nextItemImgBtn" style="color: grey; font-size: x-large;"></i> -->
-      </div>
+      <!--</div>-->
       @endif
     </div>
 
     <div class="itemDetailsAreaRight">
       <h2 style="font-weight:bolder; font-family:Baskerville">      {{ $filterItem['title'] }}      </h2>
-      <p style="color: black; opacity: 0.7;font-family:Courier New">100% Free Delivery</p>
-      <p style="color: grey; font-family:Fantasy">  <i class="fa fa-eye text-muted" style="opacity:0.5;"> </i> <b id="viewersCount" class="text-dark b" style="font-weight:900; letter-spacing:2px; font-family:Baskerville"> 13 </b> Persons View At This Time </p>
-      <br>
-
+      <p style="color: grey; font-family:monoscope">  <i class="fa fa-eye text-muted" style="opacity:0.5;"> </i> <b id="viewersCount" class="text-dark b" style="font-weight:900; letter-spacing:2px; font-family:Baskerville"> 13 </b> Persons View At This Time </p>
+      <p style="color: black; opacity: 0.7;font-family:Courier New">
+      {!! $filterItem['shortDesc'] !!}
+      </p>
 
 
       
@@ -1181,11 +1278,11 @@
    <a href="#inputCommentSection" style="text-decoration:none;">
    <div class="ratingsShowOnly shimmer" data-generaterating="{{$averageRating}}" style="width:100%; display:flex; flex-direction:row;justify-content:flex-end; align-items:end;">
         <div id="ratedText">  </div>
-        <i class="starv">&#9733;</i>
-        <i class="starv">&#9733;</i>
-        <i class="starv">&#9733;</i>
-        <i class="starv">&#9733;</i>
-        <i class="starv">&#9733;</i>
+        <span class="starv">&#9733;</span>
+        <span class="starv">&#9733;</span>
+        <span class="starv">&#9733;</span>
+        <span class="starv">&#9733;</span>
+        <span class="starv">&#9733;</span>
     </div>
    </a>
   </div>
@@ -1208,7 +1305,7 @@
     </div>
     @else
     @if($filterItem['showtDaysLeft'] == 1)
-    <b style="padding-left: 0; font-size: 0.6rem;" class="shimmerVibrate">Hurry, {!! $filterItem['daysLeft'] !!} days left!</b>
+    <b style="padding-left: 0; font-size: 0.8rem;" class="shimmerVibrate">Hurry, {!! $filterItem['daysLeft'] !!} days left!</b>
     @endif
     <!-- shiping tax -->
       <div class="mb-0" style="display: flex; flex-direction: row; justify-content: start;align-items: center;">
@@ -1217,8 +1314,8 @@
         <b style="padding-left:1rem; padding-right:1rem;" class="globalItemQuantityIs"> 1 </b>
         <button class="btn btn-sm btn-light quantityIncFromDetail" data-pid="{{$filterItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$filterItem['image']) }}"
         data-title="{{$filterItem['title']}}" data-price="{{$filterItem['price']}}" data-freeitem="{{ $filterItem['isfreeAnyItemWithThis'] == 1 ? $filterItem['freeItem'] : ''}}">+</button>
-        <button class="btn btn-dark outlineBtnBlack addToCart toggleSidebarBtns shimmer" style="margin-left: 1rem; width: 100%; font-size: 0.6rem;" data-pid="{{$filterItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$filterItem['image']) }}" data-title="{{$filterItem['title']}}" data-price="{{$filterItem['price']}}" data-freeitem="{{ $filterItem['isfreeAnyItemWithThis'] == 1 ? $filterItem['freeItem'] : ''}}">Add To Cart </button>
-        <button class="btn btn-dark buyNowBtn toggleSidebarBtns shimmer" style="margin-left: 1rem; width: 100%; font-size: 0.6rem; color:white;" data-pid="{{$filterItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$filterItem['image']) }}" data-title="{{$filterItem['title']}}" data-price="{{$filterItem['price']}}" data-freeitem="{{ $filterItem['isfreeAnyItemWithThis'] == 1 ? $filterItem['freeItem'] : ''}}"> Buy Now </button>
+        <button class="btn btn-dark outlineBtnBlack addToCart toggleSidebarBtns shimmer" style="margin-left: 1rem; width: 100%; font-size: 0.8rem;" data-pid="{{$filterItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$filterItem['image']) }}" data-title="{{$filterItem['title']}}" data-price="{{$filterItem['price']}}" data-freeitem="{{ $filterItem['isfreeAnyItemWithThis'] == 1 ? $filterItem['freeItem'] : ''}}">Add To Cart </button>
+        <button class="btn btn-dark buyNowBtn toggleSidebarBtns shimmer" style="margin-left: 1rem; width: 100%; font-size: 0.8rem; color:white;" data-pid="{{$filterItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$filterItem['image']) }}" data-title="{{$filterItem['title']}}" data-price="{{$filterItem['price']}}" data-freeitem="{{ $filterItem['isfreeAnyItemWithThis'] == 1 ? $filterItem['freeItem'] : ''}}"> Buy Now </button>
       </div>
       @endif
 
@@ -1284,46 +1381,42 @@
         <a href="https://pinterest.com/pin/create/button/?url={{ route('details',[$filterItem['id']]) }}&media=&description={{ route('details',[$filterItem['shortDesc']]) }}" class="fab fa-pinterest" target="_blank"></a>
         <a href="mailto:?subject={{ route('details',[$filterItem['id']]) }}&body={{ route('details',[$filterItem['title']]) }}" class="fa fa-envelope" target="_blank"></a>
     </div>
-    <span id="ratingRightsubtitle">Chance to win!</span>
+    <!-- <span id="ratingRightsubtitle">Chance to win!</span> -->
 </div>
      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       @if($filterItem['showStock'] == 1)
       {!! $filterItem['stock'] !!}
       @endif
 
-
-
-
     </div>
   </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   <div style="padding:4%; position:relative;">
    {!! $filterItem['description'] !!}</div>
-
   @endif
 
 
@@ -1407,7 +1500,7 @@
       width: 100%;
     }
     .clasificacion{
-      font-size:2rem;
+      font-size:1.7rem;
     }
     .commentImg{
       width:2rem; height:2rem; position:absolute; right:0; top:0.5rem; border-radius:8px; background:silver; opacity:0.5;
@@ -1738,15 +1831,50 @@
 
 
   <style>
+  
+   @media only screen and (max-width: 600px) {
     /* Sticky positioning for the button */
     .sticky-whatsapp-button {
       position: fixed;
       bottom: 10%;
       left: 1%;
       z-index: 800;
-      width: 4.5rem;
-      height: 4.5rem;
+      width: 3rem;
+      height: 3.5rem;
     }
+
+    /* Image styling */
+    .whatsapp-button img {
+      width: 3rem;
+      height: 3rem;
+      padding: 0rem;
+      margin-top: 0rem;
+    }
+  }
+  
+   @media only screen and (min-width: 601px) {
+   /* Sticky positioning for the button */
+    .sticky-whatsapp-button {
+      position: fixed;
+      bottom: 10%;
+      left: 1%;
+      z-index: 800;
+      width: 3rem;
+      height: 3.5rem;
+    }
+
+    /* Image styling */
+    .whatsapp-button img {
+      width: 4rem;
+      height: 4rem;
+      padding: 0rem;
+      margin-top: 0rem;
+    }
+  }
+  
+  
+  
+ 
 
     /* Button design and hover effects */
     .whatsapp-button {
@@ -1756,13 +1884,7 @@
       transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     }
 
-    /* Image styling */
-    .whatsapp-button img {
-      width: 5rem;
-      height: 5rem;
-      padding: 0rem;
-      margin-top: 0rem;
-    }
+
 
     /* Hover scale up effect */
     .whatsapp-button:hover img {
@@ -1802,15 +1924,58 @@
   </div>
 @endif
   <style>
+  
+  
+  
+  
+  
+  
+   @media only screen and (max-width: 600px) {
+    
     /* Sticky positioning for the shopping cart button */
     .sticky-cart-button {
       position: fixed;
       bottom: 20%;
       left: 1%;
       z-index: 850;
-      width: 4.5rem;
-      height: 4.5rem;
+      width: 2.5rem;
+      height: 2.5rem;
     }
+   
+    /* Image styling for the cart icon */
+    .cart-button img {
+      width: 2.5rem;
+      height: 2rem;
+      padding: 0.2rem;
+      margin-top: 0.4rem;
+    }
+  }
+  
+   @media only screen and (min-width: 601px) {
+     
+    /* Sticky positioning for the shopping cart button */
+    .sticky-cart-button {
+      position: fixed;
+      bottom: 20%;
+      left: 1%;
+      z-index: 850;
+      width: 3.5rem;
+      height: 3.5rem;
+    }
+   
+    /* Image styling for the cart icon */
+    .cart-button img {
+      width: 3rem;
+      height: 2.5rem;
+      padding: 0.2rem;
+      margin-top: 0.7rem;
+    }
+       
+   }
+  
+  
+  
+
 
     /* Cart button design and hover effects */
     .cart-button {
@@ -1822,13 +1987,6 @@
       transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     }
 
-    /* Image styling for the cart icon */
-    .cart-button img {
-      width: 3.5rem;
-      height: 3rem;
-      padding: 0.2rem;
-      margin-top: 1rem;
-    }
 
     /* Hover scale up effect for the cart */
     .cart-button:hover {
@@ -2050,12 +2208,18 @@
       #sticyItemInner {
         width: 100%;
       }
+       .footerItemVariations{
+      display: none; flex-direction: row; justify-content: flex-start;
+  }
     }
 
     @media screen and (min-width: 600px) and (orientation: landscape) {
       #sticyItemInner {
         width: 50%;
       }
+       .footerItemVariations{
+      display: flex; flex-direction: row; justify-content: flex-start;
+  }
     }
 
     #sticyItemInner {
@@ -2080,10 +2244,12 @@
   .footeraddtocartbtn:hover{
     color:black;
   }
+  
+ 
   </style>
 
 @if($settingsData['showItemInFooter'] == 1 || $settingsData['showOfferInFooter']  == 1)
-  <div class="stickyItem" data-aos="zoom-out-up" data-aos-duration="1000">
+  <div class="stickyItem" data-aos="fade-in" data-aos-duration="3000">
     <center>
       <div id="sticyItemInner">
       @if($settingsData['showItemInFooter'] == 1)
@@ -2098,7 +2264,7 @@
             </div>
             
 
-            <div style="display: flex; flex-direction: row; justify-content: flex-start;">
+            <div class="footerItemVariations">
               @if(!empty($filterItem->colorsVariationsF) && count($filterItem->colorsVariationsF) > 0 && $filterItem['showColorVariations'] == 1)
                   @foreach($filterItem->colorsVariationsF as $variation)
                       <div style="padding: 5px;">
@@ -2784,11 +2950,71 @@ $(document).ready(function() {
         alert('end');
     });
 });
-
     // add comment post end 
+</script>
+
+<script>
+    $(document).ready(function() {
+    let currentIndex = 0;
+    const totalImages = $('.slides img').length;
+    const imagesToShow = 5;
+
+    function updateSlider() {
+        const offset = -currentIndex * (80 + 10); // 80px width + 10px margin
+        $('.slides').css('transform', `translateX(${offset}px)`);
+        updateDots();
+    }
+
+    function updateDots() {
+        $('.dots').empty();
+        const totalDots = Math.ceil(totalImages / imagesToShow);
+        for (let i = 0; i < totalDots; i++) {
+            $('.dots').append(`<span class="dot ${i === Math.floor(currentIndex / imagesToShow) ? 'activeDot' : ''}" data-index="${i}"></span>`);
+        }
+    }
+
+    $('.multiitemimagesslidboxnext').click(function() {
+        if (currentIndex < totalImages - imagesToShow) {
+            currentIndex += imagesToShow;
+            updateSlider();
+        }
+    });
+
+    $('.multiitemimagesslidboxprev').click(function() {
+        if (currentIndex > 0) {
+            currentIndex -= imagesToShow;
+            updateSlider();
+        }
+    });
+
+    $('.dots').on('click', '.dot', function() {
+        currentIndex = $(this).data('index') * imagesToShow;
+        updateSlider();
+    });
+
+    // Touch support for mobile
+    let startX;
+    $('.slider-container').on('touchstart', function(event) {
+        startX = event.originalEvent.touches[0].clientX;
+    });
+
+    $('.slider-container').on('touchmove', function(event) {
+        const moveX = event.originalEvent.touches[0].clientX;
+        if (startX - moveX > 50) { // Swipe left
+            $('.multiitemimagesslidboxnext').click();
+        } else if (moveX - startX > 50) { // Swipe right
+            $('.multiitemimagesslidboxprev').click();
+        }
+    });
+
+    updateSlider(); // Initial call to set up the slider
+});
 
 </script>
 
-</body>
 
+
+
+
+</body>
 </html>
