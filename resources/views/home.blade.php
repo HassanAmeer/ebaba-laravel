@@ -974,21 +974,21 @@
       }
 
       .itemDetailsAreaRight {
-        width: 80%;
+        width: 90%;
       }
 
       .itemDetailImgAreaLeft {
-        width: 90%;
+        width: 98%;
       }
 
       .itemImg {
         width: 3rem;
         background-color:whitesmoke;
         border-radius:10px;
-        object-fit: cover;
+        object-fit: contain;
       }
       #thumbnailImg{
-        height:15rem;
+        height:20rem;
         object-fit: contain;
       }
     }
@@ -1010,7 +1010,7 @@
         width: 6.5rem;
         background-color:whitesmoke;
         border-radius:10px;
-        object-fit: cover;
+        object-fit: contain;
       }
       #thumbnailImg{
         height:27rem;
@@ -1151,7 +1151,7 @@
     <div class="itemDetailImgAreaLeft">
       <div style="position: relative;">
         <center>
-          <img src="{{ asset($baseUrl.'/uploads/'.$filterItem['image']) }}" style="width: 60%;" class="card-img-top scaleAnimation" id="thumbnailImg" alt="Product Image">
+          <img src="{{ asset($baseUrl.'/uploads/'.$filterItem['image']) }}" style="width: 90%;" class="card-img-top scaleAnimation" id="thumbnailImg" alt="Product Image">
         </center>
         {!! $filterItem['sale'] !!}
       </div>
