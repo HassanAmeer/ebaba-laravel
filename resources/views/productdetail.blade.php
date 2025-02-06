@@ -154,7 +154,7 @@
     <style>
     .textSlider {
         position: relative;
-        height: 50px;
+        height: 70px;
         /* Set the height of the textSlider */
         overflow: hidden;
         background-color: black;
@@ -779,10 +779,11 @@
 
     .slider-container {
         position: relative;
-        width: 99%;
+        width: 97%;
         overflow: hidden;
         margin: auto;
         display: flex;
+        margin-right: 3%;
         align-items: center;
     }
 
@@ -828,6 +829,11 @@
         justify-content: center;
         align-items: center;
         margin-top: 0.5rem;
+    }
+
+    .multiitemimagesslidboxnext,
+    .multiitemimagesslidboxprev {
+        scale: 0.8;
     }
 
 
@@ -926,22 +932,18 @@
             <!-- <i class="fa fa-chevron-left preItemImgBtn" style="color: grey; font-size: x-large;"></i> -->
             <div class="multiitemimagesslidbox">
                 <div class="slider-container">
-
-                    <div style="padding-right:0.8rem;"><button
-                            class="btn btn-dark outlineBtnBlack multiitemimagesslidboxprev"><i
-                                class="fas fa-chevron-left"></i></button></div>
-
+                    <button style="" class="btn btn-dark outlineBtnBlack multiitemimagesslidboxprev p-2"><i
+                            class="fas fa-chevron-left mt-1"></i></button>
                     <div class="slider">
                         <div class="slides">
                             @foreach($filterItem['images'] as $key)
-                            <!--<div style="padding:0.2rem;"><img class="itemImg" src="{ asset($baseUrl.'/uploads/'.$key) }" alt=""></div>-->
                             <img class="itemImg" src="{{ asset($baseUrl.'/uploads/'.$key) }}" alt="Image 1">
                             @endforeach
                         </div>
                     </div>
-                    <div style="padding-left:0.8rem;"><button
-                            class="multiitemimagesslidboxnext outlineBtnBlack btn btn-dark" style="cursor:pointer;"><i
-                                class="fas fa-chevron-right"></i></button></div>
+                    <button style="" class="btn btn-dark outlineBtnBlack multiitemimagesslidboxnext p-2"><i
+                            class="fas fa-chevron-right mt-1"></i></button>
+
                 </div>
                 <div class="dots"></div>
             </div>
@@ -954,7 +956,7 @@
 
 
         <div class="itemDetailsAreaRight">
-            <h2 style="font-weight:bolder; font-family:Baskerville"> {{ $filterItem['title'] }} </h2>
+            <h4 style="font-weight:bolder; font-family:Baskerville"> {{ $filterItem['title'] }} </h4>
             <p style="color: grey; font-family:monoscope"> <i class="fa fa-eye text-muted" style="opacity:0.5;"> </i> <b
                     id="viewersCount" class="text-dark b"
                     style="font-weight:900; letter-spacing:2px; font-family:Baskerville"> 13 </b> Persons View At This
@@ -988,9 +990,9 @@
             <div style="display:flex;flex-direction:row;align-items:end;justify-content:space-between;">
 
                 @if($filterItem['showtDaysLeft'] == 1)
-                <b style="padding-left: 0; font-size: 0.8rem;" class="shimmerVibrate">Hurry, {!! $filterItem['daysLeft']
-                    !!} days left!</b>
-
+                <b style="padding-left: 0; font-size: 0.8rem;" class="shimmerVibrate">Limited Stock Available </b>
+<!--{! $filterItem['daysLeft']-->
+                    <!--!} days left!-->
                 <!-- for rating start -->
 
                 <style>
@@ -1073,19 +1075,19 @@
                 <button class="btn btn-sm btn-light quantityIncFromDetail" data-pid="{{$filterItem['id']}}"
                     data-img="{{asset($baseUrl.'/uploads/'.$filterItem['image']) }}"
                     data-title="{{$filterItem['title']}}" data-price="{{$filterItem['price']}}"
-                    data-freeitem="{{ $filterItem['isfreeAnyItemWithThis'] == 1 ? $filterItem['freeItem'] : ''}}">+</button>
-                <button class="btn btn-dark outlineBtnBlack addToCart toggleSidebarBtns shimmer"
-                    style="margin-left: 0.3rem; width: 100%; font-size: 0.8rem;" data-pid="{{$filterItem['id']}}"
-                    data-img="{{asset($baseUrl.'/uploads/'.$filterItem['image']) }}"
-                    data-title="{{$filterItem['title']}}" data-price="{{$filterItem['price']}}"
-                    data-freeitem="{{ $filterItem['isfreeAnyItemWithThis'] == 1 ? $filterItem['freeItem'] : ''}}">Add To
-                    Cart </button>
+                    data-freeitem="{{ $filterItem['isfreeAnyItemWithThis'] == 1 ? $filterItem['freeItem'] : ''}}"> + </button> <div style="width:15px;"></div>
+                <!--<button class="btn btn-dark outlineBtnBlack addToCart toggleSidebarBtns shimmer"-->
+                <!--    style="margin-left: 0.3rem; width: 100%; font-size: 0.8rem;" data-pid="{{$filterItem['id']}}"-->
+                <!--    data-img="{{asset($baseUrl.'/uploads/'.$filterItem['image']) }}"-->
+                <!--    data-title="{{$filterItem['title']}}" data-price="{{$filterItem['price']}}"-->
+                <!--    data-freeitem="{{ $filterItem['isfreeAnyItemWithThis'] == 1 ? $filterItem['freeItem'] : ''}}">Add To-->
+                <!--    Cart </button>-->
                 <button class="btn btn-dark buyNowBtn toggleSidebarBtns shimmer"
                     style="margin-left: 0.3rem; width: 100%; font-size: 0.8rem; color:white;"
                     data-pid="{{$filterItem['id']}}" data-img="{{asset($baseUrl.'/uploads/'.$filterItem['image']) }}"
                     data-title="{{$filterItem['title']}}" data-price="{{$filterItem['price']}}"
                     data-freeitem="{{ $filterItem['isfreeAnyItemWithThis'] == 1 ? $filterItem['freeItem'] : ''}}"> Buy
-                    Now </button>
+                    With Cash On Delivery </button>
             </div>
             @endif
 
@@ -1707,6 +1709,7 @@
             </div>
             <button id="order-submit-now" class="btn btn-dark w-100 mt-3">Submit</button>
             <hr>
+  
             <h5> My Products </h5>
             <!-- <div id="cartItemsOnFill" class="p-3"> </div> -->
             <div class="cart-items p-3" style="min-height: 200px;">
@@ -1714,11 +1717,18 @@
             </div>
         </div>
 
+<div id="codchargesdiv" class="">
+     <p style="color: grey; opacity: 0.5; margin-left:15px;">     Delivery Charges: <span style="color:green;">  230 Rs </span> <span style="color:black; margin-left:15px;"> Total: </span> <span id="totalcartprice" style="color:green;"> 0 Rs </span> </p> </div>
+     
         <div class="custom-sidebar-body d-none" id="submission-confirmation">
             <h5>Order Submitted</h5>
             <p id="submitted-data"></p>
-            <p style="color: green; opacity: 0.5;"> you can check your order status from orders panel or contact with us
+            <p style="color: green; opacity: 0.5;"> you can check your order status through whatsapp  .
             </p>
+             <a href="https://wa.me/{{$settingsData['whatsappNumber']}}
+    " target="_blank" class="backToCart btn btn-success w-100 mt-3"> <img src="{{ asset('assets/wa.png') }}" alt="WhatsApp" / style="width:25px; padding-right:5px;"> WhatsApp   <span style="padding-left:10px;">03700977585</span> </a>
+    <br>
+
             <button class="backToCart btn btn-dark w-100 mt-3">Back to Cart</button>
         </div>
     </div>
@@ -2453,6 +2463,7 @@
             let productimage = "";
             let productprice = "";
             let variationsforcart = "";
+            let totalcartprice = "0";
 
             let cart = [];
             globalItemQuantityIs = 1;
@@ -2460,6 +2471,7 @@
             // Calculate total price
             function calculateTotal() {
                 let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                   $('#totalcartprice').text(`${total+230} Rs`);
                 $('#order-now').text(`Order Now - ${total} Rs`);
                 $('#itemInListIs').html(`${cart.length}`);
             }
@@ -2498,7 +2510,7 @@
                     <button class="btn btn-sm btn-light quantity-decrease">-</button>
                     <b style="padding-left:1rem; padding-right:1rem;">${item.quantity}</b>
                     <button class="btn btn-sm btn-light quantity-increase">+</button>
-                    </div>
+                    </div>  
                     <p class="mb-0">${item.price} Rs</p>
                     <i class="remove-item fa-solid fa-trash" style="color:green; opacity:0.5; padding-right:1rem; font-size: x-large;"></i>
                     </div>
@@ -2508,6 +2520,8 @@
                         <summary>Free Item With This</summary>
                         ${item.freeitemhtml} 
                         </details>`}
+                        
+                  
                     <hr/>
                     </div>
                     `);
@@ -2568,6 +2582,7 @@
 
             // Add item to cart
             $('.addToCart').on('click', function() {
+                   $('#codchargesdiv').removeClass('d-none');
                 let item = {
                     pid: $(this).data('pid'),
                     img: $(this).data('img'),
@@ -2646,6 +2661,7 @@
                 let name = $('#name').val();
                 let phone = $('#phone').val();
                 let address = $('#address').val();
+                $('#codchargesdiv').addClass('d-none');
 
                 if (cart.length < 1) {
                     showGreenToast("Please select item", 2000);

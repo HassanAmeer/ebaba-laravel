@@ -410,9 +410,9 @@ return [
     |
     */
     'extensions' => [
-        // 'media-manager' => [
-        //     'disk' => 'public'  
-        // ],
+        'media-manager' => [
+            'disk' => 'public'  
+        ],
         'ckeditor' => [
 
             //Set to false if you want to disable this extension

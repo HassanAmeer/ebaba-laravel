@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use \App\Models\Orders;
-use \App\Models\Products;
+use \App\Models\products;
 
 
 class OrdersController extends Controller
@@ -27,7 +27,7 @@ class OrdersController extends Controller
             $groupedCart = [];
             
             foreach ($request->cart as $item) {
-                $productData = Products::find($item['pid']);
+                $productData = products::find(intval($item['pid']));
                 if (isset($groupedCart[$item['pid']])) {
                     // If the product is already in the array, sum the quantities
                     $groupedCart[$item['pid']]['quantity'] += $item['quantity'];

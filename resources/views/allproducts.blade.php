@@ -796,12 +796,14 @@
                         <div class="salesDesignedArea">
                             {!! $key['sale'] !!}
                         </div>
-                    </div>
-                    <center>
-                        <b class="card-title itemTitle p-0">{{$key['title']}}</b>
+                         <center>
+                        <div style="display:flex; flex-wrap:wrap;"><b class="card card-title itemTitle p-0">{{$key['title']}}</b></div>
                     </center>
+                    </div>
+                   
                     {!! $key['designPriceForGridItems'] !!}
                     <div class="card-body p-0 d-flex flex-column align-items-center">
+                        
                         <div class="w-100">
                             @if($key['isSoldOut'] ==1)
                             <div style="color:silver;font-family:Baskerville; align-items:center;font-weight:900; "
@@ -1012,11 +1014,18 @@
             </div>
         </div>
 
+<div id="codchargesdiv" class="">
+     <p style="color: grey; opacity: 0.5; margin-left:15px;">     Delivery Charges: <span style="color:green;">  230 Rs </span> <span style="color:black; margin-left:15px;"> Total: </span> <span id="totalcartprice" style="color:green;"> 0 Rs </span> </p> </div>
+     
         <div class="custom-sidebar-body d-none" id="submission-confirmation">
             <h5>Order Submitted</h5>
             <p id="submitted-data"></p>
-            <p style="color: green; opacity: 0.5;"> you can check your order status from orders panel or contact with us
+            <p style="color: green; opacity: 0.5;"> you can check your order status through whatsapp  .
             </p>
+             <a href="https://wa.me/{{$settingsData['whatsappNumber']}}
+    " target="_blank" class="backToCart btn btn-success w-100 mt-3"> <img src="{{ asset('assets/wa.png') }}" alt="WhatsApp" / style="width:25px; padding-right:5px;"> WhatsApp   <span style="padding-left:10px;">03700977585</span> </a>
+    <br>
+
             <button class="backToCart btn btn-dark w-100 mt-3">Back to Cart</button>
         </div>
     </div>
@@ -1745,6 +1754,7 @@
             let productimage = "";
             let productprice = "";
             let variationsforcart = "";
+              let totalcartprice = "0";
 
             let cart = [];
             globalItemQuantityIs = 1;
@@ -1752,6 +1762,7 @@
             // Calculate total price
             function calculateTotal() {
                 let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                  $('#totalcartprice').text(`${total+230} Rs`);
                 $('#order-now').text(`Order Now - ${total} Rs`);
                 $('#itemInListIs').html(`${cart.length}`);
             }
@@ -1860,6 +1871,7 @@
 
             // Add item to cart
             $('.addToCart').on('click', function() {
+                   $('#codchargesdiv').removeClass('d-none');
                 let item = {
                     pid: $(this).data('pid'),
                     img: $(this).data('img'),
@@ -1938,6 +1950,7 @@
                 let name = $('#name').val();
                 let phone = $('#phone').val();
                 let address = $('#address').val();
+                   $('#codchargesdiv').addClass('d-none');
 
                 if (cart.length < 1) {
                     showGreenToast("Please select item", 2000);

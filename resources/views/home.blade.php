@@ -1,3 +1,9 @@
+
+
+
+
+<?php header("Location: https://ebaba.sale/details/1"); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,6 +24,7 @@
 </head>
 
 <!--  asset('assets/backtotop.png')  -->
+
 
 
 
@@ -149,12 +156,12 @@
     <style>
     .textSlider {
         position: relative;
-        height: 50px;
+        height: 80px;
         /* Set the height of the textSlider */
         overflow: hidden;
         background-color: black;
         /* Background color */
-        color: white;
+        color: yellow;
         /* Text color */
     }
 
@@ -632,7 +639,10 @@
         }
     });
     </script>
-
+    
+    @if($settingsData['showBanner2InHeader'] == 0 && $settingsData['showBannerImagesOnlyInHead'] == 0)
+    
+    @elseif($settingsData['showBanner2InHeader'] == 1)
     <!-- bannerSlides slides start -->
     <style>
     /* For large screens (e.g., desktops) */
@@ -762,8 +772,7 @@
 
 
 
-
-    @if($settingsData['showBanner2InHeader'] == 1)
+  
     <div class="bannerSlides">
         @foreach($BannerDesign2List as $key)
         @if($key['showInSlide'] == 1)
@@ -995,7 +1004,7 @@
             </div>
 
             @endforeach
-            <!-- Repeat similar blocks for other products -->
+             Repeat similar blocks for other products 
         </div>
     </section>
 
@@ -1132,10 +1141,11 @@
 
     .slider-container {
         position: relative;
-        width: 99%;
+        width: 97%;
         overflow: hidden;
         margin: auto;
         display: flex;
+        margin-right: 3%;
         align-items: center;
     }
 
@@ -1183,6 +1193,10 @@
         margin-top: 0.5rem;
     }
 
+    .multiitemimagesslidboxnext,
+    .multiitemimagesslidboxprev {
+        scale: 0.8;
+    }
 
 
     @media only screen and (max-width: 600px) {
@@ -1280,24 +1294,19 @@
             @if(!empty($filterItem['images']) && is_array($filterItem['images']) && count($filterItem['images']) > 0)
             <!--<div class="itemImages">-->
             <!-- <i class="fa fa-chevron-left preItemImgBtn" style="color: grey; font-size: x-large;"></i> -->
-            <div class="multiitemimagesslidbox">
+            <div class="multiitemimagesslidbox pl-2">
                 <div class="slider-container">
-
-                    <div style="padding-right:0.8rem;"><button
-                            class="btn btn-dark outlineBtnBlack multiitemimagesslidboxprev"><i
-                                class="fas fa-chevron-left"></i></button></div>
-
+                    <button style="" class="btn btn-dark outlineBtnBlack multiitemimagesslidboxprev p-2"><i
+                            class="fas fa-chevron-left mt-1"></i></button>
                     <div class="slider">
                         <div class="slides">
                             @foreach($filterItem['images'] as $key)
-                            <!--<div style="padding:0.2rem;"><img class="itemImg" src="{ asset($baseUrl.'/uploads/'.$key) }" alt=""></div>-->
                             <img class="itemImg" src="{{ asset($baseUrl.'/uploads/'.$key) }}" alt="Image 1">
                             @endforeach
                         </div>
                     </div>
-                    <div style="padding-left:0.8rem;"><button
-                            class="multiitemimagesslidboxnext outlineBtnBlack btn btn-dark" style="cursor:pointer;"><i
-                                class="fas fa-chevron-right"></i></button></div>
+                    <button style="" class="btn btn-dark outlineBtnBlack multiitemimagesslidboxnext p-2"><i
+                            class="fas fa-chevron-right mt-1"></i></button>
                 </div>
                 <div class="dots"></div>
             </div>
